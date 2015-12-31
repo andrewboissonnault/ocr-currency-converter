@@ -15,6 +15,8 @@
 		7F4029691C26DCB100436DEB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7F4029671C26DCB100436DEB /* LaunchScreen.xib */; };
 		7F4029751C26DCB100436DEB /* CurrencyOCRTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4029741C26DCB100436DEB /* CurrencyOCRTests.m */; };
 		7F6339C21C34F99F00734B5D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F6339C11C34F99F00734B5D /* Main.storyboard */; };
+		7FA6E71C1C350F770071A00D /* PPCurrencyOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E71B1C350F770071A00D /* PPCurrencyOverlayViewController.m */; settings = {ASSET_TAGS = (); }; };
+		7FA6E71F1C3523230071A00D /* NSString+Unichar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E71E1C3523230071A00D /* NSString+Unichar.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +45,10 @@
 		7F4029731C26DCB100436DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F4029741C26DCB100436DEB /* CurrencyOCRTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrencyOCRTests.m; sourceTree = "<group>"; };
 		7F6339C11C34F99F00734B5D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		7FA6E71A1C350F770071A00D /* PPCurrencyOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCurrencyOverlayViewController.h; sourceTree = "<group>"; };
+		7FA6E71B1C350F770071A00D /* PPCurrencyOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCurrencyOverlayViewController.m; sourceTree = "<group>"; };
+		7FA6E71D1C3523230071A00D /* NSString+Unichar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Unichar.h"; sourceTree = "<group>"; };
+		7FA6E71E1C3523230071A00D /* NSString+Unichar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Unichar.m"; sourceTree = "<group>"; };
 		B086E3585546B135B8977871 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		EDA4AE856246F34C33632775 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -94,10 +100,14 @@
 				7F40295D1C26DCB100436DEB /* AppDelegate.m */,
 				7F40295F1C26DCB100436DEB /* ViewController.h */,
 				7F4029601C26DCB100436DEB /* ViewController.m */,
+				7FA6E71A1C350F770071A00D /* PPCurrencyOverlayViewController.h */,
+				7FA6E71B1C350F770071A00D /* PPCurrencyOverlayViewController.m */,
 				7F6339C11C34F99F00734B5D /* Main.storyboard */,
 				7F4029651C26DCB100436DEB /* Images.xcassets */,
 				7F4029671C26DCB100436DEB /* LaunchScreen.xib */,
 				7F4029581C26DCB100436DEB /* Supporting Files */,
+				7FA6E71D1C3523230071A00D /* NSString+Unichar.h */,
+				7FA6E71E1C3523230071A00D /* NSString+Unichar.m */,
 			);
 			path = CurrencyOCR;
 			sourceTree = "<group>";
@@ -296,6 +306,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FA6E71F1C3523230071A00D /* NSString+Unichar.m in Sources */,
+				7FA6E71C1C350F770071A00D /* PPCurrencyOverlayViewController.m in Sources */,
 				7F4029611C26DCB100436DEB /* ViewController.m in Sources */,
 				7F40295E1C26DCB100436DEB /* AppDelegate.m in Sources */,
 				7F40295B1C26DCB100436DEB /* main.m in Sources */,
@@ -352,6 +364,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -395,6 +408,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -417,9 +431,11 @@
 			baseConfigurationReference = 276C5347A9A5F1FA7F83FB19 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CurrencyOCR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -428,9 +444,11 @@
 			baseConfigurationReference = B086E3585546B135B8977871 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CurrencyOCR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

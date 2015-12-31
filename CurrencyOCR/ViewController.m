@@ -9,10 +9,9 @@
 #import "ViewController.h"
 
 #import <MicroBlink/MicroBlink.h>
+#import "PPCurrencyOverlayViewController.h"
 
 @interface ViewController () <PPScanDelegate>
-
-@property (nonatomic, strong) NSString* rawOcrParserId;
 
 @property (nonatomic, strong) NSString* priceParserId;
 
@@ -22,9 +21,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.rawOcrParserId = @"Raw ocr";
     self.priceParserId = @"Price";
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self didTapScan:nil];
 }
 
 /**
@@ -49,7 +53,6 @@
     // Initialize the scanner settings object. This initialize settings with all default values.
     PPSettings *settings = [[PPSettings alloc] init];
     
-    
     /** 2. Setup the license key */
     
     // Visit www.microblink.com to get the license key for your app
@@ -64,9 +67,6 @@
     // To specify we want to perform OCR recognition, initialize the OCR recognizer settings
     PPOcrRecognizerSettings *ocrRecognizerSettings = [[PPOcrRecognizerSettings alloc] init];
     
-    // We want raw OCR parsing
-    [ocrRecognizerSettings addOcrParser:[[PPRawOcrParserFactory alloc] init] name:self.rawOcrParserId];
-    
     // We want to parse prices from raw OCR result as well
     [ocrRecognizerSettings addOcrParser:[[PPPriceOcrParserFactory alloc] init] name:self.priceParserId];
     
@@ -77,6 +77,7 @@
     /** 4. Initialize the Scanning Coordinator object */
     
     PPCoordinator *coordinator = [[PPCoordinator alloc] initWithSettings:settings];
+    
     
     return coordinator;
 }
@@ -99,8 +100,12 @@
         return;
     }
     
+    PPCurrencyOverlayViewController *overlayViewController =
+    [[PPCurrencyOverlayViewController alloc] init];
+    
     /** Allocate and present the scanning view controller */
-    UIViewController<PPScanningViewController>* scanningViewController = [coordinator cameraViewControllerWithDelegate:self];
+    UIViewController<PPScanningViewController> *scanningViewController =
+    [coordinator cameraViewControllerWithDelegate:self overlayViewController:overlayViewController];
     
     /** You can use other presentation methods as well */
     [self presentViewController:scanningViewController animated:YES completion:nil];
@@ -138,7 +143,6 @@
             PPOcrRecognizerResult* ocrRecognizerResult = (PPOcrRecognizerResult*)result;
             
             NSLog(@"OCR results are:");
-            NSLog(@"Raw ocr: %@", [ocrRecognizerResult parsedResultForName:self.rawOcrParserId]);
             NSLog(@"Price: %@", [ocrRecognizerResult parsedResultForName:self.priceParserId]);
             
             PPOcrLayout* ocrLayout = [ocrRecognizerResult ocrLayout];
