@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		33ED89A96A9AE57BCFE8784C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDA4AE856246F34C33632775 /* libPods.a */; };
 		7F40295B1C26DCB100436DEB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F40295A1C26DCB100436DEB /* main.m */; };
 		7F40295E1C26DCB100436DEB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F40295D1C26DCB100436DEB /* AppDelegate.m */; };
 		7F4029611C26DCB100436DEB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4029601C26DCB100436DEB /* ViewController.m */; };
@@ -27,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		276C5347A9A5F1FA7F83FB19 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		7F1A70101C2D3A5B00A02EEB /* NSArray+Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Map.h"; sourceTree = "<group>"; };
 		7F4029551C26DCB100436DEB /* CurrencyOCR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyOCR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F4029591C26DCB100436DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F40295A1C26DCB100436DEB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -40,6 +43,8 @@
 		7F40296E1C26DCB100436DEB /* CurrencyOCRTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CurrencyOCRTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F4029731C26DCB100436DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F4029741C26DCB100436DEB /* CurrencyOCRTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrencyOCRTests.m; sourceTree = "<group>"; };
+		B086E3585546B135B8977871 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		EDA4AE856246F34C33632775 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33ED89A96A9AE57BCFE8784C /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +72,8 @@
 				7F4029571C26DCB100436DEB /* CurrencyOCR */,
 				7F4029711C26DCB100436DEB /* CurrencyOCRTests */,
 				7F4029561C26DCB100436DEB /* Products */,
+				D9320D546D726455DE15A4CE /* Pods */,
+				E2E2716EC484A624DB5A3802 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,6 +89,7 @@
 		7F4029571C26DCB100436DEB /* CurrencyOCR */ = {
 			isa = PBXGroup;
 			children = (
+				7F1A70101C2D3A5B00A02EEB /* NSArray+Map.h */,
 				7F40295C1C26DCB100436DEB /* AppDelegate.h */,
 				7F40295D1C26DCB100436DEB /* AppDelegate.m */,
 				7F40295F1C26DCB100436DEB /* ViewController.h */,
@@ -119,6 +128,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D9320D546D726455DE15A4CE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				276C5347A9A5F1FA7F83FB19 /* Pods.debug.xcconfig */,
+				B086E3585546B135B8977871 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E2E2716EC484A624DB5A3802 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				EDA4AE856246F34C33632775 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,9 +152,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7F4029781C26DCB100436DEB /* Build configuration list for PBXNativeTarget "CurrencyOCR" */;
 			buildPhases = (
+				A0706F62BFABC08E01A43BE9 /* Check Pods Manifest.lock */,
 				7F4029511C26DCB100436DEB /* Sources */,
 				7F4029521C26DCB100436DEB /* Frameworks */,
 				7F4029531C26DCB100436DEB /* Resources */,
+				85CEE1C8F6F6F72D646E7A57 /* Embed Pods Frameworks */,
+				27B5EDBEB5269185F24E0CFF /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -213,6 +242,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		27B5EDBEB5269185F24E0CFF /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		85CEE1C8F6F6F72D646E7A57 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A0706F62BFABC08E01A43BE9 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7F4029511C26DCB100436DEB /* Sources */ = {
@@ -345,6 +422,7 @@
 		};
 		7F4029791C26DCB100436DEB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 276C5347A9A5F1FA7F83FB19 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CurrencyOCR/Info.plist;
@@ -355,6 +433,7 @@
 		};
 		7F40297A1C26DCB100436DEB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B086E3585546B135B8977871 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CurrencyOCR/Info.plist;
@@ -416,6 +495,7 @@
 				7F40297A1C26DCB100436DEB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7F40297B1C26DCB100436DEB /* Build configuration list for PBXNativeTarget "CurrencyOCRTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +504,7 @@
 				7F40297D1C26DCB100436DEB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
