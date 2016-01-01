@@ -127,32 +127,16 @@
 		7F4029571C26DCB100436DEB /* CurrencyOCR */ = {
 			isa = PBXGroup;
 			children = (
-				7F1A70101C2D3A5B00A02EEB /* NSArray+Map.h */,
-				7FA6E7231C3551330071A00D /* NSArray+Map.m */,
+				7FD45BD71C36A717004219CB /* Storyboards */,
+				7FD45BD61C36A706004219CB /* ViewControllers */,
+				7FD45BD51C36A6FC004219CB /* ViewModel */,
+				7FD45BD41C36A6F2004219CB /* Model */,
+				7FD45BD31C36A6DB004219CB /* Categories */,
 				7F40295C1C26DCB100436DEB /* AppDelegate.h */,
 				7F40295D1C26DCB100436DEB /* AppDelegate.m */,
-				7F40295F1C26DCB100436DEB /* ViewController.h */,
-				7F4029601C26DCB100436DEB /* ViewController.m */,
-				7FA6E71A1C350F770071A00D /* PPCurrencyOverlayViewController.h */,
-				7FA6E71B1C350F770071A00D /* PPCurrencyOverlayViewController.m */,
-				7FD45BCD1C365338004219CB /* CurrencyOverviewViewModel.h */,
-				7FD45BCE1C365338004219CB /* CurrencyOverviewViewModel.m */,
-				7F6339C11C34F99F00734B5D /* Main.storyboard */,
 				7F4029651C26DCB100436DEB /* Images.xcassets */,
 				7F4029671C26DCB100436DEB /* LaunchScreen.xib */,
 				7F4029581C26DCB100436DEB /* Supporting Files */,
-				7FA6E71D1C3523230071A00D /* NSString+Unichar.h */,
-				7FA6E71E1C3523230071A00D /* NSString+Unichar.m */,
-				7FA6E7201C354AD80071A00D /* PPOcrPrice.h */,
-				7FA6E7211C354AD80071A00D /* PPOcrPrice.m */,
-				7FA6E7251C3554EE0071A00D /* PPOcrLine+Price.h */,
-				7FA6E7261C3554EE0071A00D /* PPOcrLine+Price.m */,
-				7FD45BC21C355E77004219CB /* PPPosition+Transform.h */,
-				7FD45BC31C355E77004219CB /* PPPosition+Transform.m */,
-				7FD45BCA1C364DCE004219CB /* PPOcrChar+Filter.h */,
-				7FD45BCB1C364DCE004219CB /* PPOcrChar+Filter.m */,
-				7FD45BD01C36653A004219CB /* PPOcrChar+String.h */,
-				7FD45BD11C36653A004219CB /* PPOcrChar+String.m */,
 			);
 			path = CurrencyOCR;
 			sourceTree = "<group>";
@@ -182,6 +166,62 @@
 				7F4029731C26DCB100436DEB /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7FD45BD31C36A6DB004219CB /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				7F1A70101C2D3A5B00A02EEB /* NSArray+Map.h */,
+				7FA6E7231C3551330071A00D /* NSArray+Map.m */,
+				7FA6E71D1C3523230071A00D /* NSString+Unichar.h */,
+				7FA6E71E1C3523230071A00D /* NSString+Unichar.m */,
+				7FA6E7251C3554EE0071A00D /* PPOcrLine+Price.h */,
+				7FA6E7261C3554EE0071A00D /* PPOcrLine+Price.m */,
+				7FD45BC21C355E77004219CB /* PPPosition+Transform.h */,
+				7FD45BC31C355E77004219CB /* PPPosition+Transform.m */,
+				7FD45BCA1C364DCE004219CB /* PPOcrChar+Filter.h */,
+				7FD45BCB1C364DCE004219CB /* PPOcrChar+Filter.m */,
+				7FD45BD01C36653A004219CB /* PPOcrChar+String.h */,
+				7FD45BD11C36653A004219CB /* PPOcrChar+String.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		7FD45BD41C36A6F2004219CB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7FA6E7201C354AD80071A00D /* PPOcrPrice.h */,
+				7FA6E7211C354AD80071A00D /* PPOcrPrice.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		7FD45BD51C36A6FC004219CB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				7FD45BCD1C365338004219CB /* CurrencyOverviewViewModel.h */,
+				7FD45BCE1C365338004219CB /* CurrencyOverviewViewModel.m */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		7FD45BD61C36A706004219CB /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				7F40295F1C26DCB100436DEB /* ViewController.h */,
+				7F4029601C26DCB100436DEB /* ViewController.m */,
+				7FA6E71A1C350F770071A00D /* PPCurrencyOverlayViewController.h */,
+				7FA6E71B1C350F770071A00D /* PPCurrencyOverlayViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		7FD45BD71C36A717004219CB /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				7F6339C11C34F99F00734B5D /* Main.storyboard */,
+			);
+			name = Storyboards;
 			sourceTree = "<group>";
 		};
 		D9320D546D726455DE15A4CE /* Pods */ = {

@@ -14,6 +14,5 @@
 
 - (IBAction)didTapScan:(id)sender;
 
-
 @end
 

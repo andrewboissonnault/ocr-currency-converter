@@ -30,7 +30,7 @@
 {
     self.viewModel = [[CurrencyOverviewViewModel alloc] init];
     self.viewModel.filter = 85;
-    self.viewModel.conversionFactor = 1;
+    self.viewModel.conversionFactor = .027753520;
 }
 
 -(NSMutableArray*)labels
@@ -45,8 +45,8 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setupSliderView];
     [self initializeViewModel];
+    [self setupSliderView];
     [self bindViewModel];
 }
 
