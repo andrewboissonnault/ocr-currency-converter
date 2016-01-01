@@ -9,21 +9,33 @@
 #import "PPOcrPrice.h"
 #import "NSArray+Map.h"
 #import "PPOcrLine+Price.h"
+#import "PPOcrChar+String.h"
 
 @interface PPOcrPrice ()
 
-@property NSArray* characters;
+@property double value;
+@property CGFloat textHeight;
+@property CGRect textFrame;
 
 @end
 
 @implementation PPOcrPrice
 
-@synthesize characters = _characters;
-
 +(PPOcrPrice*)priceWithCharacters:(NSArray*)characters
 {
     PPOcrPrice* price = [[PPOcrPrice alloc] init];
-    price.characters = characters;
+    price.value = [[PPOcrChar stringFromOcrCharacters:characters] doubleValue];
+    price.textHeight = [PPOcrChar textHeightFromOcrCharacters:characters];
+    price.textFrame = [PPOcrChar textFrameFromOcrCharacters:characters];
+    return price;
+}
+
+-(PPOcrPrice*)priceWithConversionFactor:(double)factor
+{
+    PPOcrPrice* price = [[PPOcrPrice alloc] init];
+    price.value = self.value * factor;
+    price.textHeight = self.textHeight;
+    price.textFrame = self.textFrame;
     return price;
 }
 
@@ -46,10 +58,17 @@
     return [line pricesBySeparatingComponenets];
 }
 
+-(NSString*)formattedPriceString
+{
+    return [self string];
+}
+
 -(NSString*)string
 {
-    PPOcrLine* line = [[PPOcrLine alloc] initWithOcrChars:self.characters];
-    return [line string];
+    NSNumberFormatter* priceFormatter = [[NSNumberFormatter alloc] init];
+    [priceFormatter setNumberStyle: NSNumberFormatterCurrencyStyle];
+    
+    return [priceFormatter stringFromNumber:[NSNumber numberWithDouble:self.value]];
 }
 
 -(BOOL)isEqual:(id)object

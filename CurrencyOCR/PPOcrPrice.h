@@ -11,9 +11,12 @@
 
 @interface PPOcrPrice : NSObject
 
-@property (readonly) NSArray* characters;
+@property (readonly) NSString* formattedPriceString;
+@property (readonly) CGFloat textHeight;
+@property (readonly) CGRect textFrame;
 
 +(NSArray*)pricesWithLayout:(PPOcrLayout*)layout;
 +(PPOcrPrice*)priceWithCharacters:(NSArray*)characters;
+-(PPOcrPrice*)priceWithConversionFactor:(double)factor;
 
 @end

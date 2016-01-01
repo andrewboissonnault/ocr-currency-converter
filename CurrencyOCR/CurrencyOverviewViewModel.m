@@ -15,6 +15,7 @@
 
 @property NSArray* prices;
 @property PPOcrLayout* priceLayout;
+@property NSArray* filteredPrices;
 
 @end
 
@@ -22,6 +23,7 @@
 
 @synthesize ocrResults = _ocrResults;
 @synthesize filter = _filter;
+@synthesize conversionFactor = _conversionFactor;
 
 - (instancetype)init {
     self = [super init];
@@ -40,19 +42,34 @@
 {
     _ocrResults = ocrResults;
     [self updatePriceLayout];
-    [self updatePrices];
+    [self updateFilteredPrices];
+    [self updateConvertedPrices];
 }
 
 -(void)setFilter:(double)filter
 {
     _filter = filter;
-    [self updatePrices];
+    [self updateFilteredPrices];
+    [self updateConvertedPrices];
 }
 
--(void)updatePrices
+-(void)setConversionFactor:(double)conversionFactor
+{
+    _conversionFactor = conversionFactor;
+    [self updateConvertedPrices];
+}
+
+-(void)updateConvertedPrices
+{
+    self.prices = [self.filteredPrices mapObjectsUsingBlock:^id(PPOcrPrice* price, NSUInteger idx) {
+        return [price priceWithConversionFactor:self.conversionFactor];
+    }];
+}
+
+-(void)updateFilteredPrices
 {
     PPOcrLayout* filteredPriceLayout = [self filterLayout:self.priceLayout];
-    self.prices = [PPOcrPrice pricesWithLayout:filteredPriceLayout];
+    self.filteredPrices = [PPOcrPrice pricesWithLayout:filteredPriceLayout];
 }
 
 -(void)updatePriceLayout

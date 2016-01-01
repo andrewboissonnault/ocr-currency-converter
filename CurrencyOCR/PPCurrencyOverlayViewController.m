@@ -30,6 +30,7 @@
 {
     self.viewModel = [[CurrencyOverviewViewModel alloc] init];
     self.viewModel.filter = 85;
+    self.viewModel.conversionFactor = 1;
 }
 
 -(NSMutableArray*)labels
@@ -120,16 +121,23 @@
 {
     for(PPOcrChar* character in line.chars)
     {
-        [self showCharacter:character color:[UIColor greenColor]];
+        [self showCharacter:character];
     }
 }
 
 -(void)showPrice:(PPOcrPrice*)price
 {
-    for(PPOcrChar* character in price.characters)
-    {
-        [self showCharacter:character];
-    }
+    NSString* formattedString = price.formattedPriceString;
+    
+    UILabel* priceLabel = [[UILabel alloc] initWithFrame:price.textFrame];
+    priceLabel.font = [UIFont systemFontOfSize:price.textHeight];
+    priceLabel.textColor = [UIColor greenColor];
+    priceLabel.text = formattedString;
+    priceLabel.backgroundColor = [UIColor clearColor];
+    priceLabel.adjustsFontSizeToFitWidth = YES;
+    
+    [self.labels addObject:priceLabel];
+    [self.view addSubview:priceLabel];
 }
 
 -(void)showCharacter:(PPOcrChar*)character
@@ -149,33 +157,6 @@
     UILabel* characterLabel = [[UILabel alloc] initWithFrame:frame];
     characterLabel.font = [UIFont systemFontOfSize:fontSize];
     characterLabel.textColor = [UIColor blueColor];
-    characterLabel.text = string;
-    characterLabel.backgroundColor = [UIColor clearColor];
-    [characterLabel sizeToFit];
-    
-    UIView* view = self.view;
-    
-    [self.labels addObject:characterLabel];
-    [self.view addSubview:characterLabel];
-}
-
--(void)showCharacter:(PPOcrChar*)character color:(UIColor*)color
-{
-    NSString* string = [NSString stringWithUnichar:character.value];
-    
-    CGFloat fontSize = character.height;
-    PPPosition* position = character.position;
-    CGPoint upperLeft = position.ul;
-    CGPoint origin = upperLeft;
-    CGPoint lowerRight = position.lr;
-    
-    CGFloat width = fabsf(lowerRight.x - origin.x);
-    CGFloat height = fabsf(lowerRight.y - origin.y);
-    CGRect frame = CGRectMake(origin.x, origin.y, width, height);
-    
-    UILabel* characterLabel = [[UILabel alloc] initWithFrame:frame];
-    characterLabel.font = [UIFont systemFontOfSize:fontSize];
-    characterLabel.textColor = color;
     characterLabel.text = string;
     characterLabel.backgroundColor = [UIColor clearColor];
     [characterLabel sizeToFit];
