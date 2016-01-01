@@ -15,6 +15,5 @@
 
 @property (strong, nonatomic) NSArray* ocrResults;
 @property (nonatomic) double filter;
-@property (nonatomic) double conversionFactor;
 
 @end

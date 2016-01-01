@@ -1,8 +1,12 @@
 PODS:
+  - Bolts/Tasks (1.5.1)
   - Expecta (1.0.5)
+  - NSData+MD5Digest (1.0.0)
   - OCHamcrest (5.1.0)
   - OCMockito (3.0.1):
     - OCHamcrest (~> 5.1)
+  - Parse (1.11.0):
+    - Bolts/Tasks (~> 1.5)
   - PPBlinkOCR (1.1.1)
   - PureLayout (3.0.1)
   - ReactiveCocoa (2.5):
@@ -15,24 +19,32 @@ PODS:
   - ReactiveViewModel (0.3):
     - ReactiveCocoa (~> 2.4)
   - Specta (1.0.5)
+  - TMCache (2.1.0)
 
 DEPENDENCIES:
   - Expecta
+  - NSData+MD5Digest
   - OCHamcrest
   - OCMockito
+  - Parse
   - PPBlinkOCR
   - PureLayout
   - ReactiveViewModel (~> 0.3)
   - Specta
+  - TMCache
 
 SPEC CHECKSUMS:
+  Bolts: a12663244b1d3351c738882e71902fc74db54f64
   Expecta: e1c022fcd33910b6be89c291d2775b3fe27a89fe
+  NSData+MD5Digest: 0743d53874455e2bdf49f70e7f815b0b963a355f
   OCHamcrest: abcfbf4ebd75d5aadbcc729cff0cb648faf2d1b0
   OCMockito: 9eee3c61e42f7cb8aa015d66f8cc16849701d973
+  Parse: 886af46a0a677402f6374bb97ac212e795f70afe
   PPBlinkOCR: 1a8fc652b5be9563c8c60f1d363a8dbd3f35c5dd
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   ReactiveViewModel: 58918dcbcec2d3151195ab1ed9163c57a8163999
   Specta: ac94d110b865115fe60ff2c6d7281053c6f8e8a2
+  TMCache: 95ebcc9b3c7e90fb5fd8fc3036cba3aa781c9bed
 
 COCOAPODS: 0.39.0

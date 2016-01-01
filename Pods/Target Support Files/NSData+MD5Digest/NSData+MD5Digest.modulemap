@@ -1,0 +1,6 @@
+framework module NSData_MD5Digest {
+  umbrella header "NSData+MD5Digest-umbrella.h"
+
+  export *
+  module * { export * }
+}

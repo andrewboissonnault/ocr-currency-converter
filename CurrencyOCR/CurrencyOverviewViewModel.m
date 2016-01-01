@@ -10,12 +10,14 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "NSArray+Map.h"
 #import "PPOcrPrice.h"
+#import "CurrencyRateService.h"
 
 @interface CurrencyOverviewViewModel ()
 
 @property NSArray* prices;
 @property PPOcrLayout* priceLayout;
 @property NSArray* filteredPrices;
+@property CurrencyRateService* currencyRateService;
 
 @end
 
@@ -23,7 +25,6 @@
 
 @synthesize ocrResults = _ocrResults;
 @synthesize filter = _filter;
-@synthesize conversionFactor = _conversionFactor;
 
 - (instancetype)init {
     self = [super init];
@@ -35,7 +36,8 @@
 
 -(void)initialize
 {
-
+    self.currencyRateService = [[CurrencyRateService alloc] initWithBaseCurrency:@"USD" otherCurrency:@"THB"];
+    [self.currencyRateService refreshCurrencyRates];
 }
 
 -(void)setOcrResults:(NSArray *)ocrResults
@@ -53,16 +55,10 @@
     [self updateConvertedPrices];
 }
 
--(void)setConversionFactor:(double)conversionFactor
-{
-    _conversionFactor = conversionFactor;
-    [self updateConvertedPrices];
-}
-
 -(void)updateConvertedPrices
 {
     self.prices = [self.filteredPrices mapObjectsUsingBlock:^id(PPOcrPrice* price, NSUInteger idx) {
-        return [price priceWithConversionFactor:self.conversionFactor];
+        return [price priceWithConversionFactor:self.currencyRateService.conversionRate];
     }];
 }
 

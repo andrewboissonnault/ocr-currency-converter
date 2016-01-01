@@ -84,18 +84,26 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-CurrencyOCRTests/Bolts.framework"
+  install_framework "Pods-CurrencyOCRTests/NSData_MD5Digest.framework"
+  install_framework "Pods-CurrencyOCRTests/Parse.framework"
   install_framework "Pods-CurrencyOCRTests/PureLayout.framework"
   install_framework "Pods-CurrencyOCRTests/ReactiveCocoa.framework"
   install_framework "Pods-CurrencyOCRTests/ReactiveViewModel.framework"
+  install_framework "Pods-CurrencyOCRTests/TMCache.framework"
   install_framework "Pods-CurrencyOCRTests/Expecta.framework"
   install_framework "Pods-CurrencyOCRTests/OCHamcrest.framework"
   install_framework "Pods-CurrencyOCRTests/OCMockito.framework"
   install_framework "Pods-CurrencyOCRTests/Specta.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-CurrencyOCRTests/Bolts.framework"
+  install_framework "Pods-CurrencyOCRTests/NSData_MD5Digest.framework"
+  install_framework "Pods-CurrencyOCRTests/Parse.framework"
   install_framework "Pods-CurrencyOCRTests/PureLayout.framework"
   install_framework "Pods-CurrencyOCRTests/ReactiveCocoa.framework"
   install_framework "Pods-CurrencyOCRTests/ReactiveViewModel.framework"
+  install_framework "Pods-CurrencyOCRTests/TMCache.framework"
   install_framework "Pods-CurrencyOCRTests/Expecta.framework"
   install_framework "Pods-CurrencyOCRTests/OCHamcrest.framework"
   install_framework "Pods-CurrencyOCRTests/OCMockito.framework"

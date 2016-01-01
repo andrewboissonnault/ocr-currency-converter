@@ -6,6 +6,9 @@ use_frameworks!
 pod 'PPBlinkOCR'
 pod 'ReactiveViewModel', '~> 0.3'
 pod 'PureLayout'
+pod 'Parse'
+pod 'TMCache'
+pod 'NSData+MD5Digest'
 
 target :'CurrencyOCRTests' do
     pod 'Specta'

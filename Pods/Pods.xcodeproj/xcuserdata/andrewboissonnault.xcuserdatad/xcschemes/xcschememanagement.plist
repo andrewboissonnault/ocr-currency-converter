@@ -4,7 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Bolts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Expecta.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>NSData+MD5Digest.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -15,6 +25,11 @@
 			<false/>
 		</dict>
 		<key>OCMockito.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Parse.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -49,6 +64,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>TMCache.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -62,37 +82,57 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3DAE9639053C288428366DB7BF0B74EC</key>
+		<key>4353964A0693609387E6C61D6DA3F26E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>41FD148E423D2844A967F85A268EB853</key>
+		<key>511B536F0DE06D9C3BD65397A91990C0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5021E56F2FC16725E2F01CD764DFC48A</key>
+		<key>5EB4EF0DB06AFF3E1E7F56F9A4AE76E3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>795791AE56533C68104FB2F7A1AB0D31</key>
+		<key>6E624D8B3A7CAA9369DBFCC4790EC482</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7F094103C4BFA99A064DDC2EB17E5FAE</key>
+		<key>708E01B006A9F88B3C13711562282B5E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8336E35D7195FE1C74729DA7FA804634</key>
+		<key>93DCA9964CC0F13460215D4525EF92A4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>96930692946EB0C7321E936DA530A657</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CD07A73C60742B141E054E6A948C953E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D130E5E9F008216E1BEAE501ACC32C47</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D3F94507B35F54AC0B7F277702681DFD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F9A6C373EED8BD21B67C4785B6FD0709</key>
 		<dict>
 			<key>primary</key>
 			<true/>

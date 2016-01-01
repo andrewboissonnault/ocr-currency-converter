@@ -30,7 +30,6 @@
 {
     self.viewModel = [[CurrencyOverviewViewModel alloc] init];
     self.viewModel.filter = 85;
-    self.viewModel.conversionFactor = .027753520;
 }
 
 -(NSMutableArray*)labels
