@@ -1,10 +1,35 @@
 PODS:
+  - Expecta (1.0.5)
+  - OCHamcrest (5.1.0)
+  - OCMockito (3.0.1):
+    - OCHamcrest (~> 5.1)
   - PPBlinkOCR (1.1.1)
+  - ReactiveCocoa (2.5):
+    - ReactiveCocoa/UI (= 2.5)
+  - ReactiveCocoa/Core (2.5):
+    - ReactiveCocoa/no-arc
+  - ReactiveCocoa/no-arc (2.5)
+  - ReactiveCocoa/UI (2.5):
+    - ReactiveCocoa/Core
+  - ReactiveViewModel (0.3):
+    - ReactiveCocoa (~> 2.4)
+  - Specta (1.0.5)
 
 DEPENDENCIES:
+  - Expecta
+  - OCHamcrest
+  - OCMockito
   - PPBlinkOCR
+  - ReactiveViewModel (~> 0.3)
+  - Specta
 
 SPEC CHECKSUMS:
+  Expecta: e1c022fcd33910b6be89c291d2775b3fe27a89fe
+  OCHamcrest: abcfbf4ebd75d5aadbcc729cff0cb648faf2d1b0
+  OCMockito: 9eee3c61e42f7cb8aa015d66f8cc16849701d973
   PPBlinkOCR: 1a8fc652b5be9563c8c60f1d363a8dbd3f35c5dd
+  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
+  ReactiveViewModel: 58918dcbcec2d3151195ab1ed9163c57a8163999
+  Specta: ac94d110b865115fe60ff2c6d7281053c6f8e8a2
 
 COCOAPODS: 0.39.0

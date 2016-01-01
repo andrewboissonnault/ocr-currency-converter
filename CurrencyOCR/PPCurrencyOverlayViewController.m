@@ -8,6 +8,8 @@
 
 #import "PPCurrencyOverlayViewController.h"
 #import "NSString+Unichar.h"
+#import "PPOcrPrice.h"
+#import "NSArray+Map.h"
 
 @interface PPCurrencyOverlayViewController ()
 
@@ -52,10 +54,21 @@
         if ([result isKindOfClass:[PPOcrRecognizerResult class]]) {
             PPOcrRecognizerResult* ocrRecognizerResult = (PPOcrRecognizerResult*)result;
             
-            PPOcrLayout* priceLayout = [ocrRecognizerResult ocrLayout];
+            PPOcrLayout* priceLayout = [ocrRecognizerResult ocrLayoutForParserGroup:@"Price group"];
             [self showLayout:priceLayout];
+            
+            NSArray* prices = [PPOcrPrice pricesWithLayout:priceLayout];
+            [self showPrices:prices];
         }
     };
+}
+
+-(void)showPrices:(NSArray*)prices
+{
+    for(PPOcrPrice* price in prices)
+    {
+        [self showPrice:price];
+    }
 }
 
 -(void)showLayout:(PPOcrLayout*)layout
@@ -77,6 +90,14 @@
 -(void)showLine:(PPOcrLine*)line
 {
     for(PPOcrChar* character in line.chars)
+    {
+        [self showCharacter:character color:[UIColor greenColor]];
+    }
+}
+
+-(void)showPrice:(PPOcrPrice*)price
+{
+    for(PPOcrChar* character in price.characters)
     {
         [self showCharacter:character];
     }
@@ -107,7 +128,33 @@
     
     [self.labels addObject:characterLabel];
     [self.view addSubview:characterLabel];
-     
+}
+
+-(void)showCharacter:(PPOcrChar*)character color:(UIColor*)color
+{
+    NSString* string = [NSString stringWithUnichar:character.value];
+    
+    CGFloat fontSize = character.height;
+    PPPosition* position = character.position;
+    CGPoint upperLeft = position.ul;
+    CGPoint origin = upperLeft;
+    CGPoint lowerRight = position.lr;
+    
+    CGFloat width = fabsf(lowerRight.x - origin.x);
+    CGFloat height = fabsf(lowerRight.y - origin.y);
+    CGRect frame = CGRectMake(origin.x, origin.y, width, height);
+    
+    UILabel* characterLabel = [[UILabel alloc] initWithFrame:frame];
+    characterLabel.font = [UIFont systemFontOfSize:fontSize];
+    characterLabel.textColor = color;
+    characterLabel.text = string;
+    characterLabel.backgroundColor = [UIColor clearColor];
+    [characterLabel sizeToFit];
+    
+    UIView* view = self.view;
+    
+    [self.labels addObject:characterLabel];
+    [self.view addSubview:characterLabel];
 }
 
 @end

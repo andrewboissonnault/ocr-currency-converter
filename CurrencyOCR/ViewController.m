@@ -68,7 +68,10 @@
     PPOcrRecognizerSettings *ocrRecognizerSettings = [[PPOcrRecognizerSettings alloc] init];
     
     // We want to parse prices from raw OCR result as well
-    [ocrRecognizerSettings addOcrParser:[[PPPriceOcrParserFactory alloc] init] name:self.priceParserId];
+    [ocrRecognizerSettings addOcrParser:[[PPRawOcrParserFactory alloc] init] name:@"Raw OCR" group:@"Raw OCR group"];
+    
+    // We want to parse prices from raw OCR result as well
+    [ocrRecognizerSettings addOcrParser:[[PPPriceOcrParserFactory alloc] init] name:@"Price" group:@"Price group"];
     
     // Add the recognizer setting to a list of used recognizer
     [settings.scanSettings addRecognizerSettings:ocrRecognizerSettings];

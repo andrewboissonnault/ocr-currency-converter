@@ -11,6 +11,7 @@
 @interface NSArray (Map)
 
 - (NSArray *)mapObjectsUsingBlock:(id (^)(id obj, NSUInteger idx))block;
-- (NSArray *)accumulateObjectsUsingBlock:(NSArray* (^)(id obj, NSUInteger idx))block;
+- (NSArray *)accumulateObjectsUsingBlock:(NSArray* (^)(NSArray* array, NSUInteger idx))block;
+- (NSArray*)filterUsingBlock:(BOOL (^)(id object, NSDictionary *bindings))block;
 
 @end

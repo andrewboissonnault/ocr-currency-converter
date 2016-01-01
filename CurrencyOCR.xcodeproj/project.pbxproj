@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		33ED89A96A9AE57BCFE8784C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDA4AE856246F34C33632775 /* libPods.a */; };
+		32D2F8D02D2C523CEB3EB0ED /* Pods_CurrencyOCRTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CDCDB6F913983DBC6ECB1A0 /* Pods_CurrencyOCRTests.framework */; };
 		7F40295B1C26DCB100436DEB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F40295A1C26DCB100436DEB /* main.m */; };
 		7F40295E1C26DCB100436DEB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F40295D1C26DCB100436DEB /* AppDelegate.m */; };
 		7F4029611C26DCB100436DEB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F4029601C26DCB100436DEB /* ViewController.m */; };
@@ -17,6 +17,17 @@
 		7F6339C21C34F99F00734B5D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F6339C11C34F99F00734B5D /* Main.storyboard */; };
 		7FA6E71C1C350F770071A00D /* PPCurrencyOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E71B1C350F770071A00D /* PPCurrencyOverlayViewController.m */; settings = {ASSET_TAGS = (); }; };
 		7FA6E71F1C3523230071A00D /* NSString+Unichar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E71E1C3523230071A00D /* NSString+Unichar.m */; settings = {ASSET_TAGS = (); }; };
+		7FA6E7221C354AD80071A00D /* PPOcrPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E7211C354AD80071A00D /* PPOcrPrice.m */; settings = {ASSET_TAGS = (); }; };
+		7FA6E7241C3551330071A00D /* NSArray+Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E7231C3551330071A00D /* NSArray+Map.m */; settings = {ASSET_TAGS = (); }; };
+		7FA6E7271C3554EE0071A00D /* PPOcrLine+Price.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E7261C3554EE0071A00D /* PPOcrLine+Price.m */; settings = {ASSET_TAGS = (); }; };
+		7FD45BC11C355CD7004219CB /* PPOcrLineUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BC01C355CD7004219CB /* PPOcrLineUnitTests.m */; settings = {ASSET_TAGS = (); }; };
+		7FD45BC41C355E77004219CB /* PPPosition+Transform.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BC31C355E77004219CB /* PPPosition+Transform.m */; settings = {ASSET_TAGS = (); }; };
+		7FD45BC51C356568004219CB /* PPPosition+Transform.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BC31C355E77004219CB /* PPPosition+Transform.m */; settings = {ASSET_TAGS = (); }; };
+		7FD45BC61C35656C004219CB /* PPOcrLine+Price.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E7261C3554EE0071A00D /* PPOcrLine+Price.m */; settings = {ASSET_TAGS = (); }; };
+		7FD45BC71C35657D004219CB /* PPOcrPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E7211C354AD80071A00D /* PPOcrPrice.m */; settings = {ASSET_TAGS = (); }; };
+		7FD45BC81C35657F004219CB /* NSString+Unichar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E71E1C3523230071A00D /* NSString+Unichar.m */; settings = {ASSET_TAGS = (); }; };
+		7FD45BC91C356583004219CB /* NSArray+Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E7231C3551330071A00D /* NSArray+Map.m */; settings = {ASSET_TAGS = (); }; };
+		AAE384DB9E9E332D430519F3 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A93D2D7B747C09F27CC3BB /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		11A93D2D7B747C09F27CC3BB /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		276C5347A9A5F1FA7F83FB19 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		5CDCDB6F913983DBC6ECB1A0 /* Pods_CurrencyOCRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CurrencyOCRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		78A406806ED06C44C5660522 /* Pods-CurrencyOCRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyOCRTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyOCRTests/Pods-CurrencyOCRTests.release.xcconfig"; sourceTree = "<group>"; };
 		7F1A70101C2D3A5B00A02EEB /* NSArray+Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Map.h"; sourceTree = "<group>"; };
 		7F4029551C26DCB100436DEB /* CurrencyOCR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyOCR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F4029591C26DCB100436DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,8 +63,16 @@
 		7FA6E71B1C350F770071A00D /* PPCurrencyOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCurrencyOverlayViewController.m; sourceTree = "<group>"; };
 		7FA6E71D1C3523230071A00D /* NSString+Unichar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Unichar.h"; sourceTree = "<group>"; };
 		7FA6E71E1C3523230071A00D /* NSString+Unichar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Unichar.m"; sourceTree = "<group>"; };
+		7FA6E7201C354AD80071A00D /* PPOcrPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPOcrPrice.h; sourceTree = "<group>"; };
+		7FA6E7211C354AD80071A00D /* PPOcrPrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPOcrPrice.m; sourceTree = "<group>"; };
+		7FA6E7231C3551330071A00D /* NSArray+Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Map.m"; sourceTree = "<group>"; };
+		7FA6E7251C3554EE0071A00D /* PPOcrLine+Price.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PPOcrLine+Price.h"; sourceTree = "<group>"; };
+		7FA6E7261C3554EE0071A00D /* PPOcrLine+Price.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PPOcrLine+Price.m"; sourceTree = "<group>"; };
+		7FD45BC01C355CD7004219CB /* PPOcrLineUnitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPOcrLineUnitTests.m; sourceTree = "<group>"; };
+		7FD45BC21C355E77004219CB /* PPPosition+Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PPPosition+Transform.h"; sourceTree = "<group>"; };
+		7FD45BC31C355E77004219CB /* PPPosition+Transform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PPPosition+Transform.m"; sourceTree = "<group>"; };
+		A0CF8BC3BD4BB4DE1D8A2E78 /* Pods-CurrencyOCRTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyOCRTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyOCRTests/Pods-CurrencyOCRTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B086E3585546B135B8977871 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		EDA4AE856246F34C33632775 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				33ED89A96A9AE57BCFE8784C /* libPods.a in Frameworks */,
+				AAE384DB9E9E332D430519F3 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32D2F8D02D2C523CEB3EB0ED /* Pods_CurrencyOCRTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				7F1A70101C2D3A5B00A02EEB /* NSArray+Map.h */,
+				7FA6E7231C3551330071A00D /* NSArray+Map.m */,
 				7F40295C1C26DCB100436DEB /* AppDelegate.h */,
 				7F40295D1C26DCB100436DEB /* AppDelegate.m */,
 				7F40295F1C26DCB100436DEB /* ViewController.h */,
@@ -108,6 +132,12 @@
 				7F4029581C26DCB100436DEB /* Supporting Files */,
 				7FA6E71D1C3523230071A00D /* NSString+Unichar.h */,
 				7FA6E71E1C3523230071A00D /* NSString+Unichar.m */,
+				7FA6E7201C354AD80071A00D /* PPOcrPrice.h */,
+				7FA6E7211C354AD80071A00D /* PPOcrPrice.m */,
+				7FA6E7251C3554EE0071A00D /* PPOcrLine+Price.h */,
+				7FA6E7261C3554EE0071A00D /* PPOcrLine+Price.m */,
+				7FD45BC21C355E77004219CB /* PPPosition+Transform.h */,
+				7FD45BC31C355E77004219CB /* PPPosition+Transform.m */,
 			);
 			path = CurrencyOCR;
 			sourceTree = "<group>";
@@ -125,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				7F4029741C26DCB100436DEB /* CurrencyOCRTests.m */,
+				7FD45BC01C355CD7004219CB /* PPOcrLineUnitTests.m */,
 				7F4029721C26DCB100436DEB /* Supporting Files */,
 			);
 			path = CurrencyOCRTests;
@@ -143,6 +174,8 @@
 			children = (
 				276C5347A9A5F1FA7F83FB19 /* Pods.debug.xcconfig */,
 				B086E3585546B135B8977871 /* Pods.release.xcconfig */,
+				A0CF8BC3BD4BB4DE1D8A2E78 /* Pods-CurrencyOCRTests.debug.xcconfig */,
+				78A406806ED06C44C5660522 /* Pods-CurrencyOCRTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -150,7 +183,8 @@
 		E2E2716EC484A624DB5A3802 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				EDA4AE856246F34C33632775 /* libPods.a */,
+				11A93D2D7B747C09F27CC3BB /* Pods.framework */,
+				5CDCDB6F913983DBC6ECB1A0 /* Pods_CurrencyOCRTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -182,9 +216,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7F40297B1C26DCB100436DEB /* Build configuration list for PBXNativeTarget "CurrencyOCRTests" */;
 			buildPhases = (
+				0B019D1FE9278A2AFE75F9E3 /* Check Pods Manifest.lock */,
 				7F40296A1C26DCB100436DEB /* Sources */,
 				7F40296B1C26DCB100436DEB /* Frameworks */,
 				7F40296C1C26DCB100436DEB /* Resources */,
+				977F9C2C46194D2C1EE77E14 /* Embed Pods Frameworks */,
+				9A77549F2127A52B1251BCA4 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -254,6 +291,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0B019D1FE9278A2AFE75F9E3 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		27B5EDBEB5269185F24E0CFF /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -284,6 +336,36 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		977F9C2C46194D2C1EE77E14 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CurrencyOCRTests/Pods-CurrencyOCRTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9A77549F2127A52B1251BCA4 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CurrencyOCRTests/Pods-CurrencyOCRTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A0706F62BFABC08E01A43BE9 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -309,8 +391,12 @@
 				7FA6E71F1C3523230071A00D /* NSString+Unichar.m in Sources */,
 				7FA6E71C1C350F770071A00D /* PPCurrencyOverlayViewController.m in Sources */,
 				7F4029611C26DCB100436DEB /* ViewController.m in Sources */,
+				7FA6E7241C3551330071A00D /* NSArray+Map.m in Sources */,
 				7F40295E1C26DCB100436DEB /* AppDelegate.m in Sources */,
+				7FA6E7221C354AD80071A00D /* PPOcrPrice.m in Sources */,
+				7FA6E7271C3554EE0071A00D /* PPOcrLine+Price.m in Sources */,
 				7F40295B1C26DCB100436DEB /* main.m in Sources */,
+				7FD45BC41C355E77004219CB /* PPPosition+Transform.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,7 +404,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FD45BC81C35657F004219CB /* NSString+Unichar.m in Sources */,
+				7FD45BC71C35657D004219CB /* PPOcrPrice.m in Sources */,
+				7FD45BC11C355CD7004219CB /* PPOcrLineUnitTests.m in Sources */,
+				7FD45BC91C356583004219CB /* NSArray+Map.m in Sources */,
 				7F4029751C26DCB100436DEB /* CurrencyOCRTests.m in Sources */,
+				7FD45BC61C35656C004219CB /* PPOcrLine+Price.m in Sources */,
+				7FD45BC51C356568004219CB /* PPPosition+Transform.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +456,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -384,6 +477,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PROVISIONING_PROFILE = "a0c36963-55bf-4b2e-9c84-8a7fedf7e12c";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -408,6 +503,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -421,6 +517,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				PROVISIONING_PROFILE = "a0c36963-55bf-4b2e-9c84-8a7fedf7e12c";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -431,10 +529,12 @@
 			baseConfigurationReference = 276C5347A9A5F1FA7F83FB19 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CurrencyOCR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "a0c36963-55bf-4b2e-9c84-8a7fedf7e12c";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -444,16 +544,19 @@
 			baseConfigurationReference = B086E3585546B135B8977871 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CurrencyOCR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "a0c36963-55bf-4b2e-9c84-8a7fedf7e12c";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 		7F40297C1C26DCB100436DEB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0CF8BC3BD4BB4DE1D8A2E78 /* Pods-CurrencyOCRTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -466,13 +569,42 @@
 				);
 				INFOPLIST_FILE = CurrencyOCRTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"c++\"",
+					"-l\"iconv\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"Expecta\"",
+					"-framework",
+					"\"MicroBlink\"",
+					"-framework",
+					"\"OCHamcrest\"",
+					"-framework",
+					"\"OCMockito\"",
+					"-framework",
+					"\"ReactiveCocoa\"",
+					"-framework",
+					"\"ReactiveViewModel\"",
+					"-framework",
+					"\"Specta\"",
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "a0c36963-55bf-4b2e-9c84-8a7fedf7e12c";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CurrencyOCR.app/CurrencyOCR";
 			};
 			name = Debug;
 		};
 		7F40297D1C26DCB100436DEB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 78A406806ED06C44C5660522 /* Pods-CurrencyOCRTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -481,7 +613,35 @@
 				);
 				INFOPLIST_FILE = CurrencyOCRTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"c++\"",
+					"-l\"iconv\"",
+					"-framework",
+					"\"AVFoundation\"",
+					"-framework",
+					"\"AudioToolbox\"",
+					"-framework",
+					"\"CoreMedia\"",
+					"-framework",
+					"\"Expecta\"",
+					"-framework",
+					"\"MicroBlink\"",
+					"-framework",
+					"\"OCHamcrest\"",
+					"-framework",
+					"\"OCMockito\"",
+					"-framework",
+					"\"ReactiveCocoa\"",
+					"-framework",
+					"\"ReactiveViewModel\"",
+					"-framework",
+					"\"Specta\"",
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "a0c36963-55bf-4b2e-9c84-8a7fedf7e12c";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CurrencyOCR.app/CurrencyOCR";
 			};
 			name = Release;
