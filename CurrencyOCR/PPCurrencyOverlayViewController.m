@@ -12,11 +12,13 @@
 #import "NSArray+Map.h"
 #import "CurrencyOverviewViewModel.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
+#import <PureLayout/PureLayout.h>
 
 @interface PPCurrencyOverlayViewController ()
 
 @property (readonly)  NSMutableArray* labels;
 @property CurrencyOverviewViewModel *viewModel;
+@property UISlider* slider;
 
 @end
 
@@ -42,8 +44,23 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setupSliderView];
     [self initializeViewModel];
     [self bindViewModel];
+}
+
+-(void)setupSliderView
+{
+    self.slider = [[UISlider alloc] initForAutoLayout];
+    self.slider.minimumValue = 70;
+    self.slider.maximumValue = 100;
+    self.slider.continuous = YES;
+    self.slider.value = self.viewModel.filter;
+    [self.view addSubview:self.slider];
+    [self.slider autoAlignAxis:ALAxisVertical toSameAxisOfView:self.view];
+    [self.slider autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:25];
+    [self.slider autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:25];
+    [self.slider autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:25];
 }
 
 -(void)clearLabels
@@ -69,15 +86,10 @@
         [self showPrices:prices];
     }];
     
-    RACSignal *filterSignal = RACObserve(self.viewModel, filter);
+    RACSignal *filterSignal = RACObserve(self.slider, value);
     [filterSignal subscribeNext:^(NSNumber* filterNumber) {
-        [self updateFilterUI];
+        [self.viewModel setFilter:[filterNumber doubleValue]];
     }];
-}
-
--(void)updateFilterUI
-{
-
 }
 
 -(void)showPrices:(NSArray*)prices

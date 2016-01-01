@@ -4,6 +4,7 @@ PODS:
   - OCMockito (3.0.1):
     - OCHamcrest (~> 5.1)
   - PPBlinkOCR (1.1.1)
+  - PureLayout (3.0.1)
   - ReactiveCocoa (2.5):
     - ReactiveCocoa/UI (= 2.5)
   - ReactiveCocoa/Core (2.5):
@@ -20,6 +21,7 @@ DEPENDENCIES:
   - OCHamcrest
   - OCMockito
   - PPBlinkOCR
+  - PureLayout
   - ReactiveViewModel (~> 0.3)
   - Specta
 
@@ -28,6 +30,7 @@ SPEC CHECKSUMS:
   OCHamcrest: abcfbf4ebd75d5aadbcc729cff0cb648faf2d1b0
   OCMockito: 9eee3c61e42f7cb8aa015d66f8cc16849701d973
   PPBlinkOCR: 1a8fc652b5be9563c8c60f1d363a8dbd3f35c5dd
+  PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   ReactiveViewModel: 58918dcbcec2d3151195ab1ed9163c57a8163999
   Specta: ac94d110b865115fe60ff2c6d7281053c6f8e8a2

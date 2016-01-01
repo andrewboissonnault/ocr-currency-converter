@@ -87,7 +87,7 @@
 {
     NSArray* filteredCharacters = [line.chars filterUsingBlock:^BOOL(id object, NSDictionary *bindings) {
         PPOcrChar* character = (PPOcrChar*)object;
-        return !character.uncertain && character.quality > 80;
+        return !character.uncertain && character.quality > self.filter;
     }];
     return [[PPOcrLine alloc] initWithOcrChars:filteredCharacters];
 }

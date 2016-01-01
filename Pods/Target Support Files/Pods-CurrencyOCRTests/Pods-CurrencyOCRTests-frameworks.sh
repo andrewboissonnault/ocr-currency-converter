@@ -84,6 +84,7 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-CurrencyOCRTests/PureLayout.framework"
   install_framework "Pods-CurrencyOCRTests/ReactiveCocoa.framework"
   install_framework "Pods-CurrencyOCRTests/ReactiveViewModel.framework"
   install_framework "Pods-CurrencyOCRTests/Expecta.framework"
@@ -92,6 +93,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-CurrencyOCRTests/Specta.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-CurrencyOCRTests/PureLayout.framework"
   install_framework "Pods-CurrencyOCRTests/ReactiveCocoa.framework"
   install_framework "Pods-CurrencyOCRTests/ReactiveViewModel.framework"
   install_framework "Pods-CurrencyOCRTests/Expecta.framework"
