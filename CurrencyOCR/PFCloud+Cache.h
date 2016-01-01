@@ -49,6 +49,8 @@
  */
 + (BOOL)hasCachedResult:(NSString*)function params:(NSDictionary*)parameters;
 
++ (id)fetchFromCache:(NSString*)function params:(NSDictionary*)params;
+
 /*
  Sets the maximum age for all items in the cache.
  @param maxCacheAge The cache age in seconds.

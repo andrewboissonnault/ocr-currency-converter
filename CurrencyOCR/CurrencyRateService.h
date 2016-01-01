@@ -17,8 +17,4 @@
 
 -(instancetype)initWithBaseCurrency:(NSString*)baseCurrency otherCurrency:(NSString*)otherCurrency;
 
--(void)refreshCurrencyRates;
-
-
-
 @end

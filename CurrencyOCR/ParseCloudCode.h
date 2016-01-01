@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <Parse/Parse.h>
+#import "CurrencyRates.h"
 
 @interface ParseCloudCode : NSObject
 
 +(void)requestCurrencyRates:(PFObjectResultBlock)block;
-+(void)requestCachedCurrencyRates:(PFObjectResultBlock)block;
++(CurrencyRates*)requestCachedCurrencyRates;
 
 @end

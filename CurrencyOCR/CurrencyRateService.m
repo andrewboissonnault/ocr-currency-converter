@@ -13,7 +13,7 @@
 
 @interface CurrencyRateService ()
 
-@property CurrencyRates* rates;
+@property (nonatomic)  CurrencyRates* rates;
 
 @property NSString* baseCurrency;
 @property NSString* otherCurrency;
@@ -21,6 +21,17 @@
 @end
 
 @implementation CurrencyRateService
+
+@synthesize rates = _rates;
+
+-(CurrencyRates*)rates
+{
+    if(!_rates)
+    {
+        _rates = [ParseCloudCode requestCachedCurrencyRates];
+    }
+    return _rates;
+}
 
 -(double)conversionRate
 {
@@ -38,27 +49,16 @@
 
 -(void)refreshCurrencyRates
 {
-    if([self shouldFetchCachedResults])
-    {
-        [self fetchCachedCurrencyRates];
-    }
-    else
+    if([self shouldFetchNewCurrencyRates])
     {
         [self fetchCurrencyRates];
     }
 }
 
--(BOOL)shouldFetchCachedResults
+-(BOOL)shouldFetchNewCurrencyRates
 {
     NSDate* createdAt = self.rates.createdAt;
-    return createdAt && [createdAt hoursSince] < 1;
-}
-
--(void)fetchCachedCurrencyRates
-{
-    [ParseCloudCode requestCachedCurrencyRates:^(PFObject* _Nullable object, NSError * _Nullable error) {
-        self.rates = (CurrencyRates*)object;
-    }];
+    return !createdAt || [createdAt hoursSince] > 1;
 }
 
 -(void)fetchCurrencyRates
