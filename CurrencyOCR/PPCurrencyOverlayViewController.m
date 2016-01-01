@@ -10,16 +10,25 @@
 #import "NSString+Unichar.h"
 #import "PPOcrPrice.h"
 #import "NSArray+Map.h"
+#import "CurrencyOverviewViewModel.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface PPCurrencyOverlayViewController ()
 
 @property (readonly)  NSMutableArray* labels;
+@property CurrencyOverviewViewModel *viewModel;
 
 @end
 
 @implementation PPCurrencyOverlayViewController
 
 @synthesize labels = _labels;
+
+- (void)initializeViewModel
+{
+    self.viewModel = [[CurrencyOverviewViewModel alloc] init];
+    self.viewModel.filter = 85;
+}
 
 -(NSMutableArray*)labels
 {
@@ -33,6 +42,8 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initializeViewModel];
+    [self bindViewModel];
 }
 
 -(void)clearLabels
@@ -47,20 +58,26 @@
 - (void)cameraViewController:(id<PPScanningViewController>)cameraViewController
             didOutputResults:(NSArray*)results
 {
-    [self clearLabels];
+    self.viewModel.ocrResults = results;
+}
+
+- (void)bindViewModel {
     
-    for (PPRecognizerResult* result in results) {
-        
-        if ([result isKindOfClass:[PPOcrRecognizerResult class]]) {
-            PPOcrRecognizerResult* ocrRecognizerResult = (PPOcrRecognizerResult*)result;
-            
-            PPOcrLayout* priceLayout = [ocrRecognizerResult ocrLayoutForParserGroup:@"Price group"];
-            [self showLayout:priceLayout];
-            
-            NSArray* prices = [PPOcrPrice pricesWithLayout:priceLayout];
-            [self showPrices:prices];
-        }
-    };
+    RACSignal *pricesSignal = RACObserve(self.viewModel, prices);
+    [pricesSignal subscribeNext:^(NSArray* prices) {
+        [self clearLabels];
+        [self showPrices:prices];
+    }];
+    
+    RACSignal *filterSignal = RACObserve(self.viewModel, filter);
+    [filterSignal subscribeNext:^(NSNumber* filterNumber) {
+        [self updateFilterUI];
+    }];
+}
+
+-(void)updateFilterUI
+{
+
 }
 
 -(void)showPrices:(NSArray*)prices
