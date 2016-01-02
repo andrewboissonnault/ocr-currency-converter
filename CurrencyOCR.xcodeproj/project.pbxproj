@@ -37,6 +37,9 @@
 		7FD45BE71C36CB22004219CB /* PFCloud+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BE61C36CB22004219CB /* PFCloud+Cache.m */; settings = {ASSET_TAGS = (); }; };
 		7FD45BEA1C36D088004219CB /* ViewModelServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BE91C36D088004219CB /* ViewModelServices.m */; settings = {ASSET_TAGS = (); }; };
 		7FD45BED1C36E201004219CB /* PFObject+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BEC1C36E201004219CB /* PFObject+NSCoding.m */; settings = {ASSET_TAGS = (); }; };
+		7FD45BEF1C36F960004219CB /* CurrencyRatesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BEE1C36F960004219CB /* CurrencyRatesTest.m */; settings = {ASSET_TAGS = (); }; };
+		7FD45BF21C37A0BB004219CB /* NSString+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BF11C37A0BB004219CB /* NSString+JSON.m */; settings = {ASSET_TAGS = (); }; };
+		7FD45BF31C37A5C0004219CB /* PPOcrChar+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BD11C36653A004219CB /* PPOcrChar+String.m */; settings = {ASSET_TAGS = (); }; };
 		AAE384DB9E9E332D430519F3 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A93D2D7B747C09F27CC3BB /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -101,6 +104,9 @@
 		7FD45BE91C36D088004219CB /* ViewModelServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewModelServices.m; sourceTree = "<group>"; };
 		7FD45BEB1C36E201004219CB /* PFObject+NSCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFObject+NSCoding.h"; sourceTree = "<group>"; };
 		7FD45BEC1C36E201004219CB /* PFObject+NSCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+NSCoding.m"; sourceTree = "<group>"; };
+		7FD45BEE1C36F960004219CB /* CurrencyRatesTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyRatesTest.m; sourceTree = "<group>"; };
+		7FD45BF01C37A0BB004219CB /* NSString+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JSON.h"; sourceTree = "<group>"; };
+		7FD45BF11C37A0BB004219CB /* NSString+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSON.m"; sourceTree = "<group>"; };
 		A0CF8BC3BD4BB4DE1D8A2E78 /* Pods-CurrencyOCRTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyOCRTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyOCRTests/Pods-CurrencyOCRTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B086E3585546B135B8977871 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -177,6 +183,7 @@
 			children = (
 				7F4029741C26DCB100436DEB /* CurrencyOCRTests.m */,
 				7FD45BC01C355CD7004219CB /* PPOcrLineUnitTests.m */,
+				7FD45BEE1C36F960004219CB /* CurrencyRatesTest.m */,
 				7F4029721C26DCB100436DEB /* Supporting Files */,
 			);
 			path = CurrencyOCRTests;
@@ -211,6 +218,8 @@
 				7FD45BE61C36CB22004219CB /* PFCloud+Cache.m */,
 				7FD45BEB1C36E201004219CB /* PFObject+NSCoding.h */,
 				7FD45BEC1C36E201004219CB /* PFObject+NSCoding.m */,
+				7FD45BF01C37A0BB004219CB /* NSString+JSON.h */,
+				7FD45BF11C37A0BB004219CB /* NSString+JSON.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -501,6 +510,7 @@
 				7F40295E1C26DCB100436DEB /* AppDelegate.m in Sources */,
 				7FD45BE71C36CB22004219CB /* PFCloud+Cache.m in Sources */,
 				7FA6E7221C354AD80071A00D /* PPOcrPrice.m in Sources */,
+				7FD45BF21C37A0BB004219CB /* NSString+JSON.m in Sources */,
 				7FD45BEA1C36D088004219CB /* ViewModelServices.m in Sources */,
 				7FA6E7271C3554EE0071A00D /* PPOcrLine+Price.m in Sources */,
 				7F40295B1C26DCB100436DEB /* main.m in Sources */,
@@ -512,12 +522,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FD45BEF1C36F960004219CB /* CurrencyRatesTest.m in Sources */,
 				7FD45BC81C35657F004219CB /* NSString+Unichar.m in Sources */,
 				7FD45BC71C35657D004219CB /* PPOcrPrice.m in Sources */,
 				7FD45BC11C355CD7004219CB /* PPOcrLineUnitTests.m in Sources */,
 				7FD45BC91C356583004219CB /* NSArray+Map.m in Sources */,
 				7F4029751C26DCB100436DEB /* CurrencyOCRTests.m in Sources */,
 				7FD45BC61C35656C004219CB /* PPOcrLine+Price.m in Sources */,
+				7FD45BF31C37A5C0004219CB /* PPOcrChar+String.m in Sources */,
 				7FD45BC51C356568004219CB /* PPPosition+Transform.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

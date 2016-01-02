@@ -22,8 +22,19 @@ static NSString* const kCurrencyRatesClassName = @"CurrencyData";
 
 -(double)rateWithBaseCurrency:(NSString*)baseCurrency otherCurrency:(NSString*)otherCurrency
 {
-    double rate = 1 / [self.rates[otherCurrency] doubleValue];
-    return rate;
+    if([self.baseCurrency isEqualToString:baseCurrency])
+    {
+        return [self.rates[otherCurrency] doubleValue];
+    }
+    else if([self.baseCurrency isEqualToString:otherCurrency])
+    {
+        return 1 / [self.rates[baseCurrency] doubleValue];
+    }
+    else
+    {
+        double referenceCurrencyAmount = [self.rates[otherCurrency] doubleValue];
+        return referenceCurrencyAmount *  (1 / [self.rates[baseCurrency] doubleValue]);
+    }
 }
 
 @end
