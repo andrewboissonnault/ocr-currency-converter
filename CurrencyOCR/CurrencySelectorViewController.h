@@ -11,9 +11,8 @@
 
 static NSString * const kCellIdentifier = @"CurrencyCellIdentifier";
 
-@interface CurrencySelectorViewController : TCTableViewSearchController <TCTableViewSearchControllerDelegate>
+@interface CurrencySelectorViewController : UITableViewController
 
-@property (nonatomic, strong) NSArray *currenciesArray;
 
 @end
 

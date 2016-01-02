@@ -17,6 +17,7 @@
 		7F5623291C37DD290021C242 /* CurrencySelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5623281C37DD290021C242 /* CurrencySelectorViewController.m */; settings = {ASSET_TAGS = (); }; };
 		7F56232C1C37E87A0021C242 /* CurrencyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F56232B1C37E8790021C242 /* CurrencyCell.m */; settings = {ASSET_TAGS = (); }; };
 		7F56232F1C37EB880021C242 /* Currency.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F56232E1C37EB880021C242 /* Currency.m */; settings = {ASSET_TAGS = (); }; };
+		7F5623321C37F7DD0021C242 /* CurrencySelectorViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5623311C37F7DD0021C242 /* CurrencySelectorViewModel.m */; settings = {ASSET_TAGS = (); }; };
 		7F6339C21C34F99F00734B5D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F6339C11C34F99F00734B5D /* Main.storyboard */; };
 		7FA6E71C1C350F770071A00D /* PPCurrencyOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E71B1C350F770071A00D /* PPCurrencyOverlayViewController.m */; settings = {ASSET_TAGS = (); }; };
 		7FA6E71F1C3523230071A00D /* NSString+Unichar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E71E1C3523230071A00D /* NSString+Unichar.m */; settings = {ASSET_TAGS = (); }; };
@@ -83,6 +84,8 @@
 		7F56232B1C37E8790021C242 /* CurrencyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyCell.m; sourceTree = "<group>"; };
 		7F56232D1C37EB880021C242 /* Currency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Currency.h; sourceTree = "<group>"; };
 		7F56232E1C37EB880021C242 /* Currency.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Currency.m; sourceTree = "<group>"; };
+		7F5623301C37F7DD0021C242 /* CurrencySelectorViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencySelectorViewModel.h; sourceTree = "<group>"; };
+		7F5623311C37F7DD0021C242 /* CurrencySelectorViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencySelectorViewModel.m; sourceTree = "<group>"; };
 		7F6339C11C34F99F00734B5D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		7FA6E71A1C350F770071A00D /* PPCurrencyOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCurrencyOverlayViewController.h; sourceTree = "<group>"; };
 		7FA6E71B1C350F770071A00D /* PPCurrencyOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCurrencyOverlayViewController.m; sourceTree = "<group>"; };
@@ -266,6 +269,8 @@
 			children = (
 				7FD45BCD1C365338004219CB /* CurrencyOverviewViewModel.h */,
 				7FD45BCE1C365338004219CB /* CurrencyOverviewViewModel.m */,
+				7F5623301C37F7DD0021C242 /* CurrencySelectorViewModel.h */,
+				7F5623311C37F7DD0021C242 /* CurrencySelectorViewModel.m */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -551,6 +556,7 @@
 				7FD45BE71C36CB22004219CB /* PFCloud+Cache.m in Sources */,
 				7FA6E7221C354AD80071A00D /* PPOcrPrice.m in Sources */,
 				7FD45BF21C37A0BB004219CB /* NSString+JSON.m in Sources */,
+				7F5623321C37F7DD0021C242 /* CurrencySelectorViewModel.m in Sources */,
 				7FD45BEA1C36D088004219CB /* ViewModelServices.m in Sources */,
 				7F56232C1C37E87A0021C242 /* CurrencyCell.m in Sources */,
 				7FA6E7271C3554EE0071A00D /* PPOcrLine+Price.m in Sources */,
