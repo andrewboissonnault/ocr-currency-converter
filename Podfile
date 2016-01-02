@@ -10,6 +10,7 @@ pod 'Parse'
 pod 'TMCache'
 pod 'NSData+MD5Digest'
 pod 'VENCalculatorInputView'
+pod 'TCTableViewSearchController'
 
 
 target :'CurrencyOCRTests' do

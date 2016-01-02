@@ -52,7 +52,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="344" y="364"/>
+            <point key="canvasLocation" x="361" y="392"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="ub4-hu-N0t">
@@ -86,10 +86,22 @@
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eKo-Lh-7m7">
                                         <rect key="frame" x="8" y="8" width="211" height="140.5"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F1z-8V-RME">
+                                                <rect key="frame" x="0.0" y="0.0" width="211" height="140.5"/>
+                                                <connections>
+                                                    <action selector="baseCurrencyButtonPressed:" destination="LXp-Gf-TCI" eventType="touchUpInside" id="gXa-7Q-yeB"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstItem="F1z-8V-RME" firstAttribute="top" secondItem="eKo-Lh-7m7" secondAttribute="top" id="0Us-xZ-drK"/>
                                             <constraint firstAttribute="height" constant="125" id="0vc-jW-abO"/>
+                                            <constraint firstAttribute="trailing" secondItem="F1z-8V-RME" secondAttribute="trailing" id="5DU-58-kCT"/>
                                             <constraint firstAttribute="width" secondItem="eKo-Lh-7m7" secondAttribute="height" multiplier="1.5:1" id="Des-bA-QwJ"/>
+                                            <constraint firstItem="F1z-8V-RME" firstAttribute="leading" secondItem="eKo-Lh-7m7" secondAttribute="leading" id="SqK-gZ-FVS"/>
+                                            <constraint firstAttribute="bottom" secondItem="F1z-8V-RME" secondAttribute="bottom" id="TOE-AA-gfo"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="uUb-hP-39s"/>
                                         </constraints>
                                         <variation key="default">
@@ -177,11 +189,80 @@
                         <outlet property="baseCurrencyTextField" destination="zXS-Sr-EXG" id="Yve-7i-ZYE"/>
                         <outlet property="otherCurrencyLabel" destination="Lva-Pb-t2e" id="gJ8-Gx-PuN"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" id="Tew-97-fwf"/>
+                        <segue destination="oe0-kh-4Pb" kind="popoverPresentation" identifier="selectBaseCurrencySegue" popoverAnchorView="eKo-Lh-7m7" id="Q69-Bd-e47">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5kj-MT-J6K" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="361" y="-464"/>
+        </scene>
+        <!--Currency Selector View Controller-->
+        <scene sceneID="74P-mv-efb">
+            <objects>
+                <tableViewController id="oe0-kh-4Pb" customClass="CurrencySelectorViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="F7c-S5-w6e">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CurrencyCellIdentifier" rowHeight="100" id="tPk-wd-TKL" customClass="CurrencyCell">
+                                <rect key="frame" x="0.0" y="28" width="600" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tPk-wd-TKL" id="fFZ-vU-JVF">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N9n-Ks-BDM">
+                                            <rect key="frame" x="8" y="8" width="125" height="83.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="N9n-Ks-BDM" secondAttribute="height" multiplier="1.5:1" id="QLV-gb-5uB"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHO-2v-n83">
+                                            <rect key="frame" x="499" y="39" width="93" height="20.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="93" id="X0W-pV-mzR"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nxd-T4-PKS">
+                                            <rect key="frame" x="141" y="40" width="299" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Nxd-T4-PKS" firstAttribute="leading" secondItem="N9n-Ks-BDM" secondAttribute="trailing" constant="8" id="3F0-qf-kwP"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="N9n-Ks-BDM" secondAttribute="bottom" id="5b7-Yw-mNZ"/>
+                                        <constraint firstItem="N9n-Ks-BDM" firstAttribute="leading" secondItem="fFZ-vU-JVF" secondAttribute="leadingMargin" id="PaF-ei-shh"/>
+                                        <constraint firstItem="Nxd-T4-PKS" firstAttribute="centerY" secondItem="fFZ-vU-JVF" secondAttribute="centerY" id="QLZ-Mz-dyU"/>
+                                        <constraint firstAttribute="topMargin" secondItem="N9n-Ks-BDM" secondAttribute="top" id="X8p-ZO-XY5"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="iHO-2v-n83" secondAttribute="trailing" id="d9Z-4L-iq7"/>
+                                        <constraint firstItem="iHO-2v-n83" firstAttribute="centerY" secondItem="fFZ-vU-JVF" secondAttribute="centerY" id="fFh-qU-QB5"/>
+                                        <constraint firstItem="iHO-2v-n83" firstAttribute="leading" secondItem="Nxd-T4-PKS" secondAttribute="trailing" constant="59" id="tGl-Hr-vxM"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="currencyCodeLabel" destination="iHO-2v-n83" id="s70-TZ-MXY"/>
+                                    <outlet property="currencyNameLabel" destination="Nxd-T4-PKS" id="xUa-ot-ytx"/>
+                                    <outlet property="flagImageView" destination="N9n-Ks-BDM" id="9Gs-YC-xZP"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="oe0-kh-4Pb" id="JPx-cS-VT6"/>
+                            <outlet property="delegate" destination="oe0-kh-4Pb" id="pYW-Uw-qrD"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QIm-kk-S1a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1055" y="-464"/>
         </scene>
     </scenes>
     <resources>

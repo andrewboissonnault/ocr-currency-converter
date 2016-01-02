@@ -10,6 +10,8 @@
 #import "VENCalculatorInputView.h"
 #import "VENCalculatorInputTextField.h"
 
+static NSString* const kSelectBaseCurrencySegue = @"selectBaseCurrencySegue";
+
 @interface HomeViewController () <VENCalculatorInputViewDelegate>
 
 @property (weak, nonatomic) IBOutlet VENCalculatorInputTextField *baseCurrencyTextField;
@@ -30,6 +32,10 @@
 -(void)setupTextField
 {
     [self.baseCurrencyTextField becomeFirstResponder];
+}
+
+- (IBAction)baseCurrencyButtonPressed:(id)sender {
+    [self performSegueWithIdentifier:kSelectBaseCurrencySegue sender:nil];
 }
 
 @end

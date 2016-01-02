@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "CurrencyRates.h"
+#import "Currency.h"
 
 static NSString* const kParseApplicationId = @"Cj1hlaclLTVPJthSfB6cbgDNCL94TSClTEdDfC8p";
 static NSString* const kParseClientKey = @"fn8t6NTHaoCZ7UwIqb3cVacdfdlMauftY7S3fUmJ";
@@ -29,6 +30,7 @@ static NSString* const kParseClientKey = @"fn8t6NTHaoCZ7UwIqb3cVacdfdlMauftY7S3f
     [Parse setApplicationId:kParseApplicationId
                   clientKey:kParseClientKey];
     [CurrencyRates registerSubclass];
+    [Currency registerSubclass];
 }
 
 @end
