@@ -6,18 +6,18 @@
 //  Copyright (c) 2015 MicroBlink. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "ScanViewController.h"
 
 #import <MicroBlink/MicroBlink.h>
 #import "PPCurrencyOverlayViewController.h"
 
-@interface ViewController () <PPScanDelegate>
+@interface ScanViewController () <PPScanDelegate>
 
 @property (nonatomic, strong) NSString* priceParserId;
 
 @end
 
-@implementation ViewController
+@implementation ScanViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
