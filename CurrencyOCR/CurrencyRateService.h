@@ -11,10 +11,13 @@
 
 @interface CurrencyRateService : NSObject
 
+@property (nonatomic, readonly) NSArray* currencies;
 @property (readonly) NSString* baseCurrency;
 @property (readonly) NSString* otherCurrency;
 @property (readonly) double conversionRate;
 
 -(instancetype)initWithBaseCurrency:(NSString*)baseCurrency otherCurrency:(NSString*)otherCurrency;
+
+-(void)refreshCurrencyData;
 
 @end

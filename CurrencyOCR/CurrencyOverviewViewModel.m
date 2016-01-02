@@ -37,6 +37,7 @@
 -(void)initialize
 {
     self.currencyRateService = [[CurrencyRateService alloc] initWithBaseCurrency:@"USD" otherCurrency:@"THB"];
+    [self.currencyRateService refreshCurrencyData];
     
     RACSignal *conversionRateSignal = RACObserve(self.currencyRateService, conversionRate);
     [conversionRateSignal subscribeNext:^(NSNumber* conversionRate) {

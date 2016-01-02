@@ -12,7 +12,7 @@
 
 @interface ParseCloudCode : NSObject
 
-+(void)requestCurrencyRates:(PFObjectResultBlock)block;
-+(CurrencyRates*)requestCachedCurrencyRates;
++(void)requestCurrencyData:(PFIdResultBlock)block;
++(NSDictionary*)requestCachedCurrencyData;
 
 @end

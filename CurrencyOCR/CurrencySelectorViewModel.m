@@ -8,19 +8,25 @@
 
 #import "CurrencySelectorViewModel.h"
 #import "NSArray+Map.h"
+#import "CurrencyRateService.h"
 
 @interface CurrencySelectorViewModel ()
 
-@property NSMutableArray* currencies;
+@property (readonly) NSArray* currencies;
 @property NSArray* filteredCurrencies;
 @property (readonly) BOOL isSearchControllerActive;
+@property CurrencyRateService* currencyRateService;
 
 @end
 
 @implementation CurrencySelectorViewModel
 
-@synthesize currencies = _currencies;
 @synthesize filteredCurrencies = _filteredCurrencies;
+
+-(NSArray*)currencies
+{
+    return self.currencyRateService.currencies;
+}
 
 -(BOOL)isSearchControllerActive
 {
@@ -38,19 +44,8 @@
 
 -(void)initialize
 {
-    Currency* usd = [[Currency alloc] init];
-    usd.code = @"USD";
-    usd.name = @"United States Dollar";
-    
-    Currency* eur = [[Currency alloc] init];
-    eur.code = @"EUR";
-    eur.name = @"Euro";
-    
-    Currency* thb = [[Currency alloc] init];
-    thb.code = @"THB";
-    thb.name = @"Thai Baht";
-    
-    self.currencies = [@[usd, eur, thb] mutableCopy];
+    self.currencyRateService = [[CurrencyRateService alloc] initWithBaseCurrency:@"USD" otherCurrency:@"THB"];
+    [self.currencyRateService refreshCurrencyData];
 }
 
 -(NSInteger)numberOfSections

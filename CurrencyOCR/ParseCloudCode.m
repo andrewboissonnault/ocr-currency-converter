@@ -13,16 +13,15 @@ static NSString* const kRequestCurrencyRatesAPI = @"requestCurrencyRates";
 
 @implementation ParseCloudCode
 
-+(void)requestCurrencyRates:(PFObjectResultBlock)block
++(void)requestCurrencyData:(PFIdResultBlock)block
 {
     [PFCloud callFunctionInBackground:kRequestCurrencyRatesAPI withParameters:@{} cachePolicy:kPFCachePolicyNetworkElseCache block:block];
 }
 
-+(CurrencyRates*)requestCachedCurrencyRates
++(CurrencyRates*)requestCachedCurrencyData
 {
     return [PFCloud fetchFromCache:kRequestCurrencyRatesAPI params:@{}];
 }
-
 
 
 @end

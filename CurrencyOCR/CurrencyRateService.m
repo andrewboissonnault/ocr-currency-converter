@@ -13,6 +13,7 @@
 
 @interface CurrencyRateService ()
 
+@property (nonatomic) NSArray* currencies;
 @property (nonatomic)  CurrencyRates* rates;
 
 @property NSString* baseCurrency;
@@ -23,14 +24,24 @@
 @implementation CurrencyRateService
 
 @synthesize rates = _rates;
+@synthesize currencies = _currencies;
 
 -(CurrencyRates*)rates
 {
     if(!_rates)
     {
-        _rates = [ParseCloudCode requestCachedCurrencyRates];
+        _rates = [ParseCloudCode requestCachedCurrencyData][@"currencyRates"];
     }
     return _rates;
+}
+
+-(NSArray*)currencies
+{
+    if(!_currencies)
+    {
+        _currencies = [ParseCloudCode requestCachedCurrencyData][@"currencies"];
+    }
+    return _currencies;
 }
 
 -(double)conversionRate
@@ -47,24 +58,25 @@
     return self;
 }
 
--(void)refreshCurrencyRates
+-(void)refreshCurrencyData
 {
-    if([self shouldFetchNewCurrencyRates])
+    if([self shouldFetchNewCurrencyData])
     {
-        [self fetchCurrencyRates];
+        [self fetchCurrencyData];
     }
 }
 
--(BOOL)shouldFetchNewCurrencyRates
+-(BOOL)shouldFetchNewCurrencyData
 {
     NSDate* createdAt = self.rates.createdAt;
     return !createdAt || [createdAt hoursSince] > 1;
 }
 
--(void)fetchCurrencyRates
+-(void)fetchCurrencyData
 {
-    [ParseCloudCode requestCurrencyRates:^(PFObject* _Nullable object, NSError * _Nullable error) {
-        self.rates = (CurrencyRates*)object;
+    [ParseCloudCode requestCurrencyData:^(id  _Nullable object, NSError * _Nullable error) {
+        self.rates = object[@"currencyRates"];
+        self.currencies = object[@"currencies"];
     }];
 }
 
