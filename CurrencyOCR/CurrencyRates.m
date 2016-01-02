@@ -20,20 +20,21 @@ static NSString* const kCurrencyRatesClassName = @"CurrencyData";
     return kCurrencyRatesClassName;
 }
 
--(double)rateWithBaseCurrency:(NSString*)baseCurrency otherCurrency:(NSString*)otherCurrency
+-(double)rateWithBaseCurrency:(Currency*)baseCurrency otherCurrency:(Currency*)otherCurrency
 {
-    if([self.baseCurrency isEqualToString:baseCurrency])
+    
+    if([self.baseCurrency isEqualToString:baseCurrency.code])
     {
-        return [self.rates[otherCurrency] doubleValue];
+        return [self.rates[otherCurrency.code] doubleValue];
     }
-    else if([self.baseCurrency isEqualToString:otherCurrency])
+    else if([self.baseCurrency isEqualToString:otherCurrency.code])
     {
-        return 1 / [self.rates[baseCurrency] doubleValue];
+        return 1 / [self.rates[baseCurrency.code] doubleValue];
     }
     else
     {
-        double referenceCurrencyAmount = [self.rates[otherCurrency] doubleValue];
-        return referenceCurrencyAmount *  (1 / [self.rates[baseCurrency] doubleValue]);
+        double referenceCurrencyAmount = [self.rates[otherCurrency.code] doubleValue];
+        return referenceCurrencyAmount *  (1 / [self.rates[baseCurrency.code] doubleValue]);
     }
 }
 

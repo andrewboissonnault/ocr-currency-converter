@@ -10,14 +10,18 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "NSArray+Map.h"
 #import "PPOcrPrice.h"
-#import "CurrencyRateService.h"
+#import "CurrencyService.h"
+#import "Currency.h"
 
 @interface CurrencyOverviewViewModel ()
 
 @property NSArray* prices;
 @property PPOcrLayout* priceLayout;
 @property NSArray* filteredPrices;
-@property CurrencyRateService* currencyRateService;
+@property CurrencyService* currencyRateService;
+
+@property Currency* baseCurrency;
+@property Currency* otherCurrency;
 
 @end
 
@@ -36,10 +40,10 @@
 
 -(void)initialize
 {
-    self.currencyRateService = [[CurrencyRateService alloc] initWithBaseCurrency:@"USD" otherCurrency:@"THB"];
+    self.currencyRateService = [[CurrencyService alloc] init];
     [self.currencyRateService refreshCurrencyData];
     
-    RACSignal *conversionRateSignal = RACObserve(self.currencyRateService, conversionRate);
+    RACSignal *conversionRateSignal = RACObserve(self.currencyRateService, rates);
     [conversionRateSignal subscribeNext:^(NSNumber* conversionRate) {
         [self updateConvertedPrices];
     }];
@@ -63,7 +67,8 @@
 -(void)updateConvertedPrices
 {
     self.prices = [self.filteredPrices mapObjectsUsingBlock:^id(PPOcrPrice* price, NSUInteger idx) {
-        return [price priceWithConversionFactor:self.currencyRateService.conversionRate];
+        double conversionRate = [self.currencyRateService.rates rateWithBaseCurrency:self.baseCurrency otherCurrency:self.otherCurrency];
+        return [price priceWithConversionFactor:conversionRate];
     }];
 }
 

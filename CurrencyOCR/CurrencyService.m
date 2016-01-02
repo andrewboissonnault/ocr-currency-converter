@@ -6,22 +6,22 @@
 //  Copyright © 2016 Andrew Boissonnault. All rights reserved.
 //
 
-#import "CurrencyRateService.h"
+#import "CurrencyService.h"
 #import "ParseCloudCode.h"
 #import "CurrencyRates.h"
 #import "NSDate+Hours.h"
 
-@interface CurrencyRateService ()
+static NSString* const kCurrencyRatesKey = @"currencyRates";
+static NSString* const kCurrenciesKey = @"currencies";
+
+@interface CurrencyService ()
 
 @property (nonatomic) NSArray* currencies;
 @property (nonatomic)  CurrencyRates* rates;
 
-@property NSString* baseCurrency;
-@property NSString* otherCurrency;
-
 @end
 
-@implementation CurrencyRateService
+@implementation CurrencyService
 
 @synthesize rates = _rates;
 @synthesize currencies = _currencies;
@@ -30,7 +30,7 @@
 {
     if(!_rates)
     {
-        _rates = [ParseCloudCode requestCachedCurrencyData][@"currencyRates"];
+        _rates = [ParseCloudCode requestCachedCurrencyData][kCurrencyRatesKey];
     }
     return _rates;
 }
@@ -39,23 +39,9 @@
 {
     if(!_currencies)
     {
-        _currencies = [ParseCloudCode requestCachedCurrencyData][@"currencies"];
+        _currencies = [ParseCloudCode requestCachedCurrencyData][kCurrenciesKey];
     }
     return _currencies;
-}
-
--(double)conversionRate
-{
-    double rate = [self.rates rateWithBaseCurrency:self.baseCurrency otherCurrency:self.otherCurrency];
-    return rate;
-}
-
--(instancetype)initWithBaseCurrency:(NSString*)baseCurrency otherCurrency:(NSString*)otherCurrency
-{
-    self = [super init];
-    self.baseCurrency = baseCurrency;
-    self.otherCurrency = otherCurrency;
-    return self;
 }
 
 -(void)refreshCurrencyData
@@ -75,8 +61,8 @@
 -(void)fetchCurrencyData
 {
     [ParseCloudCode requestCurrencyData:^(id  _Nullable object, NSError * _Nullable error) {
-        self.rates = object[@"currencyRates"];
-        self.currencies = object[@"currencies"];
+        self.rates = object[kCurrencyRatesKey];
+        self.currencies = object[kCurrenciesKey];
     }];
 }
 

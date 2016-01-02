@@ -979,12 +979,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/CurrencyOverviewViewModel.m"
-            timestampString = "473445239.815046"
+            timestampString = "473450960.940965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "-updateFilteredPrices"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "-updateConvertedPrices"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1219,11 +1219,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/CurrencyOverviewViewModel.m"
-            timestampString = "473445239.815046"
+            timestampString = "473450960.940965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "-initialize"
             landmarkType = "5">
          </BreakpointContent>
@@ -1235,11 +1235,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/CurrencyRates.m"
-            timestampString = "473408494.957277"
+            timestampString = "473450960.940965"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "-rateWithBaseCurrency:otherCurrency:"
             landmarkType = "5">
          </BreakpointContent>
@@ -1464,6 +1464,54 @@
             endingLineNumber = "65"
             landmarkName = "-numberOfRowsForSection:"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CurrencyOCR/PPOcrChar+String.m"
+            timestampString = "473450960.940965"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "+textFrameFromOcrCharacters:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "+[PPOcrChar(String) textFrameFromOcrCharacters:]"
+                  moduleName = "CurrencyOCR"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewboissonnault/SoftwareProjects/CurrencyOCRApp/CurrencyOCR/CurrencyOCR/PPOcrChar+String.m"
+                  timestampString = "473451152.610578"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "306">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "+[PPOcrChar(String) textFrameFromOcrCharacters:]"
+                  moduleName = "CurrencyOCRTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/andrewboissonnault/SoftwareProjects/CurrencyOCRApp/CurrencyOCR/CurrencyOCR/PPOcrChar+String.m"
+                  timestampString = "473451153.603208"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "306">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

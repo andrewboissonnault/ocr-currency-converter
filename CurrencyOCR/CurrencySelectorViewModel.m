@@ -8,14 +8,14 @@
 
 #import "CurrencySelectorViewModel.h"
 #import "NSArray+Map.h"
-#import "CurrencyRateService.h"
+#import "CurrencyService.h"
 
 @interface CurrencySelectorViewModel ()
 
 @property (readonly) NSArray* currencies;
 @property NSArray* filteredCurrencies;
 @property (readonly) BOOL isSearchControllerActive;
-@property CurrencyRateService* currencyRateService;
+@property CurrencyService* currencyRateService;
 
 @end
 
@@ -44,7 +44,7 @@
 
 -(void)initialize
 {
-    self.currencyRateService = [[CurrencyRateService alloc] initWithBaseCurrency:@"USD" otherCurrency:@"THB"];
+    self.currencyRateService = [[CurrencyService alloc] init];
     [self.currencyRateService refreshCurrencyData];
 }
 

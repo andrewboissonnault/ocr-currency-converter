@@ -7,12 +7,13 @@
 //
 
 #import <Parse/Parse.h>
+#import "Currency.h"
 
 @interface CurrencyRates : PFObject <PFSubclassing>
 
 @property (strong, nonatomic) NSString* baseCurrency;
 @property (strong, nonatomic) NSDictionary* rates;
 
--(double)rateWithBaseCurrency:(NSString*)baseCurrency otherCurrency:(NSString*)otherCurrency;
+-(double)rateWithBaseCurrency:(Currency*)baseCurrency otherCurrency:(Currency*)otherCurrency;
 
 @end

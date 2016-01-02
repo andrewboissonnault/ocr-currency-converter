@@ -9,14 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "CurrencyRates.h"
 
-@interface CurrencyRateService : NSObject
+@interface CurrencyService : NSObject
 
 @property (nonatomic, readonly) NSArray* currencies;
+@property (nonatomic, readonly)  CurrencyRates* rates;
 @property (readonly) NSString* baseCurrency;
 @property (readonly) NSString* otherCurrency;
-@property (readonly) double conversionRate;
-
--(instancetype)initWithBaseCurrency:(NSString*)baseCurrency otherCurrency:(NSString*)otherCurrency;
 
 -(void)refreshCurrencyData;
 

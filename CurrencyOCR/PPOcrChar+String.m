@@ -24,8 +24,9 @@
     CGPoint origin = firstCharacter.position.ul;
     CGPoint lowerRight = lastCharacter.position.lr;
     
-    CGFloat width = fabsf(lowerRight.x - origin.x);
-    CGFloat height = fabsf(lowerRight.y - origin.y);
+    
+    CGFloat width = fabs(lowerRight.x - origin.x);
+    CGFloat height = fabs(lowerRight.y - origin.y);
     CGRect frame = CGRectMake(origin.x, origin.y, width, height);
     return frame;
 }

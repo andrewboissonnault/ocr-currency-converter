@@ -15,6 +15,7 @@
 #import "OCHamcrest.h"
 
 #import "CurrencyRates.h"
+#import "Currency.h"
 
 static NSString* const kUSDKey = @"USD";
 static NSString* const kTHBKey = @"THB";
@@ -26,8 +27,24 @@ SpecBegin(CurrencyRates)
 
 describe(@"CurrencyRates", ^{
     __block CurrencyRates *currencyRates;
+    __block Currency* usdCurrency;
+    __block Currency* thbCurrency;
+    __block Currency* eurCurrency;
+    __block Currency* gbpCurrency;
     
     before(^{
+        usdCurrency = [Currency new];
+        usdCurrency.code = kUSDKey;
+        
+        thbCurrency = [Currency new];
+        thbCurrency.code = kTHBKey;
+        
+        eurCurrency = [Currency new];
+        eurCurrency.code = kEURKey;
+        
+        gbpCurrency = [Currency new];
+        gbpCurrency.code = kGBPKey;
+        
         currencyRates = [[CurrencyRates alloc] init];
         currencyRates.baseCurrency = kUSDKey;
         
@@ -36,28 +53,28 @@ describe(@"CurrencyRates", ^{
     
     it(@"testUSDToTHB", ^{
         double expectedRate = 36.03;
-        double testedRate = [currencyRates rateWithBaseCurrency:kUSDKey otherCurrency:kTHBKey];
+        double testedRate = [currencyRates rateWithBaseCurrency:usdCurrency otherCurrency:thbCurrency];
         
         expect(testedRate).to.equal(expectedRate);
     });
     
     it(@"testUSDToEUR", ^{
         double expectedRate = .92;
-        double testedRate = [currencyRates rateWithBaseCurrency:kUSDKey otherCurrency:kEURKey];
+        double testedRate = [currencyRates rateWithBaseCurrency:usdCurrency otherCurrency:eurCurrency];
         
         expect(testedRate).to.equal(expectedRate);
     });
     
     it(@"testEURtoUSD", ^{
         double expectedRate = 1 / .92;
-        double testedRate = [currencyRates rateWithBaseCurrency:kEURKey otherCurrency:kUSDKey];
+        double testedRate = [currencyRates rateWithBaseCurrency:eurCurrency otherCurrency:usdCurrency];
         
         expect(testedRate).to.equal(expectedRate);
     });
     
     it(@"testGBPtoTHB", ^{
         double expectedRate = (1 / .67) * 36.03;
-        double testedRate = [currencyRates rateWithBaseCurrency:kGBPKey otherCurrency:kTHBKey];
+        double testedRate = [currencyRates rateWithBaseCurrency:gbpCurrency otherCurrency:thbCurrency];
         
         expect(testedRate).to.equal(expectedRate);
     });

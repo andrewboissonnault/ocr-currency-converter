@@ -20,13 +20,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UdE-W6-cGr">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UdE-W6-cGr">
+                                <rect key="frame" x="40" y="262" width="520" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="24H-Ak-qVL">
-                                <rect key="frame" x="206" y="330" width="189" height="48"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="24H-Ak-qVL">
+                                <rect key="frame" x="204.5" y="174" width="192" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <state key="normal" title="Start scanning">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -188,7 +189,7 @@
                     <connections>
                         <outlet property="baseCurrencyTextField" destination="zXS-Sr-EXG" id="Yve-7i-ZYE"/>
                         <outlet property="otherCurrencyLabel" destination="Lva-Pb-t2e" id="gJ8-Gx-PuN"/>
-                        <segue destination="BYZ-38-t0r" kind="presentation" id="Tew-97-fwf"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="showScanView" id="Tew-97-fwf"/>
                         <segue destination="oe0-kh-4Pb" kind="popoverPresentation" identifier="selectBaseCurrencySegue" popoverAnchorView="eKo-Lh-7m7" id="Q69-Bd-e47">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>

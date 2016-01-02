@@ -7,11 +7,11 @@
 //
 
 #import "ViewModelServices.h"
-#import "CurrencyRateService.h"
+#import "CurrencyService.h"
 
 @interface ViewModelServices ()
 
-@property (strong, nonatomic) CurrencyRateService *currencyRateService;
+@property (strong, nonatomic) CurrencyService *currencyRateService;
 
 @end
 
@@ -19,12 +19,12 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        _currencyRateService = [CurrencyRateService new];
+        _currencyRateService = [CurrencyService new];
     }
     return self;
 }
 
-- (CurrencyRateService*)getCurrencyRateService {
+- (CurrencyService*)getCurrencyRateService {
     return self.currencyRateService;
 }
 

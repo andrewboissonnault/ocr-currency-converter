@@ -34,7 +34,7 @@
 		7FD45BCC1C364DCE004219CB /* PPOcrChar+Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BCB1C364DCE004219CB /* PPOcrChar+Filter.m */; settings = {ASSET_TAGS = (); }; };
 		7FD45BCF1C365338004219CB /* CurrencyOverviewViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BCE1C365338004219CB /* CurrencyOverviewViewModel.m */; settings = {ASSET_TAGS = (); }; };
 		7FD45BD21C36653A004219CB /* PPOcrChar+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BD11C36653A004219CB /* PPOcrChar+String.m */; settings = {ASSET_TAGS = (); }; };
-		7FD45BDB1C36B5C8004219CB /* CurrencyRateService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BDA1C36B5C8004219CB /* CurrencyRateService.m */; settings = {ASSET_TAGS = (); }; };
+		7FD45BDB1C36B5C8004219CB /* CurrencyService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BDA1C36B5C8004219CB /* CurrencyService.m */; settings = {ASSET_TAGS = (); }; };
 		7FD45BDE1C36B749004219CB /* ParseCloudCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BDD1C36B749004219CB /* ParseCloudCode.m */; settings = {ASSET_TAGS = (); }; };
 		7FD45BE11C36B9A2004219CB /* CurrencyRates.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BE01C36B9A2004219CB /* CurrencyRates.m */; settings = {ASSET_TAGS = (); }; };
 		7FD45BE41C36C577004219CB /* NSDate+Hours.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BE31C36C577004219CB /* NSDate+Hours.m */; settings = {ASSET_TAGS = (); }; };
@@ -105,8 +105,8 @@
 		7FD45BCE1C365338004219CB /* CurrencyOverviewViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyOverviewViewModel.m; sourceTree = "<group>"; };
 		7FD45BD01C36653A004219CB /* PPOcrChar+String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PPOcrChar+String.h"; sourceTree = "<group>"; };
 		7FD45BD11C36653A004219CB /* PPOcrChar+String.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PPOcrChar+String.m"; sourceTree = "<group>"; };
-		7FD45BD91C36B5C8004219CB /* CurrencyRateService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyRateService.h; sourceTree = "<group>"; };
-		7FD45BDA1C36B5C8004219CB /* CurrencyRateService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyRateService.m; sourceTree = "<group>"; };
+		7FD45BD91C36B5C8004219CB /* CurrencyService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyService.h; sourceTree = "<group>"; };
+		7FD45BDA1C36B5C8004219CB /* CurrencyService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyService.m; sourceTree = "<group>"; };
 		7FD45BDC1C36B749004219CB /* ParseCloudCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParseCloudCode.h; sourceTree = "<group>"; };
 		7FD45BDD1C36B749004219CB /* ParseCloudCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParseCloudCode.m; sourceTree = "<group>"; };
 		7FD45BDF1C36B9A2004219CB /* CurrencyRates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyRates.h; sourceTree = "<group>"; };
@@ -256,8 +256,8 @@
 				7F56232E1C37EB880021C242 /* Currency.m */,
 				7FD45BDF1C36B9A2004219CB /* CurrencyRates.h */,
 				7FD45BE01C36B9A2004219CB /* CurrencyRates.m */,
-				7FD45BD91C36B5C8004219CB /* CurrencyRateService.h */,
-				7FD45BDA1C36B5C8004219CB /* CurrencyRateService.m */,
+				7FD45BD91C36B5C8004219CB /* CurrencyService.h */,
+				7FD45BDA1C36B5C8004219CB /* CurrencyService.m */,
 				7FD45BDC1C36B749004219CB /* ParseCloudCode.h */,
 				7FD45BDD1C36B749004219CB /* ParseCloudCode.m */,
 			);
@@ -538,7 +538,7 @@
 			files = (
 				7FD45BE11C36B9A2004219CB /* CurrencyRates.m in Sources */,
 				7FA6E71F1C3523230071A00D /* NSString+Unichar.m in Sources */,
-				7FD45BDB1C36B5C8004219CB /* CurrencyRateService.m in Sources */,
+				7FD45BDB1C36B5C8004219CB /* CurrencyService.m in Sources */,
 				7FD45BD21C36653A004219CB /* PPOcrChar+String.m in Sources */,
 				7F56232F1C37EB880021C242 /* Currency.m in Sources */,
 				7FD45BE41C36C577004219CB /* NSDate+Hours.m in Sources */,
