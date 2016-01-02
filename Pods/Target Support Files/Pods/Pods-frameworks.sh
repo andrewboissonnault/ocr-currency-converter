@@ -91,6 +91,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/ReactiveCocoa.framework"
   install_framework "Pods/ReactiveViewModel.framework"
   install_framework "Pods/TMCache.framework"
+  install_framework "Pods/VENCalculatorInputView.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/Bolts.framework"
@@ -100,4 +101,5 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/ReactiveCocoa.framework"
   install_framework "Pods/ReactiveViewModel.framework"
   install_framework "Pods/TMCache.framework"
+  install_framework "Pods/VENCalculatorInputView.framework"
 fi

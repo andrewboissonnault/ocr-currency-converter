@@ -9,6 +9,8 @@ pod 'PureLayout'
 pod 'Parse'
 pod 'TMCache'
 pod 'NSData+MD5Digest'
+pod 'VENCalculatorInputView'
+
 
 target :'CurrencyOCRTests' do
     pod 'Specta'

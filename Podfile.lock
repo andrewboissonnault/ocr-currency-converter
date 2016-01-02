@@ -20,6 +20,7 @@ PODS:
     - ReactiveCocoa (~> 2.4)
   - Specta (1.0.5)
   - TMCache (2.1.0)
+  - VENCalculatorInputView (1.5.4)
 
 DEPENDENCIES:
   - Expecta
@@ -32,6 +33,7 @@ DEPENDENCIES:
   - ReactiveViewModel (~> 0.3)
   - Specta
   - TMCache
+  - VENCalculatorInputView
 
 SPEC CHECKSUMS:
   Bolts: a12663244b1d3351c738882e71902fc74db54f64
@@ -46,5 +48,6 @@ SPEC CHECKSUMS:
   ReactiveViewModel: 58918dcbcec2d3151195ab1ed9163c57a8163999
   Specta: ac94d110b865115fe60ff2c6d7281053c6f8e8a2
   TMCache: 95ebcc9b3c7e90fb5fd8fc3036cba3aa781c9bed
+  VENCalculatorInputView: 988fa681ba6bb9b1f067842493bb622e80cc8da2
 
 COCOAPODS: 0.39.0

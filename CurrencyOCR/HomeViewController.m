@@ -7,9 +7,12 @@
 //
 
 #import "HomeViewController.h"
+#import "VENCalculatorInputView.h"
+#import "VENCalculatorInputTextField.h"
 
-@interface HomeViewController ()
+@interface HomeViewController () <VENCalculatorInputViewDelegate>
 
+@property (weak, nonatomic) IBOutlet VENCalculatorInputTextField *baseCurrencyTextField;
 @property (weak, nonatomic) IBOutlet UILabel *baseCurrencyLabel;
 @property (weak, nonatomic) IBOutlet UILabel *otherCurrencyLabel;
 
@@ -18,25 +21,15 @@
 
 @implementation HomeViewController
 
-- (IBAction)operatorPressed:(id)sender {
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    [self setupTextField];
 }
 
-- (IBAction)numberPressed:(id)sender {
-}
-
-- (IBAction)decimalPressed:(id)sender {
-}
-
-- (IBAction)equalPressed:(id)sender {
-}
-
-- (IBAction)clearPressed:(id)sender {
-}
-
-- (IBAction)backPressed:(id)sender {
-}
-
-- (IBAction)savePressed:(id)sender {
+-(void)setupTextField
+{
+    [self.baseCurrencyTextField becomeFirstResponder];
 }
 
 @end
