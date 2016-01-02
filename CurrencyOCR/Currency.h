@@ -10,7 +10,7 @@
 
 @interface Currency : PFObject <PFSubclassing>
 
-@property (strong, nonatomic) NSString* currencyName;
-@property (strong, nonatomic) NSString* currencyCode;
+@property (strong, nonatomic) NSString* name;
+@property (strong, nonatomic) NSString* code;
 
 @end

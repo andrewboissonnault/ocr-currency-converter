@@ -39,16 +39,16 @@
 -(void)initialize
 {
     Currency* usd = [[Currency alloc] init];
-    usd.currencyCode = @"USD";
-    usd.currencyName = @"United States Dollar";
+    usd.code = @"USD";
+    usd.name = @"United States Dollar";
     
     Currency* eur = [[Currency alloc] init];
-    eur.currencyCode = @"EUR";
-    eur.currencyName = @"Euro";
+    eur.code = @"EUR";
+    eur.name = @"Euro";
     
     Currency* thb = [[Currency alloc] init];
-    thb.currencyCode = @"THB";
-    thb.currencyName = @"Thai Baht";
+    thb.code = @"THB";
+    thb.name = @"Thai Baht";
     
     self.currencies = [@[usd, eur, thb] mutableCopy];
 }
@@ -99,8 +99,8 @@
         //TODO: Add better sorting.
         //TODO: Maybe add search by field.
         self.filteredCurrencies = [self.currencies filterUsingBlock:^BOOL(Currency* currency, NSDictionary *bindings) {
-            BOOL nameContainsString = [[currency.currencyName lowercaseString] containsString:searchText];
-            BOOL codeContainsString = [[currency.currencyCode lowercaseString] containsString:searchText];
+            BOOL nameContainsString = [[currency.name lowercaseString] containsString:searchText];
+            BOOL codeContainsString = [[currency.code lowercaseString] containsString:searchText];
             return nameContainsString || codeContainsString;
         }];
     }

@@ -12,8 +12,8 @@ static NSString* const kCurrencyClassName = @"Currency";
 
 @implementation Currency
 
-@dynamic currencyCode;
-@dynamic currencyName;
+@dynamic code;
+@dynamic name;
 
 +(NSString*)parseClassName
 {

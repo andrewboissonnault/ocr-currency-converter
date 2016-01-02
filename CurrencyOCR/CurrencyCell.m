@@ -27,8 +27,8 @@
 
 -(void)updateLabels
 {
-    self.currencyNameLabel.text = self.currency.currencyName;
-    self.currencyCodeLabel.text = self.currency.currencyCode;
+    self.currencyNameLabel.text = self.currency.name;
+    self.currencyCodeLabel.text = self.currency.code;
 }
 
 
