@@ -75,6 +75,11 @@ static NSString* const kSelectOtherCurrencySegue = @"selectOtherCurrencySegue";
         CurrencySelectorViewController* vc = segue.destinationViewController;
         vc.viewModel = self.viewModel.baseCurrencySelectorViewModel;
     }
+    if([[segue identifier] isEqualToString:kSelectOtherCurrencySegue])
+    {
+        CurrencySelectorViewController* vc = segue.destinationViewController;
+        vc.viewModel = self.viewModel.otherCurrencySelectorViewModel;
+    }
 }
 
 @end

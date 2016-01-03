@@ -128,10 +128,22 @@
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKn-pL-w9u" customClass="CurrencyView">
                                         <rect key="frame" x="381" y="8" width="211" height="140.5"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7wt-VZ-Uc9">
+                                                <rect key="frame" x="0.0" y="0.5" width="211" height="140.5"/>
+                                                <connections>
+                                                    <action selector="otherCurrencyButtonPressed:" destination="LXp-Gf-TCI" eventType="touchUpInside" id="xQh-fp-RCY"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="7wt-VZ-Uc9" secondAttribute="bottom" id="7Qx-sr-Tlk"/>
+                                            <constraint firstItem="7wt-VZ-Uc9" firstAttribute="top" secondItem="cKn-pL-w9u" secondAttribute="top" id="Haj-Ql-DSC"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="flC-ol-461"/>
                                             <constraint firstAttribute="width" secondItem="cKn-pL-w9u" secondAttribute="height" multiplier="1.5:1" id="lZk-3W-QPo"/>
+                                            <constraint firstItem="7wt-VZ-Uc9" firstAttribute="leading" secondItem="cKn-pL-w9u" secondAttribute="leading" id="nfn-Qr-Zf8"/>
+                                            <constraint firstAttribute="trailing" secondItem="7wt-VZ-Uc9" secondAttribute="trailing" id="zNn-eK-yHS"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">

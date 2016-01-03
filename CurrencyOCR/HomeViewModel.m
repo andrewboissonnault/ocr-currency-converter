@@ -53,12 +53,6 @@
 
 -(void)bindUserPreferencesService
 {
-//    RACChannelTerminal *modelTerminal = RACChannelTo(self.userPreferencesService, baseCurrency);
-//    RACChannelTerminal *viewTerminal = RACChannelTo(self, baseCurrency);
-//    
-//    [modelTerminal subscribe:viewTerminal];
-//    [viewTerminal subscribe:modelTerminal];
-    
     RAC(self, baseCurrency) = RACObserve(self.userPreferencesService, baseCurrency);
     [RACObserve(self.userPreferencesService, baseCurrency) subscribeNext:^(id baseCurrency) {
         self.baseCurrencyViewModel = [[CurrencyViewModel alloc] initWithCurrency:baseCurrency];
