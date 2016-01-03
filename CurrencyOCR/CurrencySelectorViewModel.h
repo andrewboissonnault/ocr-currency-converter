@@ -11,6 +11,7 @@
 
 @interface CurrencySelectorViewModel : NSObject
 
+@property (readonly) NSArray* currencies;
 @property (readonly) NSArray* filteredCurrencies;
 @property (readonly) NSArray* sectionIndexTitles;
 

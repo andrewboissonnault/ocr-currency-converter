@@ -208,31 +208,36 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CurrencyCellIdentifier" rowHeight="100" id="tPk-wd-TKL" customClass="CurrencyCell">
-                                <rect key="frame" x="0.0" y="28" width="600" height="100"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CurrencyCellIdentifier" rowHeight="70" id="tPk-wd-TKL" customClass="CurrencyCell">
+                                <rect key="frame" x="0.0" y="28" width="600" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tPk-wd-TKL" id="fFZ-vU-JVF">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="69.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N9n-Ks-BDM">
-                                            <rect key="frame" x="8" y="8" width="125" height="83.5"/>
+                                            <rect key="frame" x="8" y="8" width="71.5" height="53.5"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" secondItem="N9n-Ks-BDM" secondAttribute="height" multiplier="1.5:1" id="QLV-gb-5uB"/>
+                                                <constraint firstAttribute="width" secondItem="N9n-Ks-BDM" secondAttribute="height" multiplier="4:3" id="QLV-gb-5uB"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHO-2v-n83">
-                                            <rect key="frame" x="499" y="39" width="93" height="20.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHO-2v-n83">
+                                            <rect key="frame" x="561" y="26" width="31" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="93" id="X0W-pV-mzR"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="X0W-pV-mzR"/>
+                                                </mask>
+                                            </variation>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nxd-T4-PKS">
-                                            <rect key="frame" x="141" y="40" width="299" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nxd-T4-PKS">
+                                            <rect key="frame" x="87" y="26" width="466" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -243,10 +248,16 @@
                                         <constraint firstItem="N9n-Ks-BDM" firstAttribute="leading" secondItem="fFZ-vU-JVF" secondAttribute="leadingMargin" id="PaF-ei-shh"/>
                                         <constraint firstItem="Nxd-T4-PKS" firstAttribute="centerY" secondItem="fFZ-vU-JVF" secondAttribute="centerY" id="QLZ-Mz-dyU"/>
                                         <constraint firstAttribute="topMargin" secondItem="N9n-Ks-BDM" secondAttribute="top" id="X8p-ZO-XY5"/>
+                                        <constraint firstItem="iHO-2v-n83" firstAttribute="leading" secondItem="Nxd-T4-PKS" secondAttribute="trailing" constant="8" id="bpu-kN-hfi"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="iHO-2v-n83" secondAttribute="trailing" id="d9Z-4L-iq7"/>
                                         <constraint firstItem="iHO-2v-n83" firstAttribute="centerY" secondItem="fFZ-vU-JVF" secondAttribute="centerY" id="fFh-qU-QB5"/>
                                         <constraint firstItem="iHO-2v-n83" firstAttribute="leading" secondItem="Nxd-T4-PKS" secondAttribute="trailing" constant="59" id="tGl-Hr-vxM"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="tGl-Hr-vxM"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="currencyCodeLabel" destination="iHO-2v-n83" id="s70-TZ-MXY"/>

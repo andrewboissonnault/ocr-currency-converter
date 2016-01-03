@@ -53,6 +53,16 @@
 {
     self.viewModel = [[CurrencySelectorViewModel alloc] init];
     self.viewModel.searchController = self.searchController;
+    [self bindViewModel];
+}
+
+-(void)bindViewModel
+{
+    RACSignal *currenciesSignal = RACObserve(self.viewModel, currencies);
+    [currenciesSignal subscribeNext:^(NSArray* currencies) {
+                [self.tableView reloadData];
+            }];
+    
 }
 
 #pragma mark - UITableViewDelegate

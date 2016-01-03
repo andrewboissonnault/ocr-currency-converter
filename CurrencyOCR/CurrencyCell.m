@@ -29,8 +29,19 @@
 {
     self.currencyNameLabel.text = self.currency.name;
     self.currencyCodeLabel.text = self.currency.code;
+    self.flagImageView.image = [self imageWithCurrencyCode:self.currency.code];
 }
 
+-(UIImage*)imageWithCurrencyCode:(NSString*)currencyCode
+{
+    NSString* iconName = [self flagIconNameWithCurrencyCode:currencyCode];
+    return [UIImage imageNamed:iconName];
+}
 
+-(NSString*)flagIconNameWithCurrencyCode:(NSString*)currencyCode
+{
+    NSString* twoLetterCountryCode = [[currencyCode substringToIndex:2] lowercaseString];
+    return [twoLetterCountryCode stringByAppendingString:@".png"];
+}
 
 @end

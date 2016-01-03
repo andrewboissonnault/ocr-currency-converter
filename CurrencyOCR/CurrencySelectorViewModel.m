@@ -9,10 +9,10 @@
 #import "CurrencySelectorViewModel.h"
 #import "NSArray+Map.h"
 #import "CurrencyService.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface CurrencySelectorViewModel ()
 
-@property (readonly) NSArray* currencies;
 @property NSArray* filteredCurrencies;
 @property (readonly) BOOL isSearchControllerActive;
 @property CurrencyService* currencyRateService;
@@ -46,6 +46,11 @@
 {
     self.currencyRateService = [[CurrencyService alloc] init];
     [self.currencyRateService refreshCurrencyData];
+    
+    RACSignal *currenciesSignal = RACObserve(self.currencyRateService, currencies);
+//    [currenciesSignal subscribeNext:^(NSArray* currencies) {
+//        [self updateConvertedPrices];
+//    }];
 }
 
 -(NSInteger)numberOfSections
