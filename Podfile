@@ -11,6 +11,7 @@ pod 'ParseUI'
 pod 'TMCache'
 pod 'NSData+MD5Digest'
 pod 'VENCalculatorInputView'
+pod 'NSObject-NSCoding'
 
 
 target :'CurrencyOCRTests' do

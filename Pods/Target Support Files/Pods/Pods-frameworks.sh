@@ -86,6 +86,7 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/Bolts.framework"
   install_framework "Pods/NSData_MD5Digest.framework"
+  install_framework "Pods/NSObject_NSCoding.framework"
   install_framework "Pods/Parse.framework"
   install_framework "Pods/ParseUI.framework"
   install_framework "Pods/PureLayout.framework"
@@ -97,6 +98,7 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/Bolts.framework"
   install_framework "Pods/NSData_MD5Digest.framework"
+  install_framework "Pods/NSObject_NSCoding.framework"
   install_framework "Pods/Parse.framework"
   install_framework "Pods/ParseUI.framework"
   install_framework "Pods/PureLayout.framework"

@@ -7,7 +7,7 @@
 //
 
 #import "UserPreferencesService.h"
-#import "LocalStorage.h"
+#import <Archiver.h>
 
 static NSString* const kBaseCurrencyKey = @"baseCurrency";
 static NSString* const kOtherCurrencyKey = @"otherCurrency";
@@ -17,7 +17,7 @@ static NSString* const kDisplayAmountKey = @"displayAmount";
 
 -(Currency*)baseCurrency
 {
-    Currency* baseCurrency = [LocalStorage objectWithKey:kBaseCurrencyKey];
+    Currency* baseCurrency = [Archiver retrieve:kDisplayAmountKey];
     if(!baseCurrency)
     {
         baseCurrency = [Currency defaultBaseCurrency];
@@ -28,17 +28,12 @@ static NSString* const kDisplayAmountKey = @"displayAmount";
 
 -(void)setBaseCurrency:(Currency *)baseCurrency
 {
-    [LocalStorage saveObject:baseCurrency withKey:kBaseCurrencyKey];
-}
-
--(void)setOtherCurrency:(Currency *)otherCurrency
-{
-    [LocalStorage saveObject:otherCurrency withKey:kOtherCurrencyKey];
+    [Archiver persist:baseCurrency key:kBaseCurrencyKey];
 }
 
 -(Currency*)otherCurrency
 {
-    Currency* otherCurrency = [LocalStorage objectWithKey:kOtherCurrencyKey];
+    Currency* otherCurrency = [Archiver retrieve:kDisplayAmountKey];
     if(!otherCurrency)
     {
         otherCurrency = [Currency defaultOtherCurrency];
@@ -47,14 +42,19 @@ static NSString* const kDisplayAmountKey = @"displayAmount";
     return otherCurrency;
 }
 
--(void)setDisplayAmount:(NSNumber *)displayAmount
+-(void)setOtherCurrency:(Currency *)otherCurrency
 {
-    [LocalStorage saveObject:displayAmount withKey:kDisplayAmountKey];
+    [Archiver persist:otherCurrency key:kOtherCurrencyKey];
 }
 
 -(NSNumber*)displayAmount
 {
-    return [LocalStorage objectWithKey:kDisplayAmountKey];
+    return [Archiver retrieve:kDisplayAmountKey];
+}
+
+-(void)setDisplayAmount:(NSNumber *)displayAmount
+{
+    [Archiver persist:displayAmount key:kDisplayAmountKey];
 }
 
 @end

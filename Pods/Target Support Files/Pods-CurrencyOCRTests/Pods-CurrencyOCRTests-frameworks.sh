@@ -86,6 +86,7 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-CurrencyOCRTests/Bolts.framework"
   install_framework "Pods-CurrencyOCRTests/NSData_MD5Digest.framework"
+  install_framework "Pods-CurrencyOCRTests/NSObject_NSCoding.framework"
   install_framework "Pods-CurrencyOCRTests/Parse.framework"
   install_framework "Pods-CurrencyOCRTests/ParseUI.framework"
   install_framework "Pods-CurrencyOCRTests/PureLayout.framework"
@@ -101,6 +102,7 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-CurrencyOCRTests/Bolts.framework"
   install_framework "Pods-CurrencyOCRTests/NSData_MD5Digest.framework"
+  install_framework "Pods-CurrencyOCRTests/NSObject_NSCoding.framework"
   install_framework "Pods-CurrencyOCRTests/Parse.framework"
   install_framework "Pods-CurrencyOCRTests/ParseUI.framework"
   install_framework "Pods-CurrencyOCRTests/PureLayout.framework"

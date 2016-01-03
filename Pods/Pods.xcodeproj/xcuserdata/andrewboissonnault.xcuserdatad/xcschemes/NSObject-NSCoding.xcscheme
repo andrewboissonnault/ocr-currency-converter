@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '4152738791C436F015FA4A82'
-               BlueprintName = 'ParseUI'
+               BlueprintIdentifier = '38CAC4553E0DBA6A7CB08E8D'
+               BlueprintName = 'NSObject-NSCoding'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'ParseUI.framework'>
+               BuildableName = 'NSObject_NSCoding.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

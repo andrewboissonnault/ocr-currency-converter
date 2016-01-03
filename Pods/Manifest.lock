@@ -2,6 +2,7 @@ PODS:
   - Bolts/Tasks (1.5.1)
   - Expecta (1.0.5)
   - NSData+MD5Digest (1.0.0)
+  - NSObject-NSCoding (1.0)
   - OCHamcrest (5.1.0)
   - OCMockito (3.0.1):
     - OCHamcrest (~> 5.1)
@@ -28,6 +29,7 @@ PODS:
 DEPENDENCIES:
   - Expecta
   - NSData+MD5Digest
+  - NSObject-NSCoding
   - OCHamcrest
   - OCMockito
   - Parse
@@ -43,6 +45,7 @@ SPEC CHECKSUMS:
   Bolts: a12663244b1d3351c738882e71902fc74db54f64
   Expecta: e1c022fcd33910b6be89c291d2775b3fe27a89fe
   NSData+MD5Digest: 0743d53874455e2bdf49f70e7f815b0b963a355f
+  NSObject-NSCoding: d05f937cc1ea1560294be261ee41d5438ddc7b1b
   OCHamcrest: abcfbf4ebd75d5aadbcc729cff0cb648faf2d1b0
   OCMockito: 9eee3c61e42f7cb8aa015d66f8cc16849701d973
   Parse: 886af46a0a677402f6374bb97ac212e795f70afe
