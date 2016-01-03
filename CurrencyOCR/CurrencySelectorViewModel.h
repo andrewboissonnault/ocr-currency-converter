@@ -8,18 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import "Currency.h"
+#import "CurrencyCellViewModel.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface CurrencySelectorViewModel : NSObject
 
-@property (readonly) NSArray* currencies;
-@property (readonly) NSArray* filteredCurrencies;
+@property (readonly) RACSignal* reloadDataSignal;
 @property (readonly) NSArray* sectionIndexTitles;
-
--(NSInteger)numberOfSections;
+@property (readonly) NSInteger numberOfSections;
 -(NSInteger)numberOfRowsForSection:(NSInteger)section;
 -(NSString*)titleForHeaderInSection:(NSInteger)section;
 -(NSInteger)sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)sectionIndex;
--(Currency*)currencyForIndexPath:(NSIndexPath*)indexPath;
+-(CurrencyCellViewModel*)childViewModelForIndexPath:(NSIndexPath*)indexPath;
 
 @property UISearchController* searchController;
 -(void)searchForText:(NSString*)searchText;

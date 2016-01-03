@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'C6FC4EFAB24C8B452648CC43'
+               BlueprintIdentifier = 'B6EEC173073F3D3EED213A91'
                BlueprintName = 'Pods-CurrencyOCRTests'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods_CurrencyOCRTests.framework'>

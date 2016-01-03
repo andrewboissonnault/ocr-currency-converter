@@ -283,6 +283,12 @@
 		7F56254D1C38EEB50021C242 /* xc.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F5625491C38EEB50021C242 /* xc.png */; settings = {ASSET_TAGS = (); }; };
 		7F56254E1C38EEB50021C242 /* xo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F56254A1C38EEB50021C242 /* xo.png */; settings = {ASSET_TAGS = (); }; };
 		7F56254F1C38EEB50021C242 /* xp.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F56254B1C38EEB50021C242 /* xp.png */; settings = {ASSET_TAGS = (); }; };
+		7F5625521C38F5360021C242 /* CurrencyCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5625511C38F5360021C242 /* CurrencyCellViewModel.m */; settings = {ASSET_TAGS = (); }; };
+		7F5625601C3900950021C242 /* NSObject+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F56255B1C3900950021C242 /* NSObject+Properties.m */; settings = {ASSET_TAGS = (); }; };
+		7F5625611C3900950021C242 /* PFACL+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F56255C1C3900950021C242 /* PFACL+NSCoding.m */; settings = {ASSET_TAGS = (); }; };
+		7F5625621C3900950021C242 /* PFFile+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F56255D1C3900950021C242 /* PFFile+NSCoding.m */; settings = {ASSET_TAGS = (); }; };
+		7F5625631C3900950021C242 /* PFGeoPoint+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F56255E1C3900950021C242 /* PFGeoPoint+NSCoding.m */; settings = {ASSET_TAGS = (); }; };
+		7F5625641C3900950021C242 /* PFObject+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F56255F1C3900950021C242 /* PFObject+NSCoding.m */; settings = {ASSET_TAGS = (); }; };
 		7F6339C21C34F99F00734B5D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F6339C11C34F99F00734B5D /* Main.storyboard */; };
 		7FA6E71C1C350F770071A00D /* PPCurrencyOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E71B1C350F770071A00D /* PPCurrencyOverlayViewController.m */; settings = {ASSET_TAGS = (); }; };
 		7FA6E71F1C3523230071A00D /* NSString+Unichar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E71E1C3523230071A00D /* NSString+Unichar.m */; settings = {ASSET_TAGS = (); }; };
@@ -305,7 +311,6 @@
 		7FD45BE41C36C577004219CB /* NSDate+Hours.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BE31C36C577004219CB /* NSDate+Hours.m */; settings = {ASSET_TAGS = (); }; };
 		7FD45BE71C36CB22004219CB /* PFCloud+Cache.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BE61C36CB22004219CB /* PFCloud+Cache.m */; settings = {ASSET_TAGS = (); }; };
 		7FD45BEA1C36D088004219CB /* ViewModelServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BE91C36D088004219CB /* ViewModelServices.m */; settings = {ASSET_TAGS = (); }; };
-		7FD45BED1C36E201004219CB /* PFObject+NSCoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BEC1C36E201004219CB /* PFObject+NSCoding.m */; settings = {ASSET_TAGS = (); }; };
 		7FD45BEF1C36F960004219CB /* CurrencyRatesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BEE1C36F960004219CB /* CurrencyRatesTest.m */; settings = {ASSET_TAGS = (); }; };
 		7FD45BF21C37A0BB004219CB /* NSString+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BF11C37A0BB004219CB /* NSString+JSON.m */; settings = {ASSET_TAGS = (); }; };
 		7FD45BF31C37A5C0004219CB /* PPOcrChar+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BD11C36653A004219CB /* PPOcrChar+String.m */; settings = {ASSET_TAGS = (); }; };
@@ -616,6 +621,18 @@
 		7F5625491C38EEB50021C242 /* xc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xc.png; sourceTree = "<group>"; };
 		7F56254A1C38EEB50021C242 /* xo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xo.png; sourceTree = "<group>"; };
 		7F56254B1C38EEB50021C242 /* xp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xp.png; sourceTree = "<group>"; };
+		7F5625501C38F5360021C242 /* CurrencyCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyCellViewModel.h; sourceTree = "<group>"; };
+		7F5625511C38F5360021C242 /* CurrencyCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyCellViewModel.m; sourceTree = "<group>"; };
+		7F5625561C3900950021C242 /* NSObject+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Properties.h"; sourceTree = "<group>"; };
+		7F5625571C3900950021C242 /* PFACL+NSCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFACL+NSCoding.h"; sourceTree = "<group>"; };
+		7F5625581C3900950021C242 /* PFFile+NSCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFFile+NSCoding.h"; sourceTree = "<group>"; };
+		7F5625591C3900950021C242 /* PFGeoPoint+NSCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFGeoPoint+NSCoding.h"; sourceTree = "<group>"; };
+		7F56255A1C3900950021C242 /* PFObject+NSCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFObject+NSCoding.h"; sourceTree = "<group>"; };
+		7F56255B1C3900950021C242 /* NSObject+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Properties.m"; sourceTree = "<group>"; };
+		7F56255C1C3900950021C242 /* PFACL+NSCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFACL+NSCoding.m"; sourceTree = "<group>"; };
+		7F56255D1C3900950021C242 /* PFFile+NSCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFFile+NSCoding.m"; sourceTree = "<group>"; };
+		7F56255E1C3900950021C242 /* PFGeoPoint+NSCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFGeoPoint+NSCoding.m"; sourceTree = "<group>"; };
+		7F56255F1C3900950021C242 /* PFObject+NSCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+NSCoding.m"; sourceTree = "<group>"; };
 		7F6339C11C34F99F00734B5D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		7FA6E71A1C350F770071A00D /* PPCurrencyOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCurrencyOverlayViewController.h; sourceTree = "<group>"; };
 		7FA6E71B1C350F770071A00D /* PPCurrencyOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCurrencyOverlayViewController.m; sourceTree = "<group>"; };
@@ -647,8 +664,6 @@
 		7FD45BE61C36CB22004219CB /* PFCloud+Cache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFCloud+Cache.m"; sourceTree = "<group>"; };
 		7FD45BE81C36D088004219CB /* ViewModelServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewModelServices.h; sourceTree = "<group>"; };
 		7FD45BE91C36D088004219CB /* ViewModelServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewModelServices.m; sourceTree = "<group>"; };
-		7FD45BEB1C36E201004219CB /* PFObject+NSCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PFObject+NSCoding.h"; sourceTree = "<group>"; };
-		7FD45BEC1C36E201004219CB /* PFObject+NSCoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PFObject+NSCoding.m"; sourceTree = "<group>"; };
 		7FD45BEE1C36F960004219CB /* CurrencyRatesTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyRatesTest.m; sourceTree = "<group>"; };
 		7FD45BF01C37A0BB004219CB /* NSString+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JSON.h"; sourceTree = "<group>"; };
 		7FD45BF11C37A0BB004219CB /* NSString+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSON.m"; sourceTree = "<group>"; };
@@ -1048,11 +1063,19 @@
 				7FD45BE31C36C577004219CB /* NSDate+Hours.m */,
 				7FD45BE51C36CB22004219CB /* PFCloud+Cache.h */,
 				7FD45BE61C36CB22004219CB /* PFCloud+Cache.m */,
-				7FD45BEB1C36E201004219CB /* PFObject+NSCoding.h */,
-				7FD45BEC1C36E201004219CB /* PFObject+NSCoding.m */,
 				7FD45BF01C37A0BB004219CB /* NSString+JSON.h */,
 				7FD45BF11C37A0BB004219CB /* NSString+JSON.m */,
 				7FD45BFB1C37C3EB004219CB /* UIView+Borders.swift */,
+				7F5625561C3900950021C242 /* NSObject+Properties.h */,
+				7F5625571C3900950021C242 /* PFACL+NSCoding.h */,
+				7F5625581C3900950021C242 /* PFFile+NSCoding.h */,
+				7F5625591C3900950021C242 /* PFGeoPoint+NSCoding.h */,
+				7F56255A1C3900950021C242 /* PFObject+NSCoding.h */,
+				7F56255B1C3900950021C242 /* NSObject+Properties.m */,
+				7F56255C1C3900950021C242 /* PFACL+NSCoding.m */,
+				7F56255D1C3900950021C242 /* PFFile+NSCoding.m */,
+				7F56255E1C3900950021C242 /* PFGeoPoint+NSCoding.m */,
+				7F56255F1C3900950021C242 /* PFObject+NSCoding.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1081,6 +1104,8 @@
 				7FD45BCE1C365338004219CB /* CurrencyOverviewViewModel.m */,
 				7F5623301C37F7DD0021C242 /* CurrencySelectorViewModel.h */,
 				7F5623311C37F7DD0021C242 /* CurrencySelectorViewModel.m */,
+				7F5625501C38F5360021C242 /* CurrencyCellViewModel.h */,
+				7F5625511C38F5360021C242 /* CurrencyCellViewModel.m */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -1620,21 +1645,26 @@
 				7FD45BF61C37ACA5004219CB /* HomeViewController.m in Sources */,
 				7FD45BFC1C37C3EB004219CB /* UIView+Borders.swift in Sources */,
 				7FA6E71C1C350F770071A00D /* PPCurrencyOverlayViewController.m in Sources */,
+				7F5625621C3900950021C242 /* PFFile+NSCoding.m in Sources */,
 				7F4029611C26DCB100436DEB /* ScanViewController.m in Sources */,
 				7FD45BCF1C365338004219CB /* CurrencyOverviewViewModel.m in Sources */,
 				7F5623291C37DD290021C242 /* CurrencySelectorViewController.m in Sources */,
+				7F5625631C3900950021C242 /* PFGeoPoint+NSCoding.m in Sources */,
 				7FD45BDE1C36B749004219CB /* ParseCloudCode.m in Sources */,
-				7FD45BED1C36E201004219CB /* PFObject+NSCoding.m in Sources */,
 				7FA6E7241C3551330071A00D /* NSArray+Map.m in Sources */,
 				7FD45BCC1C364DCE004219CB /* PPOcrChar+Filter.m in Sources */,
 				7F40295E1C26DCB100436DEB /* AppDelegate.m in Sources */,
 				7FD45BE71C36CB22004219CB /* PFCloud+Cache.m in Sources */,
+				7F5625641C3900950021C242 /* PFObject+NSCoding.m in Sources */,
 				7FA6E7221C354AD80071A00D /* PPOcrPrice.m in Sources */,
+				7F5625521C38F5360021C242 /* CurrencyCellViewModel.m in Sources */,
 				7FD45BF21C37A0BB004219CB /* NSString+JSON.m in Sources */,
 				7F5623321C37F7DD0021C242 /* CurrencySelectorViewModel.m in Sources */,
 				7FD45BEA1C36D088004219CB /* ViewModelServices.m in Sources */,
 				7F56232C1C37E87A0021C242 /* CurrencyCell.m in Sources */,
+				7F5625601C3900950021C242 /* NSObject+Properties.m in Sources */,
 				7FA6E7271C3554EE0071A00D /* PPOcrLine+Price.m in Sources */,
+				7F5625611C3900950021C242 /* PFACL+NSCoding.m in Sources */,
 				7F40295B1C26DCB100436DEB /* main.m in Sources */,
 				7FD45BC41C355E77004219CB /* PPPosition+Transform.m in Sources */,
 			);

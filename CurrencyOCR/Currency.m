@@ -14,6 +14,8 @@ static NSString* const kCurrencyClassName = @"Currency";
 
 @dynamic code;
 @dynamic name;
+@dynamic flagIcon;
+@dynamic shouldFetchFlagIcon;
 
 +(NSString*)parseClassName
 {

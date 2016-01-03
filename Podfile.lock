@@ -7,6 +7,9 @@ PODS:
     - OCHamcrest (~> 5.1)
   - Parse (1.11.0):
     - Bolts/Tasks (~> 1.5)
+  - ParseUI (1.1.7):
+    - Bolts/Tasks (~> 1.3)
+    - Parse (~> 1.9)
   - PPBlinkOCR (1.1.1)
   - PureLayout (3.0.1)
   - ReactiveCocoa (2.5):
@@ -28,6 +31,7 @@ DEPENDENCIES:
   - OCHamcrest
   - OCMockito
   - Parse
+  - ParseUI
   - PPBlinkOCR
   - PureLayout
   - ReactiveViewModel (~> 0.3)
@@ -42,6 +46,7 @@ SPEC CHECKSUMS:
   OCHamcrest: abcfbf4ebd75d5aadbcc729cff0cb648faf2d1b0
   OCMockito: 9eee3c61e42f7cb8aa015d66f8cc16849701d973
   Parse: 886af46a0a677402f6374bb97ac212e795f70afe
+  ParseUI: c2bcdfbb00330e464b5b773266ae221697a3bb7b
   PPBlinkOCR: 1a8fc652b5be9563c8c60f1d363a8dbd3f35c5dd
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a

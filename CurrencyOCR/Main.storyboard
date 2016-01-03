@@ -215,12 +215,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="69.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N9n-Ks-BDM">
-                                            <rect key="frame" x="8" y="8" width="71.5" height="53.5"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="N9n-Ks-BDM" secondAttribute="height" multiplier="4:3" id="QLV-gb-5uB"/>
-                                            </constraints>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHO-2v-n83">
                                             <rect key="frame" x="561" y="26" width="31" height="18"/>
                                             <constraints>
@@ -241,6 +235,12 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N9n-Ks-BDM" customClass="PFImageView">
+                                            <rect key="frame" x="8" y="8" width="71.5" height="53.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="N9n-Ks-BDM" secondAttribute="height" multiplier="4:3" id="QLV-gb-5uB"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Nxd-T4-PKS" firstAttribute="leading" secondItem="N9n-Ks-BDM" secondAttribute="trailing" constant="8" id="3F0-qf-kwP"/>

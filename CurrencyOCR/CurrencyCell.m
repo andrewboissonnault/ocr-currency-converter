@@ -7,41 +7,35 @@
 //
 
 #import "CurrencyCell.h"
+#import <ParseUI/ParseUI.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface CurrencyCell ()
 
-@property (weak, nonatomic) IBOutlet UIImageView *flagImageView;
+@property (weak, nonatomic) IBOutlet PFImageView *flagImageView;
 @property (weak, nonatomic) IBOutlet UILabel *currencyNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *currencyCodeLabel;
-
 
 @end
 
 @implementation CurrencyCell
 
--(void)setCurrency:(Currency *)currency
+-(void)setViewModel:(CurrencyCellViewModel *)viewModel
 {
-    _currency = currency;
-    [self updateLabels];
+    _viewModel = viewModel;
+    [self bindViewModel];
 }
 
--(void)updateLabels
+-(void)bindViewModel
 {
-    self.currencyNameLabel.text = self.currency.name;
-    self.currencyCodeLabel.text = self.currency.code;
-    self.flagImageView.image = [self imageWithCurrencyCode:self.currency.code];
-}
-
--(UIImage*)imageWithCurrencyCode:(NSString*)currencyCode
-{
-    NSString* iconName = [self flagIconNameWithCurrencyCode:currencyCode];
-    return [UIImage imageNamed:iconName];
-}
-
--(NSString*)flagIconNameWithCurrencyCode:(NSString*)currencyCode
-{
-    NSString* twoLetterCountryCode = [[currencyCode substringToIndex:2] lowercaseString];
-    return [twoLetterCountryCode stringByAppendingString:@".png"];
+    RAC(self, currencyNameLabel.text) = RACObserve(self.viewModel, currencyName);
+    RAC(self, currencyCodeLabel.text) = RACObserve(self.viewModel, currencyCode);
+    RAC(self, flagImageView.image) = RACObserve(self.viewModel, flagIconImage);
+    
+    [RACObserve(self.viewModel, flagIconFile) subscribeNext:^(PFFile* file) {
+        self.flagImageView.file = file;
+        [self.flagImageView loadInBackground];
+    }];
 }
 
 @end

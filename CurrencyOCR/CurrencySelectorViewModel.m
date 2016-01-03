@@ -13,6 +13,7 @@
 
 @interface CurrencySelectorViewModel ()
 
+@property RACSignal* reloadDataSignal;
 @property NSArray* filteredCurrencies;
 @property (readonly) BOOL isSearchControllerActive;
 @property CurrencyService* currencyRateService;
@@ -47,10 +48,7 @@
     self.currencyRateService = [[CurrencyService alloc] init];
     [self.currencyRateService refreshCurrencyData];
     
-    RACSignal *currenciesSignal = RACObserve(self.currencyRateService, currencies);
-//    [currenciesSignal subscribeNext:^(NSArray* currencies) {
-//        [self updateConvertedPrices];
-//    }];
+    self.reloadDataSignal = RACObserve(self.currencyRateService, currencies);
 }
 
 -(NSInteger)numberOfSections
@@ -106,7 +104,7 @@
     }
 }
 
-- (Currency*)currencyForIndexPath:(NSIndexPath *)indexPath {
+- (CurrencyCellViewModel*)childViewModelForIndexPath:(NSIndexPath *)indexPath {
     
     Currency *currency = nil;
     if (indexPath) {
@@ -116,7 +114,7 @@
             currency = self.currencies[indexPath.row];
         }
     }
-    return currency;
+    return [[CurrencyCellViewModel alloc] initWithCurrency:currency];
 }
 
 @end

@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import <Parse/Parse.h>
 #import "Currency.h"
+#import "NSArray+Map.h"
 
 @interface UploadIcons : XCTestCase
 
@@ -28,7 +29,12 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Currency"];
     query.limit = 500;
     NSArray* currencies = [query findObjects];
-    NSLog(@"currencies %@", currencies);
+    [currencies mapObjectsUsingBlock:^id(Currency* obj, NSUInteger idx) {
+        obj.shouldFetchFlagIcon = NO;
+        [obj save];
+        NSLog(@"obj %@", obj);
+        return obj;
+    }];
 }
 
 

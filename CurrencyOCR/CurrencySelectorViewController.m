@@ -58,11 +58,9 @@
 
 -(void)bindViewModel
 {
-    RACSignal *currenciesSignal = RACObserve(self.viewModel, currencies);
-    [currenciesSignal subscribeNext:^(NSArray* currencies) {
-                [self.tableView reloadData];
-            }];
-    
+    [self.viewModel.reloadDataSignal subscribeNext:^(id x) {
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark - UITableViewDelegate
@@ -84,8 +82,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CurrencyCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
-    Currency *currency = [self.viewModel currencyForIndexPath:indexPath];
-    cell.currency = currency;
+    CurrencyCellViewModel *viewModel = [self.viewModel childViewModelForIndexPath:indexPath];
+    cell.viewModel = viewModel;
     return cell;
 }
 
@@ -153,11 +151,5 @@
     [self.viewModel searchForText:searchString];
     [self.tableView reloadData];
 }
-
-#pragma mark -
-#pragma mark === Helper methods ===
-#pragma mark -
-
-
 
 @end
