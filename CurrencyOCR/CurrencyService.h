@@ -13,8 +13,6 @@
 
 @property (nonatomic, readonly) NSArray* currencies;
 @property (nonatomic, readonly)  CurrencyRates* rates;
-@property (readonly) NSString* baseCurrency;
-@property (readonly) NSString* otherCurrency;
 
 -(void)refreshCurrencyData;
 

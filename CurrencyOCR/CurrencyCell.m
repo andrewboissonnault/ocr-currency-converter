@@ -20,7 +20,7 @@
 
 @implementation CurrencyCell
 
--(void)setViewModel:(CurrencyCellViewModel *)viewModel
+-(void)setViewModel:(CurrencyViewModel *)viewModel
 {
     _viewModel = viewModel;
     [self bindViewModel];

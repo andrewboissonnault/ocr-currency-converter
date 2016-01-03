@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Currency.h"
-#import "CurrencyCellViewModel.h"
+#import "CurrencyViewModel.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface CurrencySelectorViewModel : NSObject
@@ -19,9 +19,11 @@
 -(NSInteger)numberOfRowsForSection:(NSInteger)section;
 -(NSString*)titleForHeaderInSection:(NSInteger)section;
 -(NSInteger)sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)sectionIndex;
--(CurrencyCellViewModel*)childViewModelForIndexPath:(NSIndexPath*)indexPath;
+-(CurrencyViewModel*)childViewModelForIndexPath:(NSIndexPath*)indexPath;
 
 @property UISearchController* searchController;
 -(void)searchForText:(NSString*)searchText;
+
+-(instancetype)initWithCurrency:(Currency*)currency;
 
 @end

@@ -30,9 +30,11 @@
     query.limit = 500;
     NSArray* currencies = [query findObjects];
     [currencies mapObjectsUsingBlock:^id(Currency* obj, NSUInteger idx) {
+        NSError* error;
         obj.shouldFetchFlagIcon = NO;
-        [obj save];
+        [obj save:&error];
         NSLog(@"obj %@", obj);
+        NSLog(@"error %@", error);
         return obj;
     }];
 }

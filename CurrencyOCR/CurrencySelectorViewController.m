@@ -82,7 +82,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CurrencyCell *cell = [self.tableView dequeueReusableCellWithIdentifier:kCellIdentifier forIndexPath:indexPath];
-    CurrencyCellViewModel *viewModel = [self.viewModel childViewModelForIndexPath:indexPath];
+    CurrencyViewModel *viewModel = [self.viewModel childViewModelForIndexPath:indexPath];
     cell.viewModel = viewModel;
     return cell;
 }

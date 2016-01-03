@@ -6,10 +6,10 @@
 //  Copyright © 2016 Andrew Boissonnault. All rights reserved.
 //
 
-#import "CurrencyCellViewModel.h"
+#import "CurrencyViewModel.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
-@interface CurrencyCellViewModel ()
+@interface CurrencyViewModel ()
 
 @property Currency* currency;
 
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation CurrencyCellViewModel
+@implementation CurrencyViewModel
 
 -(instancetype)initWithCurrency:(Currency*)currency
 {
@@ -54,24 +54,11 @@
 
 -(void)initialize
 {
-    [self setUpImage];
-    [self bindWithModel];
-}
-
--(void)bindWithModel
-{
-//    RACSignal *isDataAvailableSignal = RACObserve(self.currency, isDataAvailable);
-//    [isDataAvailableSignal subscribeNext:^(NSNumber* isDataAvailableSignal) {
-//        if([isDataAvailableSignal boolValue])
-//        {
-//            [self setupImageWithParseFile];
-//        }
-//    }];
-}
+    [self setUpImage];}
 
 -(void)setUpImage
 {
-    if(self.currency.shouldFetchFlagIcon)
+    if(self.currency.shouldFetchFlagIcon && self.currency.isDataAvailable)
     {
         [self.currency fetchInBackground];
     }

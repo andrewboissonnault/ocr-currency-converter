@@ -17,6 +17,7 @@
 @property NSArray* filteredCurrencies;
 @property (readonly) BOOL isSearchControllerActive;
 @property CurrencyService* currencyRateService;
+@property Currency* currency;
 
 @end
 
@@ -37,6 +38,16 @@
 -(instancetype)init
 {
     self = [super init];
+    if(self) {
+        [self initialize];
+    }
+    return self;
+}
+
+-(instancetype)initWithCurrency:(Currency*)currency
+{
+    self = [super init];
+    self.currency = currency;
     if(self) {
         [self initialize];
     }
@@ -104,7 +115,7 @@
     }
 }
 
-- (CurrencyCellViewModel*)childViewModelForIndexPath:(NSIndexPath *)indexPath {
+- (CurrencyViewModel*)childViewModelForIndexPath:(NSIndexPath *)indexPath {
     
     Currency *currency = nil;
     if (indexPath) {
@@ -114,7 +125,7 @@
             currency = self.currencies[indexPath.row];
         }
     }
-    return [[CurrencyCellViewModel alloc] initWithCurrency:currency];
+    return [[CurrencyViewModel alloc] initWithCurrency:currency];
 }
 
 @end

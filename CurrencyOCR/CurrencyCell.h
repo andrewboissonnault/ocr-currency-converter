@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CurrencyCellViewModel.h"
+#import "CurrencyViewModel.h"
 
 @interface CurrencyCell : UITableViewCell
 
-@property (nonatomic) CurrencyCellViewModel* viewModel;
+@property (nonatomic) CurrencyViewModel* viewModel;
 
 @end

@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "Currency.h"
 
-@interface CurrencyCellViewModel : NSObject
+@interface CurrencyViewModel : NSObject
 
 @property (readonly) NSString* currencyCode;
 @property (readonly) NSString* currencyName;

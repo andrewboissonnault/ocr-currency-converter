@@ -15,4 +15,7 @@
 @property (strong, nonatomic) PFFile* flagIcon;
 @property BOOL shouldFetchFlagIcon;
 
++(Currency*)defaultBaseCurrency;
++(Currency*)defaultOtherCurrency;
+
 @end

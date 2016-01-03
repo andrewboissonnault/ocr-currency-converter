@@ -22,4 +22,20 @@ static NSString* const kCurrencyClassName = @"Currency";
     return kCurrencyClassName;
 }
 
++(Currency*)defaultBaseCurrency
+{
+    Currency* currency = [Currency new];
+    currency.code = @"USD";
+    currency.name = @"United States Dollar";
+    return currency;
+}
+
++(Currency*)defaultOtherCurrency
+{
+    Currency* currency = [Currency new];
+    currency.code = @"EUR";
+    currency.name = @"Euro Member Countries";
+    return currency;
+}
+
 @end

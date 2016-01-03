@@ -1569,7 +1569,23 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCRTests/UploadIcons.m"
-            timestampString = "473494400.305783"
+            timestampString = "473500079.634849"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "-testQueryCurrencies"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CurrencyOCRTests/UploadIcons.m"
+            timestampString = "473500079.634849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "34"
@@ -1585,23 +1601,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCRTests/UploadIcons.m"
-            timestampString = "473494436.439064"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "-testQueryCurrencies"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CurrencyOCRTests/UploadIcons.m"
-            timestampString = "473494442.575537"
+            timestampString = "473500079.634849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "32"
@@ -1649,7 +1649,23 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCRTests/UploadIcons.m"
-            timestampString = "473494462.558801"
+            timestampString = "473500079.634849"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "-testQueryCurrencies"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CurrencyOCRTests/UploadIcons.m"
+            timestampString = "473500079.634849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "36"
@@ -1665,27 +1681,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCRTests/UploadIcons.m"
-            timestampString = "473494463.031331"
+            timestampString = "473500079.634849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "35"
-            endingLineNumber = "35"
-            landmarkName = "-testQueryCurrencies"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CurrencyOCRTests/UploadIcons.m"
-            timestampString = "473494489.030826"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
             landmarkName = "-testQueryCurrencies"
             landmarkType = "5">
          </BreakpointContent>
@@ -1713,11 +1713,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/CurrencyCellViewModel.m"
-            timestampString = "473498548.965789"
+            timestampString = "473499826.41601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
             landmarkName = "-setUpImage"
             landmarkType = "5">
          </BreakpointContent>
@@ -1729,11 +1729,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/CurrencyCellViewModel.m"
-            timestampString = "473498550.149613"
+            timestampString = "473499826.41601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "-setUpImage"
             landmarkType = "5">
          </BreakpointContent>
