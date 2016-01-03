@@ -17,14 +17,10 @@ static NSString* const kSelectBaseCurrencySegue = @"selectBaseCurrencySegue";
 @interface HomeViewController () <VENCalculatorInputViewDelegate>
 
 @property (weak, nonatomic) IBOutlet VENCalculatorInputTextField *baseCurrencyTextField;
+@property (weak, nonatomic) IBOutlet CurrencyView *baseCurrencyView;
+@property (weak, nonatomic) IBOutlet CurrencyView *otherCurrencyView;
 @property (weak, nonatomic) IBOutlet UILabel *baseCurrencyLabel;
 @property (weak, nonatomic) IBOutlet UILabel *otherCurrencyLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *baseCurrencyFlagIcon;
-@property (weak, nonatomic) IBOutlet UILabel *baseCurrencyCodeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *baseCurrencyNameLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *otherCurrencyFlagIcon;
-@property (weak, nonatomic) IBOutlet UILabel *otherCurrencyCodeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *otherCurrencyNameLabel;
 
 @property HomeViewModel *viewModel;
 
@@ -48,13 +44,8 @@ static NSString* const kSelectBaseCurrencySegue = @"selectBaseCurrencySegue";
 
 -(void)bindViewModel
 {
-    RAC(self.baseCurrencyNameLabel, text) = RACObserve(self.viewModel.baseCurrencyViewModel, currencyName);
-    RAC(self.baseCurrencyCodeLabel, text) = RACObserve(self.viewModel.baseCurrencyViewModel, currencyCode);
-    RAC(self.baseCurrencyFlagIcon, image) = RACObserve(self.viewModel.baseCurrencyViewModel, flagIconImage);
-    
-    RAC(self.otherCurrencyNameLabel, text) = RACObserve(self.viewModel.otherCurrencyViewModel, currencyName);
-    RAC(self.otherCurrencyCodeLabel, text) = RACObserve(self.viewModel.otherCurrencyViewModel, currencyCode);
-    RAC(self.otherCurrencyFlagIcon, image) = RACObserve(self.viewModel.otherCurrencyViewModel, flagIconImage);
+    RAC(self.baseCurrencyView, viewModel) = RACObserve(self.viewModel, baseCurrencyViewModel);
+    RAC(self.otherCurrencyView, viewModel) = RACObserve(self.viewModel, otherCurrencyViewModel);
 }
 
 -(void)setupTextField

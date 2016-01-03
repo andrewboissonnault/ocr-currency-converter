@@ -53,7 +53,6 @@
 
 -(void)initialize
 {
-    self.backgroundColor = [UIColor yellowColor];
     [self setupCurrencyNameLabel];
     [self setupCurrencyCodeLabel];
     [self setupImageView];
@@ -65,7 +64,6 @@
     self.currencyNameLabel.numberOfLines = 2;
     self.currencyNameLabel.font = [UIFont systemFontOfSize:12];
     self.currencyNameLabel.textAlignment = NSTextAlignmentCenter;
-    self.currencyNameLabel.backgroundColor = [UIColor redColor];
     [self addSubview:self.currencyNameLabel];
     [self.currencyNameLabel autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 0, 4, 0) excludingEdge:ALEdgeTop];
 }
@@ -76,7 +74,6 @@
     self.currencyCodeLabel.font = [UIFont systemFontOfSize:12];
     self.currencyNameLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.currencyCodeLabel];
-    self.currencyCodeLabel.backgroundColor = [UIColor redColor];
     [self.currencyCodeLabel autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.currencyNameLabel];
     [self.currencyCodeLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
 }
@@ -84,15 +81,12 @@
 -(void)setupImageView
 {
     self.flagImageView = [[PFImageView alloc] initForAutoLayout];
-    self.flagImageView.backgroundColor = [UIColor blueColor];
     self.flagImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self addSubview:self.flagImageView];
-    [self.flagImageView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:4];
+    [self.flagImageView autoPinEdgeToSuperviewEdge:ALEdgeTop];
     [self.flagImageView autoAlignAxisToSuperviewAxis:ALAxisVertical];
-    [self.flagImageView autoMatchDimension:ALDimensionWidth toDimension:ALDimensionHeight ofView:self.flagImageView withMultiplier:4/3];
     
-//    NSLayoutConstraint* constraint = [NSLayoutConstraint constraintWithItem:self.currencyCodeLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.flagImageView attribute:NSLayoutAttributeBottom multiplier:1 constant:2];
-//    [self addConstraint:constraint];
+    [self.flagImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.currencyCodeLabel];
 }
 
 
