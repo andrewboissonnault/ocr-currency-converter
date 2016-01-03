@@ -18,4 +18,6 @@
 +(Currency*)defaultBaseCurrency;
 +(Currency*)defaultOtherCurrency;
 
++(void)fetchCurrencyWithCodeInBackground:(NSString*)code block:(PFIdResultBlock)block;
+
 @end

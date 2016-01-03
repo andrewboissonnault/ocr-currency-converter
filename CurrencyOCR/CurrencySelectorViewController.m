@@ -17,7 +17,6 @@
 
 @property (strong, nonatomic) NSNumberFormatter *decimalFormatter;
 @property (strong, nonatomic) UISearchController *searchController;
-@property CurrencySelectorViewModel *viewModel;
 
 @end
 
@@ -51,7 +50,10 @@
 
 - (void)initializeViewModel
 {
-    self.viewModel = [[CurrencySelectorViewModel alloc] init];
+    if(!self.viewModel)
+    {
+        self.viewModel = [[CurrencySelectorViewModel alloc] init];
+    }
     self.viewModel.searchController = self.searchController;
     [self bindViewModel];
 }
@@ -85,6 +87,13 @@
     CurrencyViewModel *viewModel = [self.viewModel childViewModelForIndexPath:indexPath];
     cell.viewModel = viewModel;
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.viewModel selectCurrencyAtIndexPath:indexPath];
+    
+    [self performSegueWithIdentifier:@"unwindToHomeView" sender:nil];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section

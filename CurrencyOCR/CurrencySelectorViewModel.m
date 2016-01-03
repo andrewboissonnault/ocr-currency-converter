@@ -54,6 +54,13 @@
     return self;
 }
 
+-(instancetype)initWithCurrency:(Currency*)currency delegate:(id<CurrencySelectorDelegate>)delegate
+{
+    self = [self initWithCurrency:currency];
+    self.delegate = delegate;
+    return self;
+}
+
 -(void)initialize
 {
     self.currencyRateService = [[CurrencyService alloc] init];
@@ -115,8 +122,14 @@
     }
 }
 
-- (CurrencyViewModel*)childViewModelForIndexPath:(NSIndexPath *)indexPath {
-    
+- (void)selectCurrencyAtIndexPath:(NSIndexPath *)indexPath
+{
+    Currency* currency = [self currencyForIndexPath:indexPath];
+    [self.delegate didSelectCurrency:currency withSelector:self];
+}
+
+-(Currency*)currencyForIndexPath:(NSIndexPath*)indexPath
+{
     Currency *currency = nil;
     if (indexPath) {
         if (self.isSearchControllerActive) {
@@ -125,6 +138,11 @@
             currency = self.currencies[indexPath.row];
         }
     }
+    return currency;
+}
+
+- (CurrencyViewModel*)childViewModelForIndexPath:(NSIndexPath *)indexPath {
+    Currency* currency = [self currencyForIndexPath:indexPath];
     return [[CurrencyViewModel alloc] initWithCurrency:currency];
 }
 

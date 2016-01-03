@@ -9,6 +9,7 @@
 #import "Currency.h"
 
 static NSString* const kCurrencyClassName = @"Currency";
+static NSString* const kCodeKey = @"code";
 
 @implementation Currency
 
@@ -36,6 +37,14 @@ static NSString* const kCurrencyClassName = @"Currency";
     currency.code = @"EUR";
     currency.name = @"Euro Member Countries";
     return currency;
+}
+
++(void)fetchCurrencyWithCodeInBackground:(NSString*)code block:(PFIdResultBlock)block
+{
+        PFQuery* query = [Currency query];
+        [query fromLocalDatastore];
+        [query whereKey:kCodeKey equalTo:code];
+        [query getFirstObjectInBackgroundWithBlock:block];
 }
 
 @end

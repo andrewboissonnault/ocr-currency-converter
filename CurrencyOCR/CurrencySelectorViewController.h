@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CurrencySelectorViewModel.h"
 
 static NSString * const kCellIdentifier = @"CurrencyCellIdentifier";
 
 @interface CurrencySelectorViewController : UITableViewController
 
+@property CurrencySelectorViewModel *viewModel;
 
 @end
 

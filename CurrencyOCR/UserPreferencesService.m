@@ -9,42 +9,103 @@
 #import "UserPreferencesService.h"
 #import <Archiver.h>
 
-static NSString* const kBaseCurrencyKey = @"baseCurrency";
-static NSString* const kOtherCurrencyKey = @"otherCurrency";
+static NSString* const kBaseCurrencyCodeKey = @"baseCurrencyCode";
+static NSString* const kOtherCurrencyCodeKey = @"otherCurrencyCode";
 static NSString* const kDisplayAmountKey = @"displayAmount";
+
+@interface UserPreferencesService()
+
+//@property Currency* savedBasedCurrency;
+@property NSString* baseCurrencyCode;
+@property NSString* otherCurrencyCode;
+//@property Currency* savedOtherCurrency;
+
+@end
 
 @implementation UserPreferencesService
 
+@synthesize baseCurrency = _baseCurrency;
+@synthesize otherCurrency = _otherCurrency;
+
+-(instancetype)init
+{
+    self = [super init];
+    if(self)
+    {
+        [self initialize];
+    }
+    return self;
+}
+
+-(void)initialize
+{
+    [self refreshData];
+}
+
 -(Currency*)baseCurrency
 {
-    Currency* baseCurrency = [Archiver retrieve:kDisplayAmountKey];
-    if(!baseCurrency)
+    if(!_baseCurrency)
     {
-        baseCurrency = [Currency defaultBaseCurrency];
-        self.baseCurrency = baseCurrency;
+        return [Currency defaultBaseCurrency];
     }
-    return baseCurrency;
+    return _baseCurrency;
 }
 
 -(void)setBaseCurrency:(Currency *)baseCurrency
 {
-    [Archiver persist:baseCurrency key:kBaseCurrencyKey];
+    _baseCurrency = baseCurrency;
+    self.baseCurrencyCode = baseCurrency.code;
 }
 
 -(Currency*)otherCurrency
 {
-    Currency* otherCurrency = [Archiver retrieve:kDisplayAmountKey];
-    if(!otherCurrency)
+    if(!_otherCurrency)
     {
-        otherCurrency = [Currency defaultOtherCurrency];
-        self.otherCurrency = otherCurrency;
+        return [Currency defaultOtherCurrency];
     }
-    return otherCurrency;
+    return _otherCurrency;
 }
 
 -(void)setOtherCurrency:(Currency *)otherCurrency
 {
-    [Archiver persist:otherCurrency key:kOtherCurrencyKey];
+    _otherCurrency = otherCurrency;
+    self.otherCurrencyCode = otherCurrency.code;
+}
+
+-(NSString*)baseCurrencyCode
+{
+    return [Archiver retrieve:kBaseCurrencyCodeKey];
+}
+
+-(void)setBaseCurrencyCode:(NSString *)baseCurrencyCode
+{
+    [Archiver persist:baseCurrencyCode key:kBaseCurrencyCodeKey];
+}
+
+-(NSString*)otherCurrencyCode
+{
+    return [Archiver retrieve:kOtherCurrencyCodeKey];
+}
+
+-(void)setOtherCurrencyCode:(NSString *)otherCurrencyCode
+{
+    [Archiver persist:otherCurrencyCode key:kOtherCurrencyCodeKey];
+}
+
+-(void)refreshData
+{
+    if(self.baseCurrencyCode)
+    {
+        [Currency fetchCurrencyWithCodeInBackground:self.baseCurrencyCode block:^(Currency * _Nullable currency, NSError * _Nullable error) {
+            self.baseCurrency = currency;
+        }];
+    }
+    if(self.otherCurrencyCode)
+    {
+        [Currency fetchCurrencyWithCodeInBackground:self.otherCurrencyCode block:^(Currency * _Nullable currency, NSError * _Nullable error) {
+            self.otherCurrency = currency;
+        }];
+    }
 }
 
 -(NSNumber*)displayAmount

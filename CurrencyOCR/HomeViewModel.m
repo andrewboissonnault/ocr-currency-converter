@@ -9,16 +9,23 @@
 #import "HomeViewModel.h"
 #import "UserPreferencesService.h"
 
-@interface HomeViewModel ()
+@interface HomeViewModel () <CurrencySelectorDelegate>
 
 @property UserPreferencesService* userPreferencesService;
 @property Currency* baseCurrency;
 @property Currency* otherCurrency;
 @property NSNumber* amountToConvert;
+@property (nonatomic) CurrencySelectorViewModel* baseCurrencySelectorViewModel;
+@property (nonatomic) CurrencySelectorViewModel* otherCurrencySelectorViewModel;
+@property (nonatomic) CurrencyViewModel* baseCurrencyViewModel;
+@property (nonatomic) CurrencyViewModel* otherCurrencyViewModel;
 
 @end
 
 @implementation HomeViewModel
+
+@synthesize baseCurrencySelectorViewModel = _baseCurrencySelectorViewModel;
+@synthesize otherCurrencySelectorViewModel = _otherCurrencySelectorViewModel;
 
 - (instancetype)init {
     self = [super init];
@@ -26,26 +33,6 @@
         [self initialize];
     }
     return self;
-}
-
--(Currency*)baseCurrency
-{
-    return self.userPreferencesService.baseCurrency;
-}
-
--(void)setBaseCurrency:(Currency *)baseCurrency
-{
-    self.userPreferencesService.baseCurrency = baseCurrency;
-}
-
--(Currency*)otherCurrency
-{
-    return self.userPreferencesService.otherCurrency;
-}
-
--(void)setOtherCurrency:(Currency *)otherCurency
-{
-    self.userPreferencesService.otherCurrency = otherCurency;
 }
 
 -(NSNumber*)amountToConvert
@@ -66,17 +53,20 @@
 
 -(void)bindUserPreferencesService
 {
-  //  RAC(self, baseCurrency) = RACObserve(self.userPreferencesService, baseCurrency);
-}
-
--(CurrencyViewModel*)baseCurrencyViewModel
-{
-    return [[CurrencyViewModel alloc] initWithCurrency:self.baseCurrency];
-}
-
--(CurrencyViewModel*)otherCurrencyViewModel
-{
-    return [[CurrencyViewModel alloc] initWithCurrency:self.otherCurrency];
+//    RACChannelTerminal *modelTerminal = RACChannelTo(self.userPreferencesService, baseCurrency);
+//    RACChannelTerminal *viewTerminal = RACChannelTo(self, baseCurrency);
+//    
+//    [modelTerminal subscribe:viewTerminal];
+//    [viewTerminal subscribe:modelTerminal];
+    
+    RAC(self, baseCurrency) = RACObserve(self.userPreferencesService, baseCurrency);
+    [RACObserve(self.userPreferencesService, baseCurrency) subscribeNext:^(id baseCurrency) {
+        self.baseCurrencyViewModel = [[CurrencyViewModel alloc] initWithCurrency:baseCurrency];
+    }];
+    RAC(self, otherCurrency) = RACObserve(self.userPreferencesService, otherCurrency);
+    [RACObserve(self.userPreferencesService, otherCurrency) subscribeNext:^(id otherCurrency) {
+        self.otherCurrencyViewModel = [[CurrencyViewModel alloc] initWithCurrency:otherCurrency];
+    }];
 }
 
 -(NSString*)baseCurrencyLabel
@@ -96,12 +86,32 @@
 
 -(CurrencySelectorViewModel*)baseCurrencySelectorViewModel
 {
-    return [[CurrencySelectorViewModel alloc] initWithCurrency:self.baseCurrency];
+    if(!_baseCurrencySelectorViewModel)
+    {
+        _baseCurrencySelectorViewModel = [[CurrencySelectorViewModel alloc] initWithCurrency:self.baseCurrency delegate:self];
+    }
+    return _baseCurrencySelectorViewModel;
 }
 
 -(CurrencySelectorViewModel*)otherCurrencySelectorViewModel
 {
-    return [[CurrencySelectorViewModel alloc] initWithCurrency:self.otherCurrency];
+    if(!_otherCurrencySelectorViewModel)
+    {
+        _otherCurrencySelectorViewModel = [[CurrencySelectorViewModel alloc] initWithCurrency:self.otherCurrency delegate:self];
+    }
+    return _otherCurrencySelectorViewModel;
+}
+
+-(void)didSelectCurrency:(Currency *)currency withSelector:(CurrencySelectorViewModel *)selector
+{
+    if([self.baseCurrencySelectorViewModel isEqual:selector])
+    {
+        self.userPreferencesService.baseCurrency = currency;
+    }
+    if([self.otherCurrencySelectorViewModel isEqual:selector])
+    {
+        self.userPreferencesService.otherCurrency = currency;
+    }
 }
 
 

@@ -149,8 +149,8 @@
     CGPoint origin = upperLeft;
     CGPoint lowerRight = position.lr;
     
-    CGFloat width = fabsf(lowerRight.x - origin.x);
-    CGFloat height = fabsf(lowerRight.y - origin.y);
+    CGFloat width = fabs(lowerRight.x - origin.x);
+    CGFloat height = fabs(lowerRight.y - origin.y);
     CGRect frame = CGRectMake(origin.x, origin.y, width, height);
     
     UILabel* characterLabel = [[UILabel alloc] initWithFrame:frame];
@@ -159,8 +159,6 @@
     characterLabel.text = string;
     characterLabel.backgroundColor = [UIColor clearColor];
     [characterLabel sizeToFit];
-    
-    UIView* view = self.view;
     
     [self.labels addObject:characterLabel];
     [self.view addSubview:characterLabel];

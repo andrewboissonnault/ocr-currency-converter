@@ -11,6 +11,14 @@
 #import "CurrencyViewModel.h"
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
+@class CurrencySelectorViewModel;
+
+@protocol CurrencySelectorDelegate <NSObject>
+
+- (void)didSelectCurrency:(Currency*)currency withSelector:(CurrencySelectorViewModel*)selector;
+
+@end
+
 @interface CurrencySelectorViewModel : NSObject
 
 @property (readonly) RACSignal* reloadDataSignal;
@@ -22,8 +30,12 @@
 -(CurrencyViewModel*)childViewModelForIndexPath:(NSIndexPath*)indexPath;
 
 @property UISearchController* searchController;
+@property id<CurrencySelectorDelegate> delegate;
+
 -(void)searchForText:(NSString*)searchText;
+-(void)selectCurrencyAtIndexPath:(NSIndexPath*)indexPath;
 
 -(instancetype)initWithCurrency:(Currency*)currency;
+-(instancetype)initWithCurrency:(Currency*)currency delegate:(id<CurrencySelectorDelegate>)delegate;
 
 @end

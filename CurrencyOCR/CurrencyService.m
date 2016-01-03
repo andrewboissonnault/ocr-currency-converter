@@ -10,6 +10,7 @@
 #import "ParseCloudCode.h"
 #import "CurrencyRates.h"
 #import "NSDate+Hours.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 static NSString* const kCurrencyRatesKey = @"currencyRates";
 static NSString* const kCurrenciesKey = @"currencies";
@@ -26,25 +27,46 @@ static NSString* const kCurrenciesKey = @"currencies";
 @synthesize rates = _rates;
 @synthesize currencies = _currencies;
 
--(CurrencyRates*)rates
+-(instancetype)init
 {
-    if(!_rates)
+    self = [super init];
+    if(self)
     {
-        _rates = [ParseCloudCode requestCachedCurrencyData][kCurrencyRatesKey];
+        [self initialize];
     }
-    return _rates;
+    return self;
 }
 
--(NSArray*)currencies
+-(void)initialize
 {
-    if(!_currencies)
-    {
-        _currencies = [ParseCloudCode requestCachedCurrencyData][kCurrenciesKey];
-    }
-    return _currencies;
+    [self bindService];
+}
+
+-(void)bindService
+{
+    RACSignal *ratesSignal = RACObserve(self, rates);
+    [ratesSignal subscribeNext:^(id x) {
+        [self refreshCurrencyDataIfRequired];
+    }];
 }
 
 -(void)refreshCurrencyData
+{
+    if(!self.rates)
+    {
+        [ParseCloudCode requestCachedCurrencyRatesInBackground:^(CurrencyRates*  _Nullable rates, NSError * _Nullable error) {
+            self.rates = rates;
+        }];
+    }
+    if(!self.currencies)
+    {
+        [ParseCloudCode requestCachedCurrenciesInBackground:^(NSArray*  _Nullable currencies, NSError * _Nullable error) {
+            self.currencies = currencies;
+        }];
+    }
+}
+
+-(void)refreshCurrencyDataIfRequired
 {
     if([self shouldFetchNewCurrencyData])
     {
@@ -54,8 +76,15 @@ static NSString* const kCurrenciesKey = @"currencies";
 
 -(BOOL)shouldFetchNewCurrencyData
 {
-    NSDate* createdAt = self.rates.createdAt;
-    return !createdAt || [createdAt hoursSince] > 1;
+    if(!self.rates)
+    {
+        return NO;
+    }
+    else
+    {
+        NSDate* createdAt = self.rates.createdAt;
+        return !createdAt || [createdAt hoursSince] > 1;
+    }
 }
 
 -(void)fetchCurrencyData
@@ -63,6 +92,8 @@ static NSString* const kCurrenciesKey = @"currencies";
     [ParseCloudCode requestCurrencyData:^(id  _Nullable object, NSError * _Nullable error) {
         self.rates = object[kCurrencyRatesKey];
         self.currencies = object[kCurrenciesKey];
+        [self.rates pinInBackground];
+        [PFObject pinAll:self.currencies];
     }];
 }
 

@@ -11,8 +11,10 @@
 #import "VENCalculatorInputTextField.h"
 #import "CurrencyView.h"
 #import "HomeViewModel.h"
+#import "CurrencySelectorViewController.h"
 
 static NSString* const kSelectBaseCurrencySegue = @"selectBaseCurrencySegue";
+static NSString* const kSelectOtherCurrencySegue = @"selectOtherCurrencySegue";
 
 @interface HomeViewController () <VENCalculatorInputViewDelegate>
 
@@ -55,6 +57,24 @@ static NSString* const kSelectBaseCurrencySegue = @"selectBaseCurrencySegue";
 
 - (IBAction)baseCurrencyButtonPressed:(id)sender {
     [self performSegueWithIdentifier:kSelectBaseCurrencySegue sender:nil];
+}
+
+- (IBAction)otherCurrencyButtonPressed:(id)sender {
+    [self performSegueWithIdentifier:kSelectOtherCurrencySegue sender:nil];
+}
+
+- (IBAction)unwindToHomeViewController:(UIStoryboardSegue*)segue
+{
+    
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([[segue identifier] isEqualToString:kSelectBaseCurrencySegue])
+    {
+        CurrencySelectorViewController* vc = segue.destinationViewController;
+        vc.viewModel = self.viewModel.baseCurrencySelectorViewModel;
+    }
 }
 
 @end

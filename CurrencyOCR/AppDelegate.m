@@ -27,6 +27,7 @@ static NSString* const kParseClientKey = @"fn8t6NTHaoCZ7UwIqb3cVacdfdlMauftY7S3f
 
 -(void)setupParse
 {
+    [Parse enableLocalDatastore];
     [Parse setApplicationId:kParseApplicationId
                   clientKey:kParseClientKey];
     [CurrencyRates registerSubclass];
