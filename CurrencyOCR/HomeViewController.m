@@ -34,8 +34,13 @@ static NSString* const kSelectOtherCurrencySegue = @"selectOtherCurrencySegue";
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setupTextField];
     [self initializeViewModel];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.baseCurrencyTextField becomeFirstResponder];
 }
 
 - (void)initializeViewModel
@@ -48,11 +53,15 @@ static NSString* const kSelectOtherCurrencySegue = @"selectOtherCurrencySegue";
 {
     RAC(self.baseCurrencyView, viewModel) = RACObserve(self.viewModel, baseCurrencyViewModel);
     RAC(self.otherCurrencyView, viewModel) = RACObserve(self.viewModel, otherCurrencyViewModel);
-}
-
--(void)setupTextField
-{
-    [self.baseCurrencyTextField becomeFirstResponder];
+    RAC(self.viewModel, baseCurrencyText) = self.baseCurrencyTextField.rac_textSignal;
+    
+    [self.baseCurrencyTextField.rac_textSignal subscribeNext:^(id x) {
+        //
+    }];
+    RAC(self.otherCurrencyLabel, text) = RACObserve(self.viewModel, otherCurrencyText);
+    [RACObserve(self.viewModel, otherCurrencyText) subscribeNext:^(id x) {
+        //
+    }];
 }
 
 - (IBAction)baseCurrencyButtonPressed:(id)sender {
@@ -65,7 +74,7 @@ static NSString* const kSelectOtherCurrencySegue = @"selectOtherCurrencySegue";
 
 - (IBAction)unwindToHomeViewController:(UIStoryboardSegue*)segue
 {
-    
+    [self.baseCurrencyTextField becomeFirstResponder];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

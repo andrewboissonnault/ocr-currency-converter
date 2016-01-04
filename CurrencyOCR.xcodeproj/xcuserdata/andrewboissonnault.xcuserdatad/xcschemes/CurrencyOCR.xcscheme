@@ -51,6 +51,11 @@
                BlueprintName = "CurrencyOCRTests"
                ReferencedContainer = "container:CurrencyOCR.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "UploadIcons">
+               </Test>
+            </SkippedTests>
             <LocationScenarioReference
                identifier = "com.apple.dt.IDEFoundation.CurrentLocationScenarioIdentifier"
                referenceType = "1">

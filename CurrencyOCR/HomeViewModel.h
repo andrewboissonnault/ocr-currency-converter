@@ -14,13 +14,11 @@
 
 @property (readonly) CurrencyViewModel* baseCurrencyViewModel;
 @property (readonly) CurrencyViewModel* otherCurrencyViewModel;
-@property (readonly) NSString* baseCurrencyLabel;
-@property (readonly) NSString* otherCurrencyLabel;
+@property (readonly) NSString* otherCurrencyText;
 @property (readonly) BOOL isArrowPointingRight;
-
--(void)setAmountToConvert:(NSNumber*)amount;
-
 @property (readonly) CurrencySelectorViewModel* baseCurrencySelectorViewModel;
 @property (readonly) CurrencySelectorViewModel* otherCurrencySelectorViewModel;
+
+@property NSString* baseCurrencyText;
 
 @end

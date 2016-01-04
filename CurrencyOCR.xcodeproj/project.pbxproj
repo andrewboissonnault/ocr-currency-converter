@@ -292,6 +292,9 @@
 		7F5625671C3928470021C242 /* HomeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5625661C3928470021C242 /* HomeViewModel.m */; settings = {ASSET_TAGS = (); }; };
 		7F56256B1C392ECF0021C242 /* UserPreferencesService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F56256A1C392ECF0021C242 /* UserPreferencesService.m */; settings = {ASSET_TAGS = (); }; };
 		7F5625721C3937A60021C242 /* CurrencyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5625711C3937A60021C242 /* CurrencyView.m */; settings = {ASSET_TAGS = (); }; };
+		7F56257D1C3A6C750021C242 /* MathParserService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F56257C1C3A6C750021C242 /* MathParserService.m */; settings = {ASSET_TAGS = (); }; };
+		7F5625801C3A71830021C242 /* MathParserService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F56257C1C3A6C750021C242 /* MathParserService.m */; settings = {ASSET_TAGS = (); }; };
+		7F5625821C3A72C40021C242 /* MathParserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5625811C3A72C40021C242 /* MathParserTests.m */; settings = {ASSET_TAGS = (); }; };
 		7F6339C21C34F99F00734B5D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F6339C11C34F99F00734B5D /* Main.storyboard */; };
 		7FA6E71C1C350F770071A00D /* PPCurrencyOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E71B1C350F770071A00D /* PPCurrencyOverlayViewController.m */; settings = {ASSET_TAGS = (); }; };
 		7FA6E71F1C3523230071A00D /* NSString+Unichar.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E71E1C3523230071A00D /* NSString+Unichar.m */; settings = {ASSET_TAGS = (); }; };
@@ -642,6 +645,9 @@
 		7F56256A1C392ECF0021C242 /* UserPreferencesService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPreferencesService.m; sourceTree = "<group>"; };
 		7F5625701C3937A60021C242 /* CurrencyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrencyView.h; sourceTree = "<group>"; };
 		7F5625711C3937A60021C242 /* CurrencyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrencyView.m; sourceTree = "<group>"; };
+		7F56257B1C3A6C750021C242 /* MathParserService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathParserService.h; sourceTree = "<group>"; };
+		7F56257C1C3A6C750021C242 /* MathParserService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathParserService.m; sourceTree = "<group>"; };
+		7F5625811C3A72C40021C242 /* MathParserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MathParserTests.m; sourceTree = "<group>"; };
 		7F6339C11C34F99F00734B5D /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		7FA6E71A1C350F770071A00D /* PPCurrencyOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCurrencyOverlayViewController.h; sourceTree = "<group>"; };
 		7FA6E71B1C350F770071A00D /* PPCurrencyOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCurrencyOverlayViewController.m; sourceTree = "<group>"; };
@@ -759,6 +765,7 @@
 				7F4029741C26DCB100436DEB /* CurrencyOCRTests.m */,
 				7FD45BC01C355CD7004219CB /* PPOcrLineUnitTests.m */,
 				7FD45BEE1C36F960004219CB /* CurrencyRatesTest.m */,
+				7F5625811C3A72C40021C242 /* MathParserTests.m */,
 				7F4029721C26DCB100436DEB /* Supporting Files */,
 				7F5623361C38E2490021C242 /* UploadIcons.m */,
 			);
@@ -1161,6 +1168,8 @@
 				7FD45BDD1C36B749004219CB /* ParseCloudCode.m */,
 				7F5625691C392ECF0021C242 /* UserPreferencesService.h */,
 				7F56256A1C392ECF0021C242 /* UserPreferencesService.m */,
+				7F56257B1C3A6C750021C242 /* MathParserService.h */,
+				7F56257C1C3A6C750021C242 /* MathParserService.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -1664,6 +1673,7 @@
 				7FD45BDB1C36B5C8004219CB /* CurrencyService.m in Sources */,
 				7FD45BD21C36653A004219CB /* PPOcrChar+String.m in Sources */,
 				7F56232F1C37EB880021C242 /* Currency.m in Sources */,
+				7F56257D1C3A6C750021C242 /* MathParserService.m in Sources */,
 				7FD45BE41C36C577004219CB /* NSDate+Hours.m in Sources */,
 				7FD45BF61C37ACA5004219CB /* HomeViewController.m in Sources */,
 				7FD45BFC1C37C3EB004219CB /* UIView+Borders.swift in Sources */,
@@ -1702,12 +1712,14 @@
 			files = (
 				7FD45BEF1C36F960004219CB /* CurrencyRatesTest.m in Sources */,
 				7FD45BC81C35657F004219CB /* NSString+Unichar.m in Sources */,
+				7F5625821C3A72C40021C242 /* MathParserTests.m in Sources */,
 				7FD45BC71C35657D004219CB /* PPOcrPrice.m in Sources */,
 				7FD45BC11C355CD7004219CB /* PPOcrLineUnitTests.m in Sources */,
 				7FD45BC91C356583004219CB /* NSArray+Map.m in Sources */,
 				7F5623371C38E2490021C242 /* UploadIcons.m in Sources */,
 				7F4029751C26DCB100436DEB /* CurrencyOCRTests.m in Sources */,
 				7FD45BC61C35656C004219CB /* PPOcrLine+Price.m in Sources */,
+				7F5625801C3A71830021C242 /* MathParserService.m in Sources */,
 				7FD45BF31C37A5C0004219CB /* PPOcrChar+String.m in Sources */,
 				7FD45BC51C356568004219CB /* PPPosition+Transform.m in Sources */,
 			);

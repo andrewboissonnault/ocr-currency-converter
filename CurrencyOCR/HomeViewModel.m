@@ -8,13 +8,16 @@
 
 #import "HomeViewModel.h"
 #import "UserPreferencesService.h"
+#import "MathParserService.h"
 
 @interface HomeViewModel () <CurrencySelectorDelegate>
 
 @property UserPreferencesService* userPreferencesService;
+@property MathParserService* mathParserService;
 @property Currency* baseCurrency;
 @property Currency* otherCurrency;
 @property NSNumber* amountToConvert;
+@property NSString* otherCurrencyText;
 @property (nonatomic) CurrencySelectorViewModel* baseCurrencySelectorViewModel;
 @property (nonatomic) CurrencySelectorViewModel* otherCurrencySelectorViewModel;
 @property (nonatomic) CurrencyViewModel* baseCurrencyViewModel;
@@ -60,6 +63,11 @@
     RAC(self, otherCurrency) = RACObserve(self.userPreferencesService, otherCurrency);
     [RACObserve(self.userPreferencesService, otherCurrency) subscribeNext:^(id otherCurrency) {
         self.otherCurrencyViewModel = [[CurrencyViewModel alloc] initWithCurrency:otherCurrency];
+    }];
+    
+   // RAC(self, otherCurrencyText) = RACObserve(self, baseCurrencyText);
+    [RACObserve(self, baseCurrencyText) subscribeNext:^(id x) {
+        self.otherCurrencyText = [[MathParserService resultWithExpression:self.baseCurrencyText] stringValue];
     }];
 }
 
