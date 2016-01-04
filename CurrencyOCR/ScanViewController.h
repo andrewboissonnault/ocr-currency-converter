@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ScanningViewModel.h"
 
 @interface ScanViewController : UIViewController
+
+@property ScanningViewModel* viewModel;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelResult;
 

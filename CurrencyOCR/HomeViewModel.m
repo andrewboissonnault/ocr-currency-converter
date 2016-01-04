@@ -9,11 +9,12 @@
 #import "HomeViewModel.h"
 #import "UserPreferencesService.h"
 #import "MathParserService.h"
+#import "CurrencyService.h"
 
 @interface HomeViewModel () <CurrencySelectorDelegate>
 
 @property UserPreferencesService* userPreferencesService;
-@property MathParserService* mathParserService;
+@property CurrencyService* currencyService;
 @property Currency* baseCurrency;
 @property Currency* otherCurrency;
 @property NSNumber* amountToConvert;
@@ -51,6 +52,8 @@
 -(void)initialize
 {
     self.userPreferencesService = [[UserPreferencesService alloc] init];
+    self.currencyService = [[CurrencyService alloc] init];
+    [self bindCurrencyService];
     [self bindUserPreferencesService];
 }
 
@@ -67,8 +70,21 @@
     
    // RAC(self, otherCurrencyText) = RACObserve(self, baseCurrencyText);
     [RACObserve(self, baseCurrencyText) subscribeNext:^(id x) {
-        self.otherCurrencyText = [[MathParserService resultWithExpression:self.baseCurrencyText] stringValue];
+        NSNumber* result = [MathParserService resultWithExpression:self.baseCurrencyText];
+        self.otherCurrencyText = [[self convertResultWithCurrencies:result] stringValue];
     }];
+}
+
+-(void)bindCurrencyService
+{
+    [self.currencyService refreshCurrencyData];
+}
+
+-(NSNumber*)convertResultWithCurrencies:(NSNumber*)result
+{
+    double conversionRate = [self.currencyService.rates rateWithBaseCurrency:self.baseCurrency otherCurrency:self.otherCurrency];
+    double convertedResult = [result doubleValue] * conversionRate;
+    return [NSNumber numberWithDouble:convertedResult];
 }
 
 -(NSString*)baseCurrencyLabel
@@ -102,6 +118,11 @@
         _otherCurrencySelectorViewModel = [[CurrencySelectorViewModel alloc] initWithCurrency:self.otherCurrency delegate:self];
     }
     return _otherCurrencySelectorViewModel;
+}
+
+-(ScanningViewModel*)scanningViewModel
+{
+    return [[ScanningViewModel alloc] initWithBaseCurrency:self.baseCurrency otherCurrency:self.otherCurrency];
 }
 
 -(void)didSelectCurrency:(Currency *)currency withSelector:(CurrencySelectorViewModel *)selector

@@ -55,7 +55,14 @@ static NSString* const kCurrenciesKey = @"currencies";
     if(!self.rates)
     {
         [ParseCloudCode requestCachedCurrencyRatesInBackground:^(CurrencyRates*  _Nullable rates, NSError * _Nullable error) {
-            self.rates = rates;
+            if(!rates) //TODO: Handle errors that would make you not want to try and fetch again.
+            {
+                [self fetchCurrencyData];
+            }
+            else
+            {
+                self.rates = rates;
+            }
         }];
     }
     if(!self.currencies)
@@ -93,7 +100,7 @@ static NSString* const kCurrenciesKey = @"currencies";
         self.rates = object[kCurrencyRatesKey];
         self.currencies = object[kCurrenciesKey];
         [self.rates pinInBackground];
-        [PFObject pinAll:self.currencies];
+        [PFObject pinAllInBackground:self.currencies];
     }];
 }
 

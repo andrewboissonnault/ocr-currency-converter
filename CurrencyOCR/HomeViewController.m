@@ -12,9 +12,11 @@
 #import "CurrencyView.h"
 #import "HomeViewModel.h"
 #import "CurrencySelectorViewController.h"
+#import "ScanViewController.h"
 
 static NSString* const kSelectBaseCurrencySegue = @"selectBaseCurrencySegue";
 static NSString* const kSelectOtherCurrencySegue = @"selectOtherCurrencySegue";
+static NSString* const kShowScanViewSegue = @"showScanView";
 
 @interface HomeViewController () <VENCalculatorInputViewDelegate>
 
@@ -72,6 +74,10 @@ static NSString* const kSelectOtherCurrencySegue = @"selectOtherCurrencySegue";
     [self performSegueWithIdentifier:kSelectOtherCurrencySegue sender:nil];
 }
 
+- (IBAction)cameraButtonPressed:(id)sender {
+    [self performSegueWithIdentifier:kShowScanViewSegue sender:nil];
+}
+
 - (IBAction)unwindToHomeViewController:(UIStoryboardSegue*)segue
 {
     [self.baseCurrencyTextField becomeFirstResponder];
@@ -88,6 +94,11 @@ static NSString* const kSelectOtherCurrencySegue = @"selectOtherCurrencySegue";
     {
         CurrencySelectorViewController* vc = segue.destinationViewController;
         vc.viewModel = self.viewModel.otherCurrencySelectorViewModel;
+    }
+    if([[segue identifier] isEqualToString:kShowScanViewSegue])
+    {
+        ScanViewController* vc = segue.destinationViewController;
+        vc.viewModel = self.viewModel.scanningViewModel;
     }
 }
 

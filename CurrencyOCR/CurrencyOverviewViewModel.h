@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <MicroBlink/MicroBlink.h>
+#import "Currency.h"
 
 @interface CurrencyOverviewViewModel : NSObject
 
@@ -15,5 +16,7 @@
 
 @property (strong, nonatomic) NSArray* ocrResults;
 @property (nonatomic) double filter;
+
+-(instancetype)initWithBaseCurrency:(Currency*)baseCurrency otherCurrency:(Currency*)otherCurrency;
 
 @end

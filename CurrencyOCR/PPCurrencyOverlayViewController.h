@@ -9,7 +9,10 @@
 #import <MicroBlink/MicroBlink.h>
 #import <MicroBlink/PPModernBaseOverlayViewController.h>
 #import <MicroBlink/PPOverlayViewController.h>
+#import "CurrencyOverviewViewModel.h"
 
 @interface PPCurrencyOverlayViewController : PPOverlayViewController
+
+@property CurrencyOverviewViewModel *viewModel;
 
 @end

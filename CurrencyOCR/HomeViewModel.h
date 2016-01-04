@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "CurrencyViewModel.h"
 #import "CurrencySelectorViewModel.h"
+#import "ScanningViewModel.h"
 
 @interface HomeViewModel : NSObject
 
@@ -18,6 +19,7 @@
 @property (readonly) BOOL isArrowPointingRight;
 @property (readonly) CurrencySelectorViewModel* baseCurrencySelectorViewModel;
 @property (readonly) CurrencySelectorViewModel* otherCurrencySelectorViewModel;
+@property (readonly) ScanningViewModel* scanningViewModel;
 
 @property NSString* baseCurrencyText;
 

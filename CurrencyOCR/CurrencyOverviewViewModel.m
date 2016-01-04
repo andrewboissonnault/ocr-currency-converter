@@ -38,6 +38,17 @@
     return self;
 }
 
+-(instancetype)initWithBaseCurrency:(Currency*)baseCurrency otherCurrency:(Currency*)otherCurrency
+{
+    self = [super init];
+    if(self) {
+        self.baseCurrency = baseCurrency;
+        self.otherCurrency = otherCurrency;
+        [self initialize];
+    }
+    return self;
+}
+
 -(void)initialize
 {
     self.currencyRateService = [[CurrencyService alloc] init];

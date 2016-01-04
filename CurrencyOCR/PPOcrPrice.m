@@ -71,6 +71,16 @@
     return [priceFormatter stringFromNumber:[NSNumber numberWithDouble:self.value]];
 }
 
+-(NSString*)debugDescription
+{
+    return [self string];
+}
+
+-(NSString*)description
+{
+    return [self string];
+}
+
 -(BOOL)isEqual:(id)object
 {
     if(![object isKindOfClass:[PPOcrPrice class]])

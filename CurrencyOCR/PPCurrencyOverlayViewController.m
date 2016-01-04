@@ -17,7 +17,7 @@
 @interface PPCurrencyOverlayViewController ()
 
 @property (readonly)  NSMutableArray* labels;
-@property CurrencyOverviewViewModel *viewModel;
+
 @property UISlider* slider;
 
 @end
@@ -28,7 +28,6 @@
 
 - (void)initializeViewModel
 {
-    self.viewModel = [[CurrencyOverviewViewModel alloc] init];
     self.viewModel.filter = 85;
 }
 
@@ -133,7 +132,8 @@
     priceLabel.textColor = [UIColor greenColor];
     priceLabel.text = formattedString;
     priceLabel.backgroundColor = [UIColor clearColor];
-    priceLabel.adjustsFontSizeToFitWidth = YES;
+   // priceLabel.adjustsFontSizeToFitWidth = YES;
+    [priceLabel sizeToFit];
     
     [self.labels addObject:priceLabel];
     [self.view addSubview:priceLabel];

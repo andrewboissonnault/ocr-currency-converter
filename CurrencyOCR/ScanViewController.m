@@ -105,6 +105,7 @@
     
     PPCurrencyOverlayViewController *overlayViewController =
     [[PPCurrencyOverlayViewController alloc] init];
+    overlayViewController.viewModel = self.viewModel.currencyOverviewViewModel;
     
     /** Allocate and present the scanning view controller */
     UIViewController<PPScanningViewController> *scanningViewController =
