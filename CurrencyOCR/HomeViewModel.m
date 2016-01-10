@@ -19,6 +19,7 @@
 @property Currency* otherCurrency;
 @property NSNumber* amountToConvert;
 @property NSString* otherCurrencyText;
+@property BOOL isArrowPointingLeft;
 @property (nonatomic) CurrencySelectorViewModel* baseCurrencySelectorViewModel;
 @property (nonatomic) CurrencySelectorViewModel* otherCurrencySelectorViewModel;
 @property (nonatomic) CurrencyViewModel* baseCurrencyViewModel;
@@ -97,9 +98,9 @@
     return @"100";
 }
 
--(BOOL)isArrowPointingRight
+-(void)toggleConversionArrow
 {
-    return YES;
+    self.isArrowPointingLeft = !self.isArrowPointingLeft;
 }
 
 -(CurrencySelectorViewModel*)baseCurrencySelectorViewModel

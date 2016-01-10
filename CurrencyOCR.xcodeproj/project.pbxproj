@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		32D2F8D02D2C523CEB3EB0ED /* Pods_CurrencyOCRTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CDCDB6F913983DBC6ECB1A0 /* Pods_CurrencyOCRTests.framework */; };
+		7F08F8BD1C42B80F00B75957 /* convertIconLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F08F8BB1C42B80F00B75957 /* convertIconLeft.png */; settings = {ASSET_TAGS = (); }; };
+		7F08F8BE1C42B80F00B75957 /* convertIconRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F08F8BC1C42B80F00B75957 /* convertIconRight.png */; settings = {ASSET_TAGS = (); }; };
 		7F40295B1C26DCB100436DEB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F40295A1C26DCB100436DEB /* main.m */; };
 		7F40295E1C26DCB100436DEB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F40295D1C26DCB100436DEB /* AppDelegate.m */; };
 		7F4029661C26DCB100436DEB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7F4029651C26DCB100436DEB /* Images.xcassets */; };
@@ -322,7 +324,6 @@
 		7FD45BF21C37A0BB004219CB /* NSString+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BF11C37A0BB004219CB /* NSString+JSON.m */; settings = {ASSET_TAGS = (); }; };
 		7FD45BF31C37A5C0004219CB /* PPOcrChar+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BD11C36653A004219CB /* PPOcrChar+String.m */; settings = {ASSET_TAGS = (); }; };
 		7FD45BF61C37ACA5004219CB /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BF51C37ACA5004219CB /* HomeViewController.m */; settings = {ASSET_TAGS = (); }; };
-		7FD45BF81C37B4CF004219CB /* convertIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FD45BF71C37B4CF004219CB /* convertIcon.png */; settings = {ASSET_TAGS = (); }; };
 		7FD45BFC1C37C3EB004219CB /* UIView+Borders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BFB1C37C3EB004219CB /* UIView+Borders.swift */; settings = {ASSET_TAGS = (); }; };
 		AAE384DB9E9E332D430519F3 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A93D2D7B747C09F27CC3BB /* Pods.framework */; };
 /* End PBXBuildFile section */
@@ -342,6 +343,8 @@
 		276C5347A9A5F1FA7F83FB19 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		5CDCDB6F913983DBC6ECB1A0 /* Pods_CurrencyOCRTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CurrencyOCRTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78A406806ED06C44C5660522 /* Pods-CurrencyOCRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyOCRTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyOCRTests/Pods-CurrencyOCRTests.release.xcconfig"; sourceTree = "<group>"; };
+		7F08F8BB1C42B80F00B75957 /* convertIconLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = convertIconLeft.png; sourceTree = "<group>"; };
+		7F08F8BC1C42B80F00B75957 /* convertIconRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = convertIconRight.png; sourceTree = "<group>"; };
 		7F1A70101C2D3A5B00A02EEB /* NSArray+Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Map.h"; sourceTree = "<group>"; };
 		7F4029551C26DCB100436DEB /* CurrencyOCR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyOCR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F4029591C26DCB100436DEB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -687,7 +690,6 @@
 		7FD45BF11C37A0BB004219CB /* NSString+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSON.m"; sourceTree = "<group>"; };
 		7FD45BF41C37ACA5004219CB /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		7FD45BF51C37ACA5004219CB /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
-		7FD45BF71C37B4CF004219CB /* convertIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = convertIcon.png; sourceTree = "<group>"; };
 		7FD45BFB1C37C3EB004219CB /* UIView+Borders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Borders.swift"; sourceTree = "<group>"; };
 		A0CF8BC3BD4BB4DE1D8A2E78 /* Pods-CurrencyOCRTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyOCRTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyOCRTests/Pods-CurrencyOCRTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B086E3585546B135B8977871 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -1182,8 +1184,9 @@
 		7FD45BF91C37B4D2004219CB /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				7F08F8BB1C42B80F00B75957 /* convertIconLeft.png */,
+				7F08F8BC1C42B80F00B75957 /* convertIconRight.png */,
 				7F5623381C38E3880021C242 /* Flags */,
-				7FD45BF71C37B4CF004219CB /* convertIcon.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -1436,9 +1439,9 @@
 				7F5624341C38E46D0021C242 /* sh.png in Resources */,
 				7F5624291C38E46D0021C242 /* ro.png in Resources */,
 				7F5625191C38E47E0021C242 /* dz.png in Resources */,
+				7F08F8BE1C42B80F00B75957 /* convertIconRight.png in Resources */,
 				7F5623EE1C38E46D0021C242 /* lr.png in Resources */,
 				7F5624041C38E46D0021C242 /* mt.png in Resources */,
-				7FD45BF81C37B4CF004219CB /* convertIcon.png in Resources */,
 				7F56252A1C38E47E0021C242 /* gb.png in Resources */,
 				7F5625431C38E47E0021C242 /* ie.png in Resources */,
 				7F56242F1C38E46D0021C242 /* sc.png in Resources */,
@@ -1556,6 +1559,7 @@
 				7F5624F21C38E47E0021C242 /* bh.png in Resources */,
 				7F5623DD1C38E46D0021C242 /* jp.png in Resources */,
 				7F5625011C38E47E0021C242 /* ca.png in Resources */,
+				7F08F8BD1C42B80F00B75957 /* convertIconLeft.png in Resources */,
 				7F56254F1C38EEB50021C242 /* xp.png in Resources */,
 				7F5624311C38E46D0021C242 /* sd.png in Resources */,
 				7F5623FB1C38E46D0021C242 /* mk.png in Resources */,

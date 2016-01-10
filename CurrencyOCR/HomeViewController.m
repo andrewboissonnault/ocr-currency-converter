@@ -26,6 +26,7 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 @property (weak, nonatomic) IBOutlet CurrencyView* otherCurrencyView;
 @property (weak, nonatomic) IBOutlet UILabel* baseCurrencyLabel;
 @property (weak, nonatomic) IBOutlet UILabel* otherCurrencyLabel;
+@property (weak, nonatomic) IBOutlet UIButton *toggleConversionButton;
 
 @property PPCurrencyOverlayViewController* overlayViewController;
 
@@ -66,6 +67,32 @@ static NSString* const kShowScanViewSegue = @"showScanView";
     [RACObserve(self.viewModel, otherCurrencyText) subscribeNext:^(id x){
         //
     }];
+    
+    [RACObserve(self.viewModel, isArrowPointingLeft) subscribeNext:^(id x) {
+        [self toggleArrow];
+    }];
+}
+
+-(void)toggleArrow
+{
+    UIImage* image = [self conversionButtonImage];
+    [self.toggleConversionButton setImage:image forState:UIControlStateNormal];
+}
+
+-(UIImage*)conversionButtonImage
+{
+    if(self.viewModel.isArrowPointingLeft)
+    {
+        return [UIImage imageNamed:@"convertIconLeft"];
+    }
+    else
+    {
+        return [UIImage imageNamed:@"convertIconRight"];
+    }
+}
+
+- (IBAction)toggleCurrencyButtonPressed:(id)sender {
+    [self.viewModel toggleConversionArrow];
 }
 
 - (IBAction)baseCurrencyButtonPressed:(id)sender
