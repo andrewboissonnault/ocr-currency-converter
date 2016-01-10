@@ -125,6 +125,11 @@
     return [[ScanningViewModel alloc] initWithBaseCurrency:self.baseCurrency otherCurrency:self.otherCurrency];
 }
 
+-(CurrencyOverviewViewModel*)currencyOverviewViewModel
+{
+    return [[CurrencyOverviewViewModel alloc] initWithBaseCurrency:self.baseCurrency otherCurrency:self.otherCurrency];
+}
+
 -(void)didSelectCurrency:(Currency *)currency withSelector:(CurrencySelectorViewModel *)selector
 {
     if([self.baseCurrencySelectorViewModel isEqual:selector])

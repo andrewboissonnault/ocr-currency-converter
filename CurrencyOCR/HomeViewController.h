@@ -6,8 +6,6 @@
 //  Copyright © 2016 Andrew Boissonnault. All rights reserved.
 //
 
-#import "ScanViewController.h"
-
 @interface HomeViewController : UIViewController
 
 @end

@@ -63,7 +63,11 @@ static NSString* const kDivisionOperator = @"/";
 +(NSArray*)operandsWithExpression:(NSString*)expression
 {
     NSArray* splitText = [expression componentsSeparatedByCharactersInSet:[self operatorCharacterSet]];
-    NSArray* operands = [splitText mapObjectsUsingBlock:^id(NSString* operand, NSUInteger idx) {
+    NSArray* filteredText = [splitText filterUsingBlock:^BOOL(NSString* text, NSDictionary *bindings) {
+        NSString* strippedText = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        return [strippedText length] > 0;
+    }];
+    NSArray* operands = [filteredText mapObjectsUsingBlock:^id(NSString* operand, NSUInteger idx) {
         return [NSNumber numberWithDouble:[operand doubleValue]];
     }];
     return operands;

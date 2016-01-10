@@ -109,8 +109,8 @@ SpecBegin(MathParserService)
         });
 
         it(@"testMultiplicationII", ^{
-            NSString* testString = @"110x5";
-            NSNumber* expectedResult = [NSNumber numberWithDouble:550];
+            NSString* testString = @"110x";
+            NSNumber* expectedResult = [NSNumber numberWithDouble:110];
 
             NSNumber* result = [MathParserService resultWithExpression:testString];
             expect(result).to.equal(expectedResult);

@@ -6,10 +6,10 @@
 //  Copyright © 2016 Andrew Boissonnault. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "CurrencyViewModel.h"
 #import "CurrencySelectorViewModel.h"
+#import "CurrencyViewModel.h"
 #import "ScanningViewModel.h"
+#import <Foundation/Foundation.h>
 
 @interface HomeViewModel : NSObject
 
@@ -19,7 +19,7 @@
 @property (readonly) BOOL isArrowPointingRight;
 @property (readonly, nonatomic) CurrencySelectorViewModel* baseCurrencySelectorViewModel;
 @property (readonly, nonatomic) CurrencySelectorViewModel* otherCurrencySelectorViewModel;
-@property (readonly) ScanningViewModel* scanningViewModel;
+@property (readonly) CurrencyOverviewViewModel* currencyOverviewViewModel;
 
 @property NSString* baseCurrencyText;
 
