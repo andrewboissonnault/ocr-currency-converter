@@ -17,8 +17,8 @@
 @property (readonly) CurrencyViewModel* otherCurrencyViewModel;
 @property (readonly) NSString* otherCurrencyText;
 @property (readonly) BOOL isArrowPointingRight;
-@property (readonly) CurrencySelectorViewModel* baseCurrencySelectorViewModel;
-@property (readonly) CurrencySelectorViewModel* otherCurrencySelectorViewModel;
+@property (readonly, nonatomic) CurrencySelectorViewModel* baseCurrencySelectorViewModel;
+@property (readonly, nonatomic) CurrencySelectorViewModel* otherCurrencySelectorViewModel;
 @property (readonly) ScanningViewModel* scanningViewModel;
 
 @property NSString* baseCurrencyText;
