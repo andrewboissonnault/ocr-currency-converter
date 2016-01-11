@@ -15,10 +15,8 @@ static NSString* const kDisplayAmountKey = @"displayAmount";
 
 @interface UserPreferencesService()
 
-//@property Currency* savedBasedCurrency;
 @property NSString* baseCurrencyCode;
 @property NSString* otherCurrencyCode;
-//@property Currency* savedOtherCurrency;
 
 @end
 
@@ -116,6 +114,13 @@ static NSString* const kDisplayAmountKey = @"displayAmount";
 -(void)setDisplayAmount:(NSNumber *)displayAmount
 {
     [Archiver persist:displayAmount key:kDisplayAmountKey];
+}
+
+-(void)switchCurrencies
+{
+    Currency* tmpCurrency = self.baseCurrency;
+    self.baseCurrency = self.otherCurrency;
+    self.otherCurrency = tmpCurrency;
 }
 
 @end

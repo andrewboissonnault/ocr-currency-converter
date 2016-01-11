@@ -13,15 +13,19 @@
 
 @interface HomeViewModel : NSObject
 
-@property (readonly) CurrencyViewModel* baseCurrencyViewModel;
-@property (readonly) CurrencyViewModel* otherCurrencyViewModel;
-@property (readonly) NSString* otherCurrencyText;
-@property (readonly, nonatomic) CurrencySelectorViewModel* baseCurrencySelectorViewModel;
-@property (readonly, nonatomic) CurrencySelectorViewModel* otherCurrencySelectorViewModel;
+@property (readonly, nonatomic) BOOL isArrowPointingLeft;
+@property (readonly) CurrencyViewModel* leftCurrencyViewModel;
+@property (readonly) CurrencyViewModel* rightCurrencyViewModel;
+@property (readonly) NSString* leftCurrencyText;
+@property (readonly) NSString* rightCurrencyText;
+@property (readonly, nonatomic) CurrencySelectorViewModel* leftCurrencySelectorViewModel;
+@property (readonly, nonatomic) CurrencySelectorViewModel* rightCurrencySelectorViewModel;
 @property (readonly) CurrencyOverviewViewModel* currencyOverviewViewModel;
 
-@property NSString* baseCurrencyText;
-@property (nonatomic) BOOL isArrowPointingLeft;
+
+-(void)setCurrencyText:(NSString*)currencyText;
+-(void)leftTextFieldBecameFirstResponder;
+-(void)rightTextFieldBecameFirstResponder;
 -(void)toggleConversionArrow;
 
 @end

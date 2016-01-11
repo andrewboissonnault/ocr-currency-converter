@@ -15,4 +15,6 @@
 @property Currency* otherCurrency;
 @property NSNumber* displayAmount;
 
+-(void)switchCurrencies;
+
 @end
