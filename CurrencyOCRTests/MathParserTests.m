@@ -53,7 +53,7 @@ SpecBegin(MathParserService)
         });
 
         it(@"testSubtraction", ^{
-            NSString* testString = @"5-6";
+            NSString* testString = @"5−6";
             NSNumber* expectedResult = @-1;
 
             NSNumber* result = [MathParserService resultWithExpression:testString];
@@ -61,7 +61,7 @@ SpecBegin(MathParserService)
         });
 
         it(@"testMultiplication", ^{
-            NSString* testString = @"7x8";
+            NSString* testString = @"7×8";
             NSNumber* expectedResult = @56;
 
             NSNumber* result = [MathParserService resultWithExpression:testString];
