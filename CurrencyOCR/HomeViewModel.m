@@ -152,7 +152,7 @@
     NSNumber* convertedResult = self.convertedResult;
     [self.userPreferencesService switchCurrencies];
     self.amountToConvert = convertedResult;
-  //  [self updateTexts];
+    self.baseCurrencyText = [self.numberFormatter stringFromNumber:self.amountToConvert];
 }
 
 - (instancetype)init {
@@ -178,7 +178,7 @@
     if(!_numberFormatter)
     {
         _numberFormatter = [[NSNumberFormatter alloc] init];
-        _numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+        _numberFormatter.numberStyle = NSNumberFormatterNoStyle;
     }
     return _numberFormatter;
 }
@@ -217,7 +217,6 @@
 
 -(void)updateTexts
 {
-    self.baseCurrencyText = [self.numberFormatter stringFromNumber:self.amountToConvert];
     self.otherCurrencyText = [self.currencyFormatter stringFromNumber:self.convertedResult];
 }
 

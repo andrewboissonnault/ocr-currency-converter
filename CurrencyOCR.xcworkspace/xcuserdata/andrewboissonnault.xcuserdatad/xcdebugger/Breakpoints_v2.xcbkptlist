@@ -1745,7 +1745,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/HomeViewModel.m"
-            timestampString = "474185502.47301"
+            timestampString = "474188645.423377"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "288"
@@ -2416,7 +2416,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/HomeViewModel.m"
-            timestampString = "474185502.47301"
+            timestampString = "474187871.037184"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "207"
@@ -2432,7 +2432,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/HomeViewModel.m"
-            timestampString = "474185502.47301"
+            timestampString = "474187871.037184"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "210"
@@ -2448,7 +2448,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/HomeViewModel.m"
-            timestampString = "474185502.47301"
+            timestampString = "474188645.423377"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "274"
@@ -2652,7 +2652,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/HomeViewModel.m"
-            timestampString = "474185502.47301"
+            timestampString = "474188645.423377"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "245"
@@ -2908,7 +2908,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/HomeViewModel.m"
-            timestampString = "474185502.47301"
+            timestampString = "474188645.423377"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "250"
@@ -2924,11 +2924,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/HomeViewModel.m"
-            timestampString = "474185405.631015"
+            timestampString = "474187520.72882"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "-setIsArrowPointingLeft:"
             landmarkType = "5">
          </BreakpointContent>
@@ -2940,7 +2940,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/HomeViewModel.m"
-            timestampString = "474185502.47301"
+            timestampString = "474188645.423377"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "233"
@@ -2956,12 +2956,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/HomeViewModel.m"
-            timestampString = "474185502.47301"
+            timestampString = "474188645.423377"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "234"
             endingLineNumber = "234"
-            landmarkName = "-convertedResult"
+            landmarkName = "-bindCurrencyService"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2972,7 +2972,55 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/HomeViewModel.m"
-            timestampString = "474185405.631015"
+            timestampString = "474187520.72882"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "-switchCurrencies"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CurrencyOCR/HomeViewModel.m"
+            timestampString = "474187520.72882"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "-setOtherCurrencyText:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CurrencyOCR/HomeViewModel.m"
+            timestampString = "474187520.72882"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "-setBaseCurrencyText:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CurrencyOCR/HomeViewModel.m"
+            timestampString = "474187520.72882"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "153"
@@ -2988,55 +3036,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/HomeViewModel.m"
-            timestampString = "474185405.631015"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "-setOtherCurrencyText:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CurrencyOCR/HomeViewModel.m"
-            timestampString = "474185405.631015"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "-setBaseCurrencyText:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CurrencyOCR/HomeViewModel.m"
-            timestampString = "474185433.22399"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "152"
-            endingLineNumber = "152"
-            landmarkName = "-switchCurrencies"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CurrencyOCR/HomeViewModel.m"
-            timestampString = "474185633.943348"
+            timestampString = "474188645.423377"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "255"
@@ -3052,7 +3052,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/HomeViewModel.m"
-            timestampString = "474185634.62322"
+            timestampString = "474188645.423377"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "259"
@@ -3068,7 +3068,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CurrencyOCR/HomeViewModel.m"
-            timestampString = "474185635.335129"
+            timestampString = "474188645.423377"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "260"
@@ -3090,6 +3090,118 @@
             startingLineNumber = "240"
             endingLineNumber = "240"
             landmarkName = "-textFieldDidBeginEditing:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CurrencyOCR/HomeViewModel.m"
+            timestampString = "474188645.423377"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "220"
+            endingLineNumber = "220"
+            landmarkName = "-updateTexts"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CurrencyOCR/HomeViewModel.m"
+            timestampString = "474187871.037184"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
+            landmarkName = "-updateTexts"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CurrencyOCR/HomeViewModel.m"
+            timestampString = "474187871.037184"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
+            landmarkName = "-updateTexts"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/VENCalculatorInputView/VENCalculatorInputView/VENCalculatorInputTextField.m"
+            timestampString = "474188143.557137"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "-calculatorInputView:didTapKey:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/VENCalculatorInputView/VENCalculatorInputView/VENCalculatorInputTextField.m"
+            timestampString = "474188645.423377"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "-calculatorInputView:didTapKey:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/VENCalculatorInputView/VENCalculatorInputView/VENCalculatorInputTextField.m"
+            timestampString = "474188645.423377"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "-calculatorInputView:didTapKey:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/VENCalculatorInputView/VENCalculatorInputView/VENCalculatorInputTextField.m"
+            timestampString = "474188645.423377"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "-calculatorInputView:didTapKey:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
