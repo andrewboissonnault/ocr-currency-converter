@@ -3196,12 +3196,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Pods/VENCalculatorInputView/VENCalculatorInputView/VENCalculatorInputTextField.m"
-            timestampString = "474188645.423377"
+            timestampString = "474188844.269488"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "-calculatorInputView:didTapKey:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/VENCalculatorInputView/VENCalculatorInputView/VENCalculatorInputTextField.m"
+            timestampString = "474189147.687024"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "-isDecimalValid"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -80,11 +80,26 @@
             self.text = subString;
         }
     } else if ([key isEqualToString:[self decimalSeparator]]) {
-        NSString *secondToLastCharacterString = [self.text substringWithRange:NSMakeRange([self.text length] - 2, 1)];
-        if ([secondToLastCharacterString isEqualToString:[self decimalSeparator]]) {
+        if(![self isDecimalValid])
+        {
             self.text = subString;
         }
     }
+}
+
+-(BOOL)isDecimalValid
+{
+    NSString *subString = [self.text substringToIndex:self.text.length - 1];
+    NSArray* components = [subString componentsSeparatedByCharactersInSet:[self separaterSet]];
+    NSString* lastComponent = [components lastObject];
+    return ![lastComponent containsString:[self decimalSeparator]];
+}
+
+-(NSCharacterSet*)separaterSet
+{
+    NSMutableCharacterSet* set = [[NSCharacterSet characterSetWithCharactersInString:@"."] mutableCopy];
+    [set formUnionWithCharacterSet:[NSCharacterSet decimalDigitCharacterSet]];
+    return [set invertedSet];
 }
 
 - (void)calculatorInputViewDidTapBackspace:(VENCalculatorInputView *)calculatorInputView {
