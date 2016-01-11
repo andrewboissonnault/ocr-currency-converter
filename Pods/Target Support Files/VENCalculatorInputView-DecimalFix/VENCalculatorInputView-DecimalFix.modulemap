@@ -1,0 +1,6 @@
+framework module VENCalculatorInputView_DecimalFix {
+  umbrella header "VENCalculatorInputView-DecimalFix-umbrella.h"
+
+  export *
+  module * { export * }
+}

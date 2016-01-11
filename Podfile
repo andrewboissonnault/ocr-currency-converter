@@ -1,4 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
+source 'git@github.com:andrewboissonnault/mypodspecs.git'
 
 platform :ios, '8.0'
 use_frameworks!
@@ -10,7 +11,7 @@ pod 'Parse'
 pod 'ParseUI'
 pod 'TMCache'
 pod 'NSData+MD5Digest'
-pod 'VENCalculatorInputView'
+pod 'VENCalculatorInputView-DecimalFix', '1.0-DecimalFix'
 pod 'NSObject-NSCoding'
 
 
