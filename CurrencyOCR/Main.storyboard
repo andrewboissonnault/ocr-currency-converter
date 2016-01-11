@@ -75,11 +75,28 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="184.5"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zXS-Sr-EXG" customClass="VENCalculatorInputTextField">
-                                        <rect key="frame" x="8" y="152" width="211" height="29.5"/>
+                                        <rect key="frame" x="8" y="152" width="211" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="jSA-Bp-dHD"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="LXp-Gf-TCI" id="ggT-pm-HlR"/>
+                                        </connections>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lva-Pb-t2e">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AUv-ao-sfF" customClass="VENCalculatorInputTextField">
+                                        <rect key="frame" x="381" y="151.5" width="211" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="bzh-ec-JP1"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="LXp-Gf-TCI" id="fkp-Qk-ljM"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lva-Pb-t2e">
                                         <rect key="frame" x="381" y="156" width="211" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -160,9 +177,12 @@
                                     <constraint firstItem="eKo-Lh-7m7" firstAttribute="width" secondItem="cKn-pL-w9u" secondAttribute="width" id="Ijv-Wp-vxd"/>
                                     <constraint firstAttribute="bottom" secondItem="eKo-Lh-7m7" secondAttribute="bottom" constant="8" id="Kdf-V2-WPi"/>
                                     <constraint firstAttribute="bottom" secondItem="zXS-Sr-EXG" secondAttribute="bottom" constant="3" id="Nx6-UL-NOs"/>
-                                    <constraint firstItem="zXS-Sr-EXG" firstAttribute="top" secondItem="eKo-Lh-7m7" secondAttribute="bottom" constant="3.5" id="Qfa-4Q-UaG"/>
+                                    <constraint firstItem="zXS-Sr-EXG" firstAttribute="top" secondItem="eKo-Lh-7m7" secondAttribute="bottom" constant="3" id="Qfa-4Q-UaG"/>
                                     <constraint firstItem="Lva-Pb-t2e" firstAttribute="width" secondItem="cKn-pL-w9u" secondAttribute="height" multiplier="211:140" id="Rcc-t1-e1P"/>
                                     <constraint firstItem="eKo-Lh-7m7" firstAttribute="top" secondItem="zqL-Hr-BhR" secondAttribute="top" constant="8" id="TCF-i3-hUU"/>
+                                    <constraint firstAttribute="bottom" secondItem="AUv-ao-sfF" secondAttribute="bottom" constant="3" id="UHl-a9-gvp"/>
+                                    <constraint firstItem="AUv-ao-sfF" firstAttribute="leading" secondItem="7wt-VZ-Uc9" secondAttribute="leading" id="VXS-c5-ieH"/>
+                                    <constraint firstItem="AUv-ao-sfF" firstAttribute="trailing" secondItem="7wt-VZ-Uc9" secondAttribute="trailing" id="Y1P-QA-ecm"/>
                                     <constraint firstItem="zXS-Sr-EXG" firstAttribute="leading" secondItem="zqL-Hr-BhR" secondAttribute="leading" constant="8" id="d8y-Ja-9lF"/>
                                     <constraint firstItem="zXS-Sr-EXG" firstAttribute="trailing" secondItem="eKo-Lh-7m7" secondAttribute="trailing" id="dVd-K8-3KW"/>
                                     <constraint firstItem="fii-E9-lLv" firstAttribute="width" secondItem="eKo-Lh-7m7" secondAttribute="height" multiplier="4:5" id="eTp-0i-srZ"/>
@@ -171,6 +191,7 @@
                                     <constraint firstItem="eKo-Lh-7m7" firstAttribute="height" secondItem="cKn-pL-w9u" secondAttribute="height" id="gbm-Su-bFL"/>
                                     <constraint firstItem="Lva-Pb-t2e" firstAttribute="top" secondItem="cKn-pL-w9u" secondAttribute="bottom" constant="8" id="iIg-kO-I9J"/>
                                     <constraint firstItem="fii-E9-lLv" firstAttribute="centerX" secondItem="zqL-Hr-BhR" secondAttribute="centerX" id="j23-I7-6Bm"/>
+                                    <constraint firstItem="AUv-ao-sfF" firstAttribute="top" secondItem="cKn-pL-w9u" secondAttribute="bottom" constant="3" id="ke0-RN-QgX"/>
                                     <constraint firstItem="cKn-pL-w9u" firstAttribute="top" secondItem="zqL-Hr-BhR" secondAttribute="top" constant="8" id="nLa-1I-8YU"/>
                                     <constraint firstAttribute="bottom" secondItem="cKn-pL-w9u" secondAttribute="bottom" constant="8" id="uGG-Gk-gB3"/>
                                     <constraint firstItem="fii-E9-lLv" firstAttribute="leading" secondItem="F1z-8V-RME" secondAttribute="trailing" constant="25" id="xOu-WU-XVE"/>
@@ -203,10 +224,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="baseCurrencyTextField" destination="zXS-Sr-EXG" id="Yve-7i-ZYE"/>
                         <outlet property="baseCurrencyView" destination="eKo-Lh-7m7" id="xyC-Id-C4I"/>
-                        <outlet property="otherCurrencyLabel" destination="Lva-Pb-t2e" id="gJ8-Gx-PuN"/>
+                        <outlet property="leftCurrencyTextField" destination="zXS-Sr-EXG" id="4xs-PJ-1Ib"/>
                         <outlet property="otherCurrencyView" destination="cKn-pL-w9u" id="MwT-Pl-NFJ"/>
+                        <outlet property="rightCurrencyTextField" destination="AUv-ao-sfF" id="E7U-lR-aiB"/>
                         <outlet property="toggleConversionButton" destination="fii-E9-lLv" id="UDj-AV-pQb"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="showScanView" id="Tew-97-fwf"/>
                         <segue destination="oe0-kh-4Pb" kind="popoverPresentation" identifier="selectBaseCurrencySegue" popoverAnchorView="eKo-Lh-7m7" id="Q69-Bd-e47">

@@ -19,13 +19,14 @@ static NSString* const kSelectBaseCurrencySegue = @"selectBaseCurrencySegue";
 static NSString* const kSelectOtherCurrencySegue = @"selectOtherCurrencySegue";
 static NSString* const kShowScanViewSegue = @"showScanView";
 
-@interface HomeViewController () <VENCalculatorInputViewDelegate, PPScanDelegate>
+@interface HomeViewController () <VENCalculatorInputViewDelegate, PPScanDelegate, UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet VENCalculatorInputTextField* baseCurrencyTextField;
+@property (weak, nonatomic) IBOutlet VENCalculatorInputTextField* leftCurrencyTextField;
+@property (weak, nonatomic) IBOutlet VENCalculatorInputTextField* rightCurrencyTextField;
+@property (weak, readonly) VENCalculatorInputTextField* baseCurrencyTextField;
+@property (weak, readonly) VENCalculatorInputTextField* otherCurrencyTextField;
 @property (weak, nonatomic) IBOutlet CurrencyView* baseCurrencyView;
 @property (weak, nonatomic) IBOutlet CurrencyView* otherCurrencyView;
-@property (weak, nonatomic) IBOutlet UILabel* baseCurrencyLabel;
-@property (weak, nonatomic) IBOutlet UILabel* otherCurrencyLabel;
 @property (weak, nonatomic) IBOutlet UIButton *toggleConversionButton;
 
 @property PPCurrencyOverlayViewController* overlayViewController;
@@ -35,6 +36,30 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 @end
 
 @implementation HomeViewController
+
+-(VENCalculatorInputTextField*)baseCurrencyTextField
+{
+    if(self.viewModel.isArrowPointingLeft)
+    {
+        return self.rightCurrencyTextField;
+    }
+    else
+    {
+        return self.leftCurrencyTextField;
+    }
+}
+
+-(VENCalculatorInputTextField*)otherCurrencyTextField
+{
+    if(self.viewModel.isArrowPointingLeft)
+    {
+        return self.leftCurrencyTextField;
+    }
+    else
+    {
+        return self.rightCurrencyTextField;
+    }
+}
 
 - (void)viewDidLoad
 {
@@ -58,14 +83,34 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 {
     RAC(self.baseCurrencyView, viewModel) = RACObserve(self.viewModel, baseCurrencyViewModel);
     RAC(self.otherCurrencyView, viewModel) = RACObserve(self.viewModel, otherCurrencyViewModel);
-    RAC(self.viewModel, baseCurrencyText) = self.baseCurrencyTextField.rac_textSignal;
-
-    [self.baseCurrencyTextField.rac_textSignal subscribeNext:^(id x){
-        //
+    
+    [self.leftCurrencyTextField.rac_textSignal subscribeNext:^(id x) {
+        if([self.leftCurrencyTextField isEqual:self.baseCurrencyTextField])
+        {
+            if(![x containsString:@"$"])
+            {
+                self.viewModel.baseCurrencyText = self.leftCurrencyTextField.text;
+            }
+        }
     }];
-    RAC(self.otherCurrencyLabel, text) = RACObserve(self.viewModel, otherCurrencyText);
-    [RACObserve(self.viewModel, otherCurrencyText) subscribeNext:^(id x){
-        //
+    
+    [self.rightCurrencyTextField.rac_textSignal subscribeNext:^(id x) {
+        if([self.rightCurrencyTextField isEqual:self.baseCurrencyTextField])
+        {
+            if(![x containsString:@"$"])
+            {
+                self.viewModel.baseCurrencyText = self.rightCurrencyTextField.text;
+            }
+        }
+    }];
+    
+    [RACObserve(self.viewModel, otherCurrencyText) subscribeNext:^(id x) {
+        self.otherCurrencyTextField.text = self.viewModel.otherCurrencyText;
+    }];
+    
+    [RACObserve(self.viewModel, baseCurrencyText) subscribeNext:^(id x) {
+        NSString* strippedText = [self.viewModel.baseCurrencyText stringByReplacingOccurrencesOfString:@"$" withString:@""];
+        self.baseCurrencyTextField.text = strippedText;
     }];
     
     [RACObserve(self.viewModel, isArrowPointingLeft) subscribeNext:^(id x) {
@@ -77,6 +122,15 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 {
     UIImage* image = [self conversionButtonImage];
     [self.toggleConversionButton setImage:image forState:UIControlStateNormal];
+    [self updateFirstResponder];
+}
+
+-(void)updateFirstResponder
+{
+    if(!self.baseCurrencyTextField.isFirstResponder)
+    {
+        [self.baseCurrencyTextField becomeFirstResponder];
+    }
 }
 
 -(UIImage*)conversionButtonImage
@@ -176,6 +230,18 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 -(void)scanningViewController:(UIViewController<PPScanningViewController> *)scanningViewController didFindError:(NSError *)error
 {
     
+}
+
+-(void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if([textField isEqual:self.leftCurrencyTextField])
+    {
+        self.viewModel.isArrowPointingLeft = NO;
+    }
+    else if([textField isEqual:self.rightCurrencyTextField])
+    {
+        self.viewModel.isArrowPointingLeft = YES;
+    }
 }
 
 @end

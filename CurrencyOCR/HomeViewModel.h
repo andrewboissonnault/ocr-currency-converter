@@ -16,13 +16,12 @@
 @property (readonly) CurrencyViewModel* baseCurrencyViewModel;
 @property (readonly) CurrencyViewModel* otherCurrencyViewModel;
 @property (readonly) NSString* otherCurrencyText;
-@property (readonly) BOOL isArrowPointingLeft;
 @property (readonly, nonatomic) CurrencySelectorViewModel* baseCurrencySelectorViewModel;
 @property (readonly, nonatomic) CurrencySelectorViewModel* otherCurrencySelectorViewModel;
 @property (readonly) CurrencyOverviewViewModel* currencyOverviewViewModel;
 
 @property NSString* baseCurrencyText;
-
+@property (nonatomic) BOOL isArrowPointingLeft;
 -(void)toggleConversionArrow;
 
 @end

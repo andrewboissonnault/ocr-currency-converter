@@ -19,11 +19,11 @@
 @property Currency* otherCurrency;
 @property NSNumber* amountToConvert;
 @property NSString* otherCurrencyText;
-@property BOOL isArrowPointingLeft;
 @property (nonatomic) CurrencySelectorViewModel* baseCurrencySelectorViewModel;
 @property (nonatomic) CurrencySelectorViewModel* otherCurrencySelectorViewModel;
 @property (nonatomic) CurrencyViewModel* baseCurrencyViewModel;
 @property (nonatomic) CurrencyViewModel* otherCurrencyViewModel;
+@property (nonatomic) NSNumberFormatter* numberFormatter;
 
 @end
 
@@ -31,6 +31,25 @@
 
 @synthesize baseCurrencySelectorViewModel = _baseCurrencySelectorViewModel;
 @synthesize otherCurrencySelectorViewModel = _otherCurrencySelectorViewModel;
+@synthesize isArrowPointingLeft = _isArrowPointingLeft;
+
+-(void)setIsArrowPointingLeft:(BOOL)isArrowPointingLeft
+{
+    if(_isArrowPointingLeft != isArrowPointingLeft)
+    {
+        _isArrowPointingLeft = isArrowPointingLeft;
+        [self switchCurrencies];
+    }
+}
+
+-(void)switchCurrencies
+{
+    NSNumber* convertedResult = self.convertedResult;
+    Currency* tmpCurrency = self.baseCurrency;
+    self.baseCurrency = self.otherCurrency;
+    self.otherCurrency = tmpCurrency;
+    self.amountToConvert = convertedResult;
+}
 
 - (instancetype)init {
     self = [super init];
@@ -38,6 +57,16 @@
         [self initialize];
     }
     return self;
+}
+
+-(NSNumberFormatter*)numberFormatter
+{
+    if(!_numberFormatter)
+    {
+        _numberFormatter = [[NSNumberFormatter alloc] init];
+        _numberFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
+    }
+    return _numberFormatter;
 }
 
 -(NSNumber*)amountToConvert
@@ -69,11 +98,20 @@
         self.otherCurrencyViewModel = [[CurrencyViewModel alloc] initWithCurrency:otherCurrency];
     }];
     
-   // RAC(self, otherCurrencyText) = RACObserve(self, baseCurrencyText);
     [RACObserve(self, baseCurrencyText) subscribeNext:^(id x) {
-        NSNumber* result = [MathParserService resultWithExpression:self.baseCurrencyText];
-        self.otherCurrencyText = [[self convertResultWithCurrencies:result] stringValue];
+        self.amountToConvert = [MathParserService resultWithExpression:self.baseCurrencyText];
     }];
+    
+    [RACObserve(self, amountToConvert) subscribeNext:^(id x) {
+        self.otherCurrencyText = [self.numberFormatter stringFromNumber:self.convertedResult];
+    }];
+}
+
+-(NSNumber*)convertedResult
+{
+    NSNumber* amountToConvert = self.amountToConvert;
+    NSNumber* convertedResult = [self convertResultWithCurrencies:amountToConvert];
+    return convertedResult;
 }
 
 -(void)bindCurrencyService
@@ -86,16 +124,6 @@
     double conversionRate = [self.currencyService.rates rateWithBaseCurrency:self.baseCurrency otherCurrency:self.otherCurrency];
     double convertedResult = [result doubleValue] * conversionRate;
     return [NSNumber numberWithDouble:convertedResult];
-}
-
--(NSString*)baseCurrencyLabel
-{
-    return [self.amountToConvert stringValue];
-}
-
--(NSString*)otherCurrencyLabel
-{
-    return @"100";
 }
 
 -(void)toggleConversionArrow
