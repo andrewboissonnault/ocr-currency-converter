@@ -88,7 +88,7 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.leftCurrencyTextField becomeFirstResponder];
+    [self.baseCurrencyTextField becomeFirstResponder];
 }
 
 - (void)initializeViewModel

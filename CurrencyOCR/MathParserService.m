@@ -12,7 +12,7 @@
 static NSString* const kAdditionOperator = @"+";
 static NSString* const kSubtractionOperator = @"-";
 static NSString* const kMultiplicationOperator = @"x";
-static NSString* const kDivisionOperator = @"/";
+static NSString* const kDivisionOperator = @"÷";
 
 @implementation MathParserService
 

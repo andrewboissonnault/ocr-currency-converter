@@ -69,7 +69,7 @@ SpecBegin(MathParserService)
         });
 
         it(@"testDivision", ^{
-            NSString* testString = @"9/10";
+            NSString* testString = @"9÷10";
             NSNumber* expectedResult = [NSNumber numberWithDouble:9.0 / 10.0];
 
             NSNumber* result = [MathParserService resultWithExpression:testString];
@@ -85,7 +85,7 @@ SpecBegin(MathParserService)
         });
 
         it(@"testDivisionByZero", ^{
-            NSString* testString = @"1/0";
+            NSString* testString = @"1÷0";
             NSNumber* expectedResult = [NSNumber numberWithDouble:INFINITY];
 
             NSNumber* result = [MathParserService resultWithExpression:testString];
