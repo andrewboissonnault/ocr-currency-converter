@@ -83,6 +83,8 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 {
     [super viewDidLoad];
     [self initializeViewModel];
+    self.leftCurrencyTextField.delegate = self;
+    self.rightCurrencyTextField.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -104,20 +106,16 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 
     [self.leftCurrencyTextField.rac_textSignal subscribeNext:^(id x) {
         if ([self.leftCurrencyTextField isEqual:self.baseCurrencyTextField]) {
-            if (![x containsString:@"$"]) {
-                self.viewModel.currencyText = self.leftCurrencyTextField.text;
-            }
+            self.viewModel.currencyText = self.leftCurrencyTextField.text;
         }
     }];
 
     [self.rightCurrencyTextField.rac_textSignal subscribeNext:^(id x) {
         if ([self.rightCurrencyTextField isEqual:self.baseCurrencyTextField]) {
-            if (![x containsString:@"$"]) {
-                self.viewModel.currencyText = self.rightCurrencyTextField.text;
-            }
+            self.viewModel.currencyText = self.rightCurrencyTextField.text;
         }
     }];
-    
+
     RAC(self.rightCurrencyTextField, text) = RACObserve(self.viewModel, rightCurrencyText);
     RAC(self.leftCurrencyTextField, text) = RACObserve(self.viewModel, leftCurrencyText);
 
@@ -233,6 +231,24 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 
 - (void)scanningViewController:(UIViewController<PPScanningViewController>*)scanningViewController didFindError:(NSError*)error
 {
+}
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if([textField.text isEqualToString:@"$"])
+    {
+        return NO;
+    }
+    return YES;
+}
+
+-(BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    if([textField.text isEqualToString:@"$"])
+    {
+        return NO;
+    }
+    return YES;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField*)textField

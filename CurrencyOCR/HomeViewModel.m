@@ -19,6 +19,8 @@
 @property (nonatomic) BOOL isArrowPointingLeft;
 @property (nonatomic) CurrencyViewModel* leftCurrencyViewModel;
 @property (nonatomic) CurrencyViewModel* rightCurrencyViewModel;
+@property NSNumber* leftCurrencyAmount;
+@property NSNumber* rightCurrencyAmount;
 @property NSString* leftCurrencyText;
 @property NSString* rightCurrencyText;
 @property (nonatomic) CurrencySelectorViewModel* leftCurrencySelectorViewModel;
@@ -26,13 +28,13 @@
 
 @property NSString* otherCurrencyText;
 @property NSString* baseCurrencyText;
+@property NSNumber* otherCurrencyAmount;
+@property NSNumber* baseCurrencyAmount;
 @property (nonatomic) CurrencyViewModel* otherCurrencyViewModel;
 @property (nonatomic) CurrencyViewModel* baseCurrencyViewModel;
 
-
-@property NSNumber* amountToConvert;
 @property (nonatomic) NSNumberFormatter* currencyFormatter;
-@property (nonatomic) NSNumberFormatter* numberFormatter;
+@property (nonatomic) NSNumberFormatter* baseCurrencyFormatter;
 
 @end
 
@@ -138,6 +140,54 @@
     }
 }
 
+-(NSNumber*)otherCurrencyAmount
+{
+    if(self.isArrowPointingLeft)
+    {
+        return self.leftCurrencyAmount;
+    }
+    else
+    {
+        return self.rightCurrencyAmount;
+    }
+}
+
+-(void)setOtherCurrencyAmount:(NSNumber *)otherCurrencyAmount
+{
+    if(self.isArrowPointingLeft)
+    {
+        self.leftCurrencyAmount = otherCurrencyAmount;
+    }
+    else
+    {
+        self.rightCurrencyAmount = otherCurrencyAmount;
+    }
+}
+
+-(NSNumber*)baseCurrencyAmount
+{
+    if(self.isArrowPointingLeft)
+    {
+        return self.rightCurrencyAmount;
+    }
+    else
+    {
+        return self.leftCurrencyAmount;
+    }
+}
+
+-(void)setBaseCurrencyAmount:(NSNumber *)baseCurrencyAmount
+{
+    if(self.isArrowPointingLeft)
+    {
+        self.rightCurrencyAmount = baseCurrencyAmount;
+    }
+    else
+    {
+        self.leftCurrencyAmount = baseCurrencyAmount;
+    }
+}
+
 -(void)setIsArrowPointingLeft:(BOOL)isArrowPointingLeft
 {
     if(_isArrowPointingLeft != isArrowPointingLeft)
@@ -152,7 +202,14 @@
     NSNumber* convertedResult = self.convertedResult;
     [self.userPreferencesService switchCurrencies];
     self.amountToConvert = convertedResult;
-    self.baseCurrencyText = [self.numberFormatter stringFromNumber:self.amountToConvert];
+    self.baseCurrencyText = [self baseCurrencyTextWithAmountToConvert];
+}
+
+-(NSString*)baseCurrencyTextWithAmountToConvert
+{
+    NSNumber* amountToConvert = self.amountToConvert;
+    NSString* numberText = [self.baseCurrencyFormatter stringFromNumber:amountToConvert];
+    return [@"$" stringByAppendingString:numberText];
 }
 
 - (instancetype)init {
@@ -173,14 +230,14 @@
     return _currencyFormatter;
 }
 
--(NSNumberFormatter*)numberFormatter
+-(NSNumberFormatter*)baseCurrencyFormatter
 {
-    if(!_numberFormatter)
+    if(!_baseCurrencyFormatter)
     {
-        _numberFormatter = [[NSNumberFormatter alloc] init];
-        _numberFormatter.numberStyle = NSNumberFormatterNoStyle;
+        _baseCurrencyFormatter = [[NSNumberFormatter alloc] init];
+        _baseCurrencyFormatter.numberStyle = NSNumberFormatterDecimalStyle;
     }
-    return _numberFormatter;
+    return _baseCurrencyFormatter;
 }
 
 -(NSNumber*)amountToConvert
@@ -197,6 +254,7 @@
 {
     self.userPreferencesService = [[UserPreferencesService alloc] init];
     self.currencyService = [[CurrencyService alloc] init];
+    self.baseCurrencyText = @"$0";
     [self bindCurrencyService];
     [self bindUserPreferencesService];
 }
