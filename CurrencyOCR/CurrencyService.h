@@ -11,6 +11,8 @@
 
 @interface CurrencyService : NSObject
 
++(instancetype)sharedInstance;
+
 @property (nonatomic, readonly) NSArray* currencies;
 @property (nonatomic, readonly)  CurrencyRates* rates;
 

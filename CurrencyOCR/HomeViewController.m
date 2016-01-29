@@ -14,6 +14,7 @@
 #import "PPOcrService.h"
 #import "VENCalculatorInputTextField.h"
 #import "VENCalculatorInputView.h"
+#import "ConversionHistoryDataSource.h"
 
 static NSString* const kSelectBaseCurrencySegue = @"selectBaseCurrencySegue";
 static NSString* const kSelectOtherCurrencySegue = @"selectOtherCurrencySegue";
@@ -23,17 +24,15 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 
 @property (weak, nonatomic) IBOutlet VENCalculatorInputTextField* leftCurrencyTextField;
 @property (weak, nonatomic) IBOutlet VENCalculatorInputTextField* rightCurrencyTextField;
-//@property (weak, readonly) VENCalculatorInputTextField* baseCurrencyTextField;
-//@property (weak, readonly) VENCalculatorInputTextField* otherCurrencyTextField;
 @property (weak, nonatomic) IBOutlet CurrencyView* leftCurrencyView;
 @property (weak, nonatomic) IBOutlet CurrencyView* rightCurrencyView;
-//@property (weak, nonatomic) CurrencyView* baseCurrencyView;
-//@property (weak, nonatomic) CurrencyView* otherCurrencyView;
 @property (weak, nonatomic) IBOutlet UIButton* toggleConversionButton;
 
 @property PPCurrencyOverlayViewController* overlayViewController;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property HomeViewModel* viewModel;
+@property ConversionHistoryDataSource* tableViewSource;
 
 @end
 
@@ -49,48 +48,25 @@ static NSString* const kShowScanViewSegue = @"showScanView";
     }
 }
 
-//- (VENCalculatorInputTextField*)otherCurrencyTextField
-//{
-//    if (self.viewModel.isArrowPointingLeft) {
-//        return self.leftCurrencyTextField;
-//    }
-//    else {
-//        return self.rightCurrencyTextField;
-//    }
-//}
-//
-//- (CurrencyView*)baseCurrencyView
-//{
-//    if (self.viewModel.isArrowPointingLeft) {
-//        return self.rightCurrencyView;
-//    }
-//    else {
-//        return self.leftCurrencyView;
-//    }
-//}
-//
-//- (CurrencyView*)otherCurrencyView
-//{
-//    if (self.viewModel.isArrowPointingLeft) {
-//        return self.leftCurrencyView;
-//    }
-//    else {
-//        return self.rightCurrencyView;
-//    }
-//}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     [self initializeViewModel];
-    self.leftCurrencyTextField.delegate = self;
-    self.rightCurrencyTextField.delegate = self;
+    [self initializeDataSource];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self.baseCurrencyTextField becomeFirstResponder];
+}
+
+-(void)initializeDataSource
+{
+    self.tableViewSource = [[ConversionHistoryDataSource alloc] init];
+    self.tableViewSource.viewModel = self.viewModel.conversionHistoryViewModel;
+    self.tableView.delegate = self.tableViewSource;
+    self.tableView.dataSource = self.tableViewSource;
 }
 
 - (void)initializeViewModel
@@ -231,24 +207,6 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 
 - (void)scanningViewController:(UIViewController<PPScanningViewController>*)scanningViewController didFindError:(NSError*)error
 {
-}
-
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    if([textField.text isEqualToString:@"$"])
-    {
-        return NO;
-    }
-    return YES;
-}
-
--(BOOL)textFieldShouldClear:(UITextField *)textField
-{
-    if([textField.text isEqualToString:@"$"])
-    {
-        return NO;
-    }
-    return YES;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField*)textField

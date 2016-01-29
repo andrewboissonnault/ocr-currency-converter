@@ -10,11 +10,13 @@
 #import "UserPreferencesService.h"
 #import "MathParserService.h"
 #import "CurrencyService.h"
+#import "ConversionService.h"
 
 @interface HomeViewModel () <CurrencySelectorDelegate>
 
 @property UserPreferencesService* userPreferencesService;
 @property CurrencyService* currencyService;
+@property ConversionService* conversionService;
 
 @property (nonatomic) BOOL isArrowPointingLeft;
 @property (nonatomic) CurrencyViewModel* leftCurrencyViewModel;
@@ -253,7 +255,8 @@
 -(void)initialize
 {
     self.userPreferencesService = [[UserPreferencesService alloc] init];
-    self.currencyService = [[CurrencyService alloc] init];
+    self.currencyService = [CurrencyService sharedInstance];
+    self.conversionService = [[ConversionService alloc] initWithBaseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency amount:self.baseCurrencyAmount];
     self.baseCurrencyText = @"$0";
     [self bindCurrencyService];
     [self bindUserPreferencesService];
@@ -262,15 +265,29 @@
 -(void)bindUserPreferencesService
 {
     [RACObserve(self.userPreferencesService, baseCurrency) subscribeNext:^(id baseCurrency) {
+        [self updateConversionService];
         self.baseCurrencyViewModel = [[CurrencyViewModel alloc] initWithCurrency:baseCurrency];
     }];
     [RACObserve(self.userPreferencesService, otherCurrency) subscribeNext:^(id otherCurrency) {
+        [self updateConversionService];
         self.otherCurrencyViewModel = [[CurrencyViewModel alloc] initWithCurrency:otherCurrency];
     }];
     
     [RACObserve(self, amountToConvert) subscribeNext:^(id x) {
-        [self updateTexts];
+        [self updateConversionService];
     }];
+    
+    [RACObserve(self.conversionService, convertedAmount) subscribeNext:^(id x) {
+        [self updateTexts   ];
+    }];
+    
+}
+
+-(void)updateConversionService
+{
+    self.conversionService.baseCurrency = self.userPreferencesService.baseCurrency;
+    self.conversionService.otherCurrency = self.userPreferencesService.otherCurrency;
+    self.conversionService.amount = self.amountToConvert;
 }
 
 -(void)updateTexts
@@ -285,21 +302,13 @@
 
 -(NSNumber*)convertedResult
 {
-    NSNumber* amountToConvert = self.amountToConvert;
-    NSNumber* convertedResult = [self convertResultWithCurrencies:amountToConvert];
+    NSNumber* convertedResult = self.conversionService.convertedAmount;
     return convertedResult;
 }
 
 -(void)bindCurrencyService
 {
     [self.currencyService refreshCurrencyData];
-}
-
--(NSNumber*)convertResultWithCurrencies:(NSNumber*)result
-{
-    double conversionRate = [self.currencyService.rates rateWithBaseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency];
-    double convertedResult = [result doubleValue] * conversionRate;
-    return [NSNumber numberWithDouble:convertedResult];
 }
 
 -(void)toggleConversionArrow
@@ -343,6 +352,11 @@
 -(CurrencyOverviewViewModel*)currencyOverviewViewModel
 {
     return [[CurrencyOverviewViewModel alloc] initWithBaseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency];
+}
+
+-(ConversionHistoryViewModel*)conversionHistoryViewModel
+{
+    return [[ConversionHistoryViewModel alloc] init];
 }
 
 -(void)didSelectCurrency:(Currency *)currency withSelector:(CurrencySelectorViewModel *)selector

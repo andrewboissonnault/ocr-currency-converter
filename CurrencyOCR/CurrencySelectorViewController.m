@@ -99,46 +99,16 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     return [self.viewModel titleForHeaderInSection:section];
-//    if (!self.searchController.active)
-//    {
-//        return [self.viewModel titleForHeaderInSection:section];
-//    }
-//    return nil;
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
     return self.viewModel.sectionIndexTitles;
-//    if (!self.searchController.active)
-//    {
-//        return self.viewModel.sectionIndexTitles;
-//    }
-//    return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
     return [self.viewModel sectionForSectionIndexTitle:title atIndex:index];
-//    if (!self.searchController.active)
-//    {
-//        if (index > 0)
-//        {
-//            // The index is offset by one to allow for the extra search icon inserted at the front
-//            // of the index
-//            
-//            return [self.viewModel sectionForSectionIndexTitle:title atIndex:index-1];
-//        }
-//        else
-//        {
-//            // The first entry in the index is for the search icon so we return section not found
-//            // and force the table to scroll to the top.
-//            
-//            CGRect searchBarFrame = self.searchController.searchBar.frame;
-//            [self.tableView scrollRectToVisible:searchBarFrame animated:NO];
-//            return NSNotFound;
-//        }
-//    }
-//    return 0;
 }
 
 #pragma mark -

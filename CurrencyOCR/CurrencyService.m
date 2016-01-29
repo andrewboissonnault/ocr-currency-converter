@@ -24,6 +24,16 @@ static NSString* const kCurrenciesKey = @"currencies";
 
 @implementation CurrencyService
 
++ (instancetype)sharedInstance
+{
+    static CurrencyService* _sharedInstance = nil;
+    static dispatch_once_t oncePredicate;
+    dispatch_once(&oncePredicate, ^{
+        _sharedInstance = [[CurrencyService alloc] init];
+    });
+    return _sharedInstance;
+}
+
 @synthesize rates = _rates;
 @synthesize currencies = _currencies;
 
@@ -97,10 +107,16 @@ static NSString* const kCurrenciesKey = @"currencies";
 -(void)fetchCurrencyData
 {
     [ParseCloudCode requestCurrencyData:^(id  _Nullable object, NSError * _Nullable error) {
-        self.rates = object[kCurrencyRatesKey];
-        self.currencies = object[kCurrenciesKey];
-        [self.rates pinInBackground];
-        [PFObject pinAllInBackground:self.currencies];
+        if(object[kCurrencyRatesKey])
+        {
+            self.rates = object[kCurrencyRatesKey];
+            [self.rates pinInBackground];
+        }
+        if(object[kCurrenciesKey])
+        {
+            self.currencies = object[kCurrenciesKey];
+            [PFObject pinAllInBackground:self.currencies];
+        }
     }];
 }
 
