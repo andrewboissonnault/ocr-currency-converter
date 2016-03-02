@@ -22,6 +22,7 @@ static NSString* const kParseClientKey = @"fn8t6NTHaoCZ7UwIqb3cVacdfdlMauftY7S3f
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self setupParse];
+    [self setupAppearances];
     return YES;
 }
 
@@ -32,6 +33,12 @@ static NSString* const kParseClientKey = @"fn8t6NTHaoCZ7UwIqb3cVacdfdlMauftY7S3f
                   clientKey:kParseClientKey];
     [CurrencyRates registerSubclass];
     [Currency registerSubclass];
+}
+
+-(void)setupAppearances
+{
+    [UISearchBar appearance].barTintColor = [UIColor greenColor];
+    //[UIView appearance].backgroundColor = defaultBackgroundColor;
 }
 
 @end

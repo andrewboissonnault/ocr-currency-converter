@@ -8,67 +8,64 @@
 
 #import "CurrencyView.h"
 #import <ParseUI/ParseUI.h>
-#import <ReactiveCocoa/ReactiveCocoa.h>
 #import <PureLayout/PureLayout.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface CurrencyView ()
 
-@property (strong, nonatomic) PFImageView *flagImageView;
-@property (strong, nonatomic) UILabel *currencyNameLabel;
-@property (strong, nonatomic) UILabel *currencyCodeLabel;
+@property (strong, nonatomic) PFImageView* flagImageView;
+@property (strong, nonatomic) UILabel* currencyNameLabel;
+@property (strong, nonatomic) UILabel* currencyCodeLabel;
 
 @end
 
 @implementation CurrencyView
 
--(instancetype)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initWithCoder:(NSCoder*)aDecoder
 {
     self = [super initWithCoder:aDecoder];
-    if(self)
-    {
+    if (self) {
         [self initialize];
     }
     return self;
 }
 
--(instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if(self)
-    {
+    if (self) {
         [self initialize];
     }
     return self;
 }
 
--(instancetype)init
+- (instancetype)init
 {
     self = [super init];
-    if(self)
-    {
+    if (self) {
         [self initialize];
     }
     return self;
 }
 
--(void)initialize
+- (void)initialize
 {
     [self setupCurrencyNameLabel];
     [self setupCurrencyCodeLabel];
     [self setupImageView];
 }
 
--(void)setupCurrencyNameLabel
+- (void)setupCurrencyNameLabel
 {
     self.currencyNameLabel = [[UILabel alloc] initForAutoLayout];
     self.currencyNameLabel.numberOfLines = 2;
     self.currencyNameLabel.font = [UIFont systemFontOfSize:12];
     self.currencyNameLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:self.currencyNameLabel];
-    [self.currencyNameLabel autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 0, 4, 0) excludingEdge:ALEdgeTop];
+    [self.currencyNameLabel autoPinEdgesToSuperviewEdgesWithInsets:UIEdgeInsetsMake(0, 4, 4, 4) excludingEdge:ALEdgeTop];
 }
 
--(void)setupCurrencyCodeLabel
+- (void)setupCurrencyCodeLabel
 {
     self.currencyCodeLabel = [[UILabel alloc] initForAutoLayout];
     self.currencyCodeLabel.font = [UIFont systemFontOfSize:12];
@@ -78,36 +75,29 @@
     [self.currencyCodeLabel autoAlignAxisToSuperviewAxis:ALAxisVertical];
 }
 
--(void)setupImageView
+- (void)setupImageView
 {
     self.flagImageView = [[PFImageView alloc] initForAutoLayout];
     self.flagImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self addSubview:self.flagImageView];
-    [self.flagImageView autoPinEdgeToSuperviewEdge:ALEdgeTop];
+    [self.flagImageView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:4];
     [self.flagImageView autoAlignAxisToSuperviewAxis:ALAxisVertical];
-    
+
     [self.flagImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.currencyCodeLabel];
 }
 
-
--(void)setViewModel:(CurrencyViewModel *)viewModel
+- (void)setViewModel:(CurrencyViewModel*)viewModel
 {
     _viewModel = viewModel;
     [self bindViewModel];
 }
 
--(void)bindViewModel
+- (void)bindViewModel
 {
     RAC(self, currencyNameLabel.text) = RACObserve(self.viewModel, currencyName);
-    [RACObserve(self.viewModel, currencyName) subscribeNext:^(id x) {
-        [self.currencyNameLabel sizeToFit];
-    }];
     RAC(self, currencyCodeLabel.text) = RACObserve(self.viewModel, currencyCode);
-    [RACObserve(self.viewModel, currencyCode) subscribeNext:^(id x) {
-        [self.currencyCodeLabel sizeToFit];
-    }];
     RAC(self, flagImageView.image) = RACObserve(self.viewModel, flagIconImage);
-    
+
     [RACObserve(self.viewModel, flagIconFile) subscribeNext:^(PFFile* file) {
         self.flagImageView.file = file;
         [self.flagImageView loadInBackground];

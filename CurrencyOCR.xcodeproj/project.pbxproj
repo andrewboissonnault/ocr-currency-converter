@@ -335,6 +335,7 @@
 		7FD45BF31C37A5C0004219CB /* PPOcrChar+String.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BD11C36653A004219CB /* PPOcrChar+String.m */; };
 		7FD45BF61C37ACA5004219CB /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BF51C37ACA5004219CB /* HomeViewController.m */; };
 		7FD45BFC1C37C3EB004219CB /* UIView+Borders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BFB1C37C3EB004219CB /* UIView+Borders.swift */; };
+		7FF3FB3C1C878EE7007F3CB0 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 7FF3FB3B1C878EE7007F3CB0 /* camera.png */; };
 		AAE384DB9E9E332D430519F3 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11A93D2D7B747C09F27CC3BB /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -721,6 +722,7 @@
 		7FD45BF41C37ACA5004219CB /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		7FD45BF51C37ACA5004219CB /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		7FD45BFB1C37C3EB004219CB /* UIView+Borders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Borders.swift"; sourceTree = "<group>"; };
+		7FF3FB3B1C878EE7007F3CB0 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		A0CF8BC3BD4BB4DE1D8A2E78 /* Pods-CurrencyOCRTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyOCRTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyOCRTests/Pods-CurrencyOCRTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B086E3585546B135B8977871 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1236,6 +1238,7 @@
 			children = (
 				7F08F8BB1C42B80F00B75957 /* convertIconLeft.png */,
 				7F08F8BC1C42B80F00B75957 /* convertIconRight.png */,
+				7FF3FB3B1C878EE7007F3CB0 /* camera.png */,
 				7F5623381C38E3880021C242 /* Flags */,
 			);
 			name = Icons;
@@ -1532,6 +1535,7 @@
 				7F5624541C38E46D0021C242 /* ua.png in Resources */,
 				7F5625081C38E47E0021C242 /* ck.png in Resources */,
 				7F5624EB1C38E47E0021C242 /* ba.png in Resources */,
+				7FF3FB3C1C878EE7007F3CB0 /* camera.png in Resources */,
 				7F56243B1C38E46D0021C242 /* so.png in Resources */,
 				7F5624171C38E46D0021C242 /* nz.png in Resources */,
 				7F5625371C38E47E0021C242 /* gs.png in Resources */,
