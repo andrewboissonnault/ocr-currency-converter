@@ -254,7 +254,7 @@
 
 -(void)initialize
 {
-    self.userPreferencesService = [[UserPreferencesService alloc] init];
+    self.userPreferencesService = [UserPreferencesService sharedInstance];
     self.currencyService = [CurrencyService sharedInstance];
     self.conversionService = [[ConversionService alloc] initWithBaseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency amount:self.baseCurrencyAmount];
     self.baseCurrencyText = @"$0";
@@ -369,6 +369,11 @@
     {
         self.userPreferencesService.otherCurrency = currency;
     }
+}
+
+-(void)saveButtonPressed
+{
+    [self.conversionHistoryViewModel saveConversionHistory:self.baseCurrencyAmount baseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency];
 }
 
 

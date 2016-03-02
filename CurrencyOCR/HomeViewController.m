@@ -65,6 +65,7 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 {
     self.tableViewSource = [[ConversionHistoryDataSource alloc] init];
     self.tableViewSource.viewModel = self.viewModel.conversionHistoryViewModel;
+    self.tableViewSource.tableView = self.tableView;
     self.tableView.delegate = self.tableViewSource;
     self.tableView.dataSource = self.tableViewSource;
 }
@@ -143,6 +144,11 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 {
     [self showScanView];
 }
+
+- (IBAction)saveButtonPressed:(id)sender {
+    [self.viewModel saveButtonPressed];
+}
+
 
 - (IBAction)unwindToHomeViewController:(UIStoryboardSegue*)segue
 {

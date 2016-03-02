@@ -29,5 +29,6 @@
 -(void)leftTextFieldBecameFirstResponder;
 -(void)rightTextFieldBecameFirstResponder;
 -(void)toggleConversionArrow;
+-(void)saveButtonPressed;
 
 @end

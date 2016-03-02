@@ -22,21 +22,17 @@
 
 -(void)setViewModel:(PastConversionViewModel *)viewModel
 {
-    _viewModel = viewModel;
-    [self updateViews];
-    [self bindViewModel];
+    if(![_viewModel isEqual:viewModel])
+    {
+        _viewModel = viewModel;
+        [self bindViewModel];
+    }
 }
 
 -(void)bindViewModel
 {
     RAC(self.leftLabel, text) = RACObserve(self.viewModel, leftLabelText);
     RAC(self.rightLabel, text) = RACObserve(self.viewModel, rightLabelText);
-}
-
--(void)updateViews
-{
-    self.leftLabel.text = self.viewModel.leftLabelText;
-    self.rightLabel.text = self.viewModel.rightLabelText;
 }
 
 @end

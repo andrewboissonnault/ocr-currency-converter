@@ -12,6 +12,7 @@
 
 @interface ConversionHistoryDataSource : NSObject <UITableViewDataSource, UITableViewDelegate>
 
-@property ConversionHistoryViewModel* viewModel;
+@property (nonatomic) ConversionHistoryViewModel* viewModel;
+@property UITableView* tableView;
 
 @end

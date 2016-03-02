@@ -13,7 +13,7 @@
 
 -(instancetype)initWithPastConversion:(PastConversion*)pastConverison;
 
-@property (readonly) NSString* leftLabelText;
-@property (readonly) NSString* rightLabelText;
+@property (readonly, nonatomic) NSString* leftLabelText;
+@property (readonly, nonatomic) NSString* rightLabelText;
 
 @end

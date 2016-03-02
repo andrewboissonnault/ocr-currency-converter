@@ -11,6 +11,8 @@
 
 @interface UserPreferencesService : NSObject
 
++(instancetype)sharedInstance;
+
 @property Currency* baseCurrency;
 @property Currency* otherCurrency;
 @property NSNumber* displayAmount;

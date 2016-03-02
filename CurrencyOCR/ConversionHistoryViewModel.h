@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "PastConversionViewModel.h"
 #import "Currency.h"
+#import <ReactiveCocoa.h>
 
 @interface ConversionHistoryViewModel : NSObject
+
+@property (readonly) RACSignal* reloadDataSignal;
 
 @property (readonly) NSUInteger rowCount;
 -(PastConversionViewModel*)viewModelForIndex:(NSUInteger)index;

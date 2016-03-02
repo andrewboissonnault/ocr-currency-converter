@@ -14,9 +14,10 @@
 @interface PastConversionViewModel ()
 
 @property PastConversion* pastConversion;
-@property ConversionService* conversionService;
+@property (nonatomic) ConversionService* conversionService;
 
 @property NSString* rightLabelText;
+@property NSString* leftLabelText;
 
 @end
 

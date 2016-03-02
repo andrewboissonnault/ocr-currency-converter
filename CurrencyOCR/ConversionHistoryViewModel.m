@@ -8,10 +8,17 @@
 
 #import "ConversionHistoryViewModel.h"
 #import "NSArray+Map.h"
+#import "ConversionHistoryService.h"
+#import <ReactiveCocoa.h>
+
+#import "UserPreferencesService.h"
 
 @interface ConversionHistoryViewModel ()
 
-@property (readonly) NSArray* pastConversionViewModels;
+@property RACSignal *reloadDataSignal;
+@property (nonatomic) NSArray* pastConversionViewModels;
+@property ConversionHistoryService* conversionHistoryService;
+@property UserPreferencesService* userPreferencesService;
 
 @end
 
@@ -29,12 +36,22 @@
 
 -(void)initialize
 {
+    self.userPreferencesService = [UserPreferencesService sharedInstance];
+    self.conversionHistoryService = [[ConversionHistoryService alloc] initWithBaseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency];
+    [self bindConversionService];
+}
+
+-(void)bindConversionService
+{
+    RAC(self.conversionHistoryService, baseCurrency) = RACObserve(self.userPreferencesService, baseCurrency);
+    RAC(self.conversionHistoryService, otherCurrency) = RACObserve(self.userPreferencesService, otherCurrency);
     
+    self.reloadDataSignal = RACObserve(self.conversionHistoryService, conversionHistory);
 }
 
 -(NSUInteger)rowCount
 {
-    return [[self conversionHistoryForBaseCurrency:nil] count];
+    return [self.conversionHistoryService.conversionHistory count];
 }
 
 -(PastConversionViewModel*)viewModelForIndex:(NSUInteger)index
@@ -44,30 +61,25 @@
 
 -(NSArray*)pastConversionViewModels
 {
-    NSArray* pastConversions = [self conversionHistoryForBaseCurrency:nil];
+    if(!_pastConversionViewModels)
+    {
+        _pastConversionViewModels = [self buildPastConversionViewModels];
+    }
+    return _pastConversionViewModels;
+}
+
+-(NSArray*)buildPastConversionViewModels
+{
+    NSArray* pastConversions = self.conversionHistoryService.conversionHistory;
     return [pastConversions mapObjectsUsingBlock:^id(id obj, NSUInteger idx) {
         return [[PastConversionViewModel alloc] initWithPastConversion:obj];
     }];
 }
 
--(NSArray*)conversionHistoryForBaseCurrency:(Currency*)baseCurrency
+-(void)saveConversionHistory:(NSNumber *)amount baseCurrency:(Currency *)baseCurrency otherCurrency:(Currency *)otherCurrency
 {
-    Currency* usdCurrency = [[Currency alloc] init];
-    usdCurrency.name = @"United States Dollar";
-    usdCurrency.code = @"USD";
-    Currency* eurCurrency = [[Currency alloc] init];
-    eurCurrency.name = @"Euro";
-    eurCurrency.code = @"EUR";
-    PastConversion* pastConversion = [[PastConversion alloc] init];
-    pastConversion.baseCurrency = usdCurrency;
-    pastConversion.otherCurrency = eurCurrency;
-    pastConversion.amount = @50;
-    PastConversion* pastConversionII = [[PastConversion alloc] init];
-    pastConversionII.baseCurrency = usdCurrency;
-    pastConversionII.otherCurrency = eurCurrency;
-    pastConversionII.amount = @100;
-    
-    return @[pastConversion, pastConversionII];
+    [self.conversionHistoryService saveConversionHistory:amount baseCurrency:baseCurrency otherCurrency:otherCurrency];
 }
+
 
 @end

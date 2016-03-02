@@ -11,6 +11,19 @@
 
 @implementation ConversionHistoryDataSource
 
+-(void)setViewModel:(ConversionHistoryViewModel *)viewModel
+{
+    _viewModel = viewModel;
+    [self bindViewModel];
+}
+
+-(void)bindViewModel
+{
+    [self.viewModel.reloadDataSignal subscribeNext:^(id x) {
+        [self.tableView reloadData];
+    }];
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.viewModel.rowCount;

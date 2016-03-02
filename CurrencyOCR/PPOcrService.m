@@ -29,7 +29,7 @@ static NSString* const kPriceIdentifier = @"Price";
     /** 2. Setup the license key */
 
     // Visit www.microblink.com to get the license key for your app
-    settings.licenseSettings.licenseKey = @"BNJCIVVA-3GGV3RPP-GJVHGUJ4-X65UDSFZ-GJTJY3QW-S22LQ6PP-GJTJY3QW-TY6YN2E6";
+    settings.licenseSettings.licenseKey = @"NWKACGNG-4ISM4MBQ-OCFWNHDO-C2LLJODZ-54ZGNHDO-C2LLJODZ-54ZGNHDO-D2VBBRNO";
 
     /**
      * 3. Set up what is being scanned. See detailed guides for specific use cases.

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Currency.h"
 
-@interface PastConversion : NSObject
+@interface PastConversion : NSObject  <NSCoding>
 
 @property NSNumber* amount;
 @property Currency* baseCurrency;

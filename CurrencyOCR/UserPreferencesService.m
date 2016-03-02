@@ -25,6 +25,16 @@ static NSString* const kDisplayAmountKey = @"displayAmount";
 @synthesize baseCurrency = _baseCurrency;
 @synthesize otherCurrency = _otherCurrency;
 
++ (instancetype)sharedInstance
+{
+    static UserPreferencesService* _sharedInstance = nil;
+    static dispatch_once_t oncePredicate;
+    dispatch_once(&oncePredicate, ^{
+        _sharedInstance = [[UserPreferencesService alloc] init];
+    });
+    return _sharedInstance;
+}
+
 -(instancetype)init
 {
     self = [super init];
