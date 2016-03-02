@@ -200,6 +200,7 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 
 - (void)scanningViewControllerUnauthorizedCamera:(UIViewController<PPScanningViewController>*)scanningViewController
 {
+    
 }
 
 - (void)scanningViewControllerDidClose:(UIViewController<PPScanningViewController>*)scanningViewController
@@ -209,10 +210,12 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 
 - (void)scanningViewController:(UIViewController<PPScanningViewController>*)scanningViewController didOutputResults:(NSArray*)results
 {
+    
 }
 
 - (void)scanningViewController:(UIViewController<PPScanningViewController>*)scanningViewController didFindError:(NSError*)error
 {
+    
 }
 
 - (void)textFieldDidBeginEditing:(UITextField*)textField

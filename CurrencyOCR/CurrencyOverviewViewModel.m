@@ -12,6 +12,7 @@
 #import "PPOcrPrice.h"
 #import "CurrencyService.h"
 #import "Currency.h"
+#import "PPOcrService.h"
 
 @interface CurrencyOverviewViewModel ()
 
@@ -95,7 +96,7 @@
         
         if ([result isKindOfClass:[PPOcrRecognizerResult class]]) {
             PPOcrRecognizerResult* ocrRecognizerResult = (PPOcrRecognizerResult*)result;
-            self.priceLayout = [ocrRecognizerResult ocrLayoutForParserGroup:@"Price group"];
+            self.priceLayout = [ocrRecognizerResult ocrLayoutForParserGroup:kPriceIdentifier];
             return;
         }
     };

@@ -8,8 +8,6 @@
 
 #import "PPOcrService.h"
 
-static NSString* const kPriceIdentifier = @"Price";
-
 @implementation PPOcrService
 
 + (PPCoordinator*)priceCoordinatorWithError:(NSError**)error

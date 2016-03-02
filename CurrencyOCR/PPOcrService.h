@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <MicroBlink/MicroBlink.h>
 
+static NSString* const kPriceIdentifier = @"Price";
+
 @interface PPOcrService : NSObject
 
 + (PPCoordinator *)priceCoordinatorWithError:(NSError**)error;
