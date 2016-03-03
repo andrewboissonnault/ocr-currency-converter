@@ -83,7 +83,7 @@
     NSString *subtractReplaced = [string stringByReplacingOccurrencesOfString:@"−" withString:@"-"];
     NSString *divideReplaced = [subtractReplaced stringByReplacingOccurrencesOfString:@"÷" withString:@"/"];
     NSString *multiplyReplaced = [divideReplaced stringByReplacingOccurrencesOfString:@"×" withString:@"*"];
-
+    
     return [multiplyReplaced stringByReplacingOccurrencesOfString:[self decimalSeparator] withString:@"."];
 }
 

@@ -1,14 +1,14 @@
 PODS:
-  - Bolts/Tasks (1.5.1)
+  - Bolts/Tasks (1.6.0)
   - Expecta (1.0.5)
   - NSData+MD5Digest (1.0.0)
   - NSObject-NSCoding (1.0)
-  - OCHamcrest (5.1.0)
+  - OCHamcrest (5.2.0)
   - OCMockito (3.0.1):
     - OCHamcrest (~> 5.1)
   - Parse (1.12.0):
     - Bolts/Tasks (~> 1.5)
-  - ParseUI (1.1.7):
+  - ParseUI (1.2.0):
     - Bolts/Tasks (~> 1.3)
     - Parse (~> 1.9)
   - PPBlinkOCR (1.1.1)
@@ -42,14 +42,14 @@ DEPENDENCIES:
   - VENCalculatorInputView-DecimalFix (= 1.0-DecimalFix)
 
 SPEC CHECKSUMS:
-  Bolts: a12663244b1d3351c738882e71902fc74db54f64
+  Bolts: f52a250053bb517ca874523c3913776359ab3def
   Expecta: e1c022fcd33910b6be89c291d2775b3fe27a89fe
   NSData+MD5Digest: 0743d53874455e2bdf49f70e7f815b0b963a355f
   NSObject-NSCoding: d05f937cc1ea1560294be261ee41d5438ddc7b1b
-  OCHamcrest: abcfbf4ebd75d5aadbcc729cff0cb648faf2d1b0
+  OCHamcrest: 218dc4022a5e928a275771da70c5dbea9f859287
   OCMockito: 9eee3c61e42f7cb8aa015d66f8cc16849701d973
   Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
-  ParseUI: c2bcdfbb00330e464b5b773266ae221697a3bb7b
+  ParseUI: af2eba584799da4a9fbdac0e178662d7438b502e
   PPBlinkOCR: 1a8fc652b5be9563c8c60f1d363a8dbd3f35c5dd
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
