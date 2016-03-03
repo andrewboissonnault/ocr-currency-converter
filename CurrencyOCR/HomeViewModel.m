@@ -183,6 +183,7 @@
         _decimalFormatter = [[NSNumberFormatter alloc] init];
         _decimalFormatter.numberStyle = NSNumberFormatterDecimalStyle;
         _decimalFormatter.groupingSeparator = @"";
+        _decimalFormatter.maximumFractionDigits = 2;
     }
     return _decimalFormatter;
 }

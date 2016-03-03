@@ -1315,7 +1315,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Andrew Boissonnault";
 				TargetAttributes = {
 					7F4029541C26DCB100436DEB = {
@@ -1844,6 +1844,7 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = "$(inherited)";
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1920,6 +1921,7 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CurrencyOCR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "andrew.boissonnault.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "a0c36963-55bf-4b2e-9c84-8a7fedf7e12c";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1939,6 +1941,7 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CurrencyOCR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "andrew.boissonnault.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "a0c36963-55bf-4b2e-9c84-8a7fedf7e12c";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1988,6 +1991,7 @@
 					"-ObjC",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "matchmakercafe.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "a0c36963-55bf-4b2e-9c84-8a7fedf7e12c";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CurrencyOCR.app/CurrencyOCR";
@@ -2032,6 +2036,7 @@
 					"-ObjC",
 					"-all_load",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "matchmakercafe.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "a0c36963-55bf-4b2e-9c84-8a7fedf7e12c";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CurrencyOCR.app/CurrencyOCR";
