@@ -26,11 +26,6 @@
 
 @synthesize labels = _labels;
 
-- (void)initializeViewModel
-{
-    self.viewModel.filter = 85;
-}
-
 -(NSMutableArray*)labels
 {
     if(!_labels)
@@ -44,11 +39,16 @@
 {
     [super viewDidLoad];
     [self initializeViewModel];
-    [self setupSliderView];
+    [self initializeSliderView];
     [self bindViewModel];
 }
 
--(void)setupSliderView
+- (void)initializeViewModel
+{
+    self.viewModel.filter = 85;
+}
+
+-(void)initializeSliderView
 {
     self.slider = [[UISlider alloc] initForAutoLayout];
     self.slider.minimumValue = 70;
@@ -57,18 +57,7 @@
     self.slider.value = self.viewModel.filter;
     [self.view addSubview:self.slider];
     [self.slider autoAlignAxis:ALAxisVertical toSameAxisOfView:self.view];
-    [self.slider autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:25];
-    [self.slider autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:25];
-    [self.slider autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:25];
-}
-
--(void)clearLabels
-{
-    for(UILabel* label in self.labels)
-    {
-        [label removeFromSuperview];
-    }
-    [self.labels removeAllObjects];
+    [self.slider autoPinEdgesToSuperviewEdgesWithInsets:ALEdgeInsetsMake(0, 25, 25, 25) excludingEdge:ALEdgeTop];
 }
 
 - (void)cameraViewController:(id<PPScanningViewController>)cameraViewController
@@ -89,6 +78,15 @@
     [filterSignal subscribeNext:^(NSNumber* filterNumber) {
         [self.viewModel setFilter:[filterNumber doubleValue]];
     }];
+}
+
+-(void)clearLabels
+{
+    for(UILabel* label in self.labels)
+    {
+        [label removeFromSuperview];
+    }
+    [self.labels removeAllObjects];
 }
 
 -(void)showPrices:(NSArray*)prices
@@ -132,7 +130,6 @@
     priceLabel.textColor = [UIColor greenColor];
     priceLabel.text = formattedString;
     priceLabel.backgroundColor = [UIColor clearColor];
-   // priceLabel.adjustsFontSizeToFitWidth = YES;
     [priceLabel sizeToFit];
     
     [self.labels addObject:priceLabel];
@@ -141,17 +138,10 @@
 
 -(void)showCharacter:(PPOcrChar*)character
 {
+    CGRect frame = [self frameWithCharacter:character];
+    
     NSString* string = [NSString stringWithUnichar:character.value];
-    
     CGFloat fontSize = character.height;
-    PPPosition* position = character.position;
-    CGPoint upperLeft = position.ul;
-    CGPoint origin = upperLeft;
-    CGPoint lowerRight = position.lr;
-    
-    CGFloat width = fabs(lowerRight.x - origin.x);
-    CGFloat height = fabs(lowerRight.y - origin.y);
-    CGRect frame = CGRectMake(origin.x, origin.y, width, height);
     
     UILabel* characterLabel = [[UILabel alloc] initWithFrame:frame];
     characterLabel.font = [UIFont systemFontOfSize:fontSize];
@@ -162,6 +152,19 @@
     
     [self.labels addObject:characterLabel];
     [self.view addSubview:characterLabel];
+}
+
+-(CGRect)frameWithCharacter:(PPOcrChar*)character
+{
+    PPPosition* position = character.position;
+    CGPoint upperLeft = position.ul;
+    CGPoint origin = upperLeft;
+    CGPoint lowerRight = position.lr;
+    
+    CGFloat width = fabs(lowerRight.x - origin.x);
+    CGFloat height = fabs(lowerRight.y - origin.y);
+    CGRect frame = CGRectMake(origin.x, origin.y, width, height);
+    return frame;
 }
 
 @end

@@ -27,16 +27,17 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 @property (weak, nonatomic) IBOutlet CurrencyView* leftCurrencyView;
 @property (weak, nonatomic) IBOutlet CurrencyView* rightCurrencyView;
 @property (weak, nonatomic) IBOutlet UIButton* toggleConversionButton;
-
-@property PPCurrencyOverlayViewController* overlayViewController;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property PPCurrencyOverlayViewController* overlayViewController;
 @property HomeViewModel* viewModel;
 @property ConversionHistoryDataSource* tableViewSource;
 
 @end
 
 @implementation HomeViewController
+
+#pragma mark - Properties
 
 - (VENCalculatorInputTextField*)baseCurrencyTextField
 {
@@ -47,6 +48,8 @@ static NSString* const kShowScanViewSegue = @"showScanView";
         return self.leftCurrencyTextField;
     }
 }
+
+#pragma mark - Activity Lifecycle
 
 - (void)viewDidLoad
 {
@@ -60,6 +63,8 @@ static NSString* const kShowScanViewSegue = @"showScanView";
     [super viewWillAppear:animated];
     [self.baseCurrencyTextField becomeFirstResponder];
 }
+
+#pragma mark - Initialization
 
 -(void)initializeDataSource
 {
@@ -95,22 +100,17 @@ static NSString* const kShowScanViewSegue = @"showScanView";
     }];
 
     [RACObserve(self.viewModel, isArrowPointingLeft) subscribeNext:^(id x) {
-        [self setupArrow];
+        [self updateArrow];
     }];
 }
 
-- (void)setupArrow
+#pragma mark - Update Views
+
+- (void)updateArrow
 {
     UIImage* image = [self conversionButtonImage];
     [self.toggleConversionButton setImage:image forState:UIControlStateNormal];
     [self updateFirstResponder];
-}
-
-- (void)updateFirstResponder
-{
-    if (!self.baseCurrencyTextField.isFirstResponder) {
-        [self.baseCurrencyTextField becomeFirstResponder];
-    }
 }
 
 - (UIImage*)conversionButtonImage
@@ -122,6 +122,15 @@ static NSString* const kShowScanViewSegue = @"showScanView";
         return [UIImage imageNamed:@"convertIconRight"];
     }
 }
+
+- (void)updateFirstResponder
+{
+    if (!self.baseCurrencyTextField.isFirstResponder) {
+        [self.baseCurrencyTextField becomeFirstResponder];
+    }
+}
+
+#pragma mark - Actions
 
 - (IBAction)toggleCurrencyButtonPressed:(id)sender
 {
@@ -147,6 +156,7 @@ static NSString* const kShowScanViewSegue = @"showScanView";
     [self.viewModel saveButtonPressed];
 }
 
+#pragma mark - Segues
 
 - (IBAction)unwindToHomeViewController:(UIStoryboardSegue*)segue
 {
@@ -165,9 +175,10 @@ static NSString* const kShowScanViewSegue = @"showScanView";
     }
 }
 
+#pragma mark - PPScanningViewController
+
 - (void)showScanView
 {
-
     /** Instantiate the scanning coordinator */
     NSError* error;
     PPCoordinator* coordinator = [PPOcrService priceCoordinatorWithError:&error];
@@ -215,6 +226,8 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 {
     
 }
+
+#pragma mark - UITextFieldDelegate
 
 -(void)textFieldDidChange:(UITextField*)textField
 {

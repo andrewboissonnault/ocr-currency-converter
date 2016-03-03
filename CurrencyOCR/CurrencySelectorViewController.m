@@ -26,34 +26,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // No search results controller to display the search results in the current view
+    [self initializeSearchController];
+    [self initializeViewModel];
+}
+
+-(void)initializeSearchController
+{
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
-    
     self.searchController.searchBar.delegate = self;
     
     self.tableView.tableHeaderView = self.searchController.searchBar;
-    
     self.definesPresentationContext = YES;
-    
-    // The search bar does not seem to set its size automatically
-    // which causes it to have zero height when there is no scope
-    // bar. If you remove the scopeButtonTitles above and the
-    // search bar is no longer visible make sure you force the
-    // search bar to size itself (make sure you do this after
-    // you add it to the view hierarchy).
     [self.searchController.searchBar sizeToFit];
-
-    [self initializeViewModel];
 }
 
 - (void)initializeViewModel
 {
-    if(!self.viewModel)
-    {
-        self.viewModel = [[CurrencySelectorViewModel alloc] init];
-    }
+    self.viewModel = [[CurrencySelectorViewModel alloc] init];
     self.viewModel.searchController = self.searchController;
     [self bindViewModel];
 }
@@ -66,10 +57,6 @@
 }
 
 #pragma mark - UITableViewDelegate
-
-#pragma mark -
-#pragma mark === UITableViewDataSource Delegate Methods ===
-#pragma mark -
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -92,7 +79,11 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.viewModel selectCurrencyAtIndexPath:indexPath];
-    
+    [self unwindToHome];
+}
+
+-(void)unwindToHome
+{
     [self performSegueWithIdentifier:@"unwindToHomeView" sender:nil];
 }
 
@@ -111,18 +102,12 @@
     return [self.viewModel sectionForSectionIndexTitle:title atIndex:index];
 }
 
-#pragma mark -
-#pragma mark === UISearchBarDelegate ===
-#pragma mark -
+#pragma mark - UISearchBarDelegate
 
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {
     [self updateSearchResultsForSearchController:self.searchController];
 }
-
-#pragma mark -
-#pragma mark === UISearchResultsUpdating ===
-#pragma mark -
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {

@@ -33,9 +33,14 @@
     RAC(self, flagImageView.image) = RACObserve(self.viewModel, flagIconImage);
     
     [RACObserve(self.viewModel, flagIconFile) subscribeNext:^(PFFile* file) {
-        self.flagImageView.file = file;
-        [self.flagImageView loadInBackground];
+        [self updateFlag];
     }];
+}
+
+-(void)updateFlag
+{
+    self.flagImageView.file = self.viewModel.flagIconFile;
+    [self.flagImageView loadInBackground];
 }
 
 @end

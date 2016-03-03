@@ -38,7 +38,6 @@ static NSString* const kParseClientKey = @"fn8t6NTHaoCZ7UwIqb3cVacdfdlMauftY7S3f
 -(void)setupAppearances
 {
     [UISearchBar appearance].barTintColor = [UIColor greenColor];
-    //[UIView appearance].backgroundColor = defaultBackgroundColor;
 }
 
 @end
