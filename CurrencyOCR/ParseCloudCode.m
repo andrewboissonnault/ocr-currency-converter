@@ -18,11 +18,6 @@ static NSString* const kRequestCurrencyRatesAPI = @"requestCurrencyRates";
     [PFCloud callFunctionInBackground:kRequestCurrencyRatesAPI withParameters:@{} cachePolicy:kPFCachePolicyNetworkElseCache block:block];
 }
 
-//+(CurrencyRates*)requestCachedCurrencyData
-//{
-//    return [PFCloud fetchFromCache:kRequestCurrencyRatesAPI params:@{}];
-//}
-
 +(void)requestCachedCurrencyRatesInBackground:(PFIdResultBlock)block
 {
     PFQuery *query = [CurrencyRates query];
