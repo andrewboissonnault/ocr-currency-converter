@@ -140,10 +140,6 @@ static NSString* const kShowScanViewSegue = @"showScanView";
     [self showScanView];
 }
 
-- (IBAction)saveButtonPressed:(id)sender {
-    [self.viewModel saveButtonPressed];
-}
-
 #pragma mark - Segues
 
 - (IBAction)unwindToHomeViewController:(UIStoryboardSegue*)segue

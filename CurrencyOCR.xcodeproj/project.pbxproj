@@ -1137,16 +1137,16 @@
 		7FD45BD51C36A6FC004219CB /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				7FD45BCD1C365338004219CB /* CurrencyOverviewViewModel.h */,
-				7FD45BCE1C365338004219CB /* CurrencyOverviewViewModel.m */,
-				7F5623301C37F7DD0021C242 /* CurrencySelectorViewModel.h */,
-				7F5623311C37F7DD0021C242 /* CurrencySelectorViewModel.m */,
-				7F5625501C38F5360021C242 /* CurrencyViewModel.h */,
-				7F5625511C38F5360021C242 /* CurrencyViewModel.m */,
 				7F5625651C3928470021C242 /* HomeViewModel.h */,
 				7F5625661C3928470021C242 /* HomeViewModel.m */,
+				7F5623301C37F7DD0021C242 /* CurrencySelectorViewModel.h */,
+				7F5623311C37F7DD0021C242 /* CurrencySelectorViewModel.m */,
 				7F5625831C3AD9680021C242 /* ScanningViewModel.h */,
 				7F5625841C3AD9680021C242 /* ScanningViewModel.m */,
+				7F5625501C38F5360021C242 /* CurrencyViewModel.h */,
+				7F5625511C38F5360021C242 /* CurrencyViewModel.m */,
+				7FD45BCD1C365338004219CB /* CurrencyOverviewViewModel.h */,
+				7FD45BCE1C365338004219CB /* CurrencyOverviewViewModel.m */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -1154,10 +1154,10 @@
 		7FD45BD61C36A706004219CB /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				7F5623271C37DD290021C242 /* CurrencySelectorViewController.h */,
-				7F5623281C37DD290021C242 /* CurrencySelectorViewController.m */,
 				7FD45BF41C37ACA5004219CB /* HomeViewController.h */,
 				7FD45BF51C37ACA5004219CB /* HomeViewController.m */,
+				7F5623271C37DD290021C242 /* CurrencySelectorViewController.h */,
+				7F5623281C37DD290021C242 /* CurrencySelectorViewController.m */,
 				7FA6E71A1C350F770071A00D /* PPCurrencyOverlayViewController.h */,
 				7FA6E71B1C350F770071A00D /* PPCurrencyOverlayViewController.m */,
 			);

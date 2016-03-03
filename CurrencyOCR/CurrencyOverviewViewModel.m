@@ -76,20 +76,6 @@
     [self updateConvertedPrices];
 }
 
--(void)updateConvertedPrices
-{
-    self.prices = [self.filteredPrices mapObjectsUsingBlock:^id(PPOcrPrice* price, NSUInteger idx) {
-        double conversionRate = [self.currencyRateService.rates rateWithBaseCurrency:self.baseCurrency otherCurrency:self.otherCurrency];
-        return [price priceWithConversionFactor:conversionRate];
-    }];
-}
-
--(void)updateFilteredPrices
-{
-    PPOcrLayout* filteredPriceLayout = [self filterLayout:self.priceLayout];
-    self.filteredPrices = [PPOcrPrice pricesWithLayout:filteredPriceLayout];
-}
-
 -(void)updatePriceLayout
 {
     for (PPRecognizerResult* result in self.ocrResults) {
@@ -100,6 +86,12 @@
             return;
         }
     };
+}
+
+-(void)updateFilteredPrices
+{
+    PPOcrLayout* filteredPriceLayout = [self filterLayout:self.priceLayout];
+    self.filteredPrices = [PPOcrPrice pricesWithLayout:filteredPriceLayout];
 }
 
 -(PPOcrLayout*)filterLayout:(PPOcrLayout*)layout
@@ -126,6 +118,16 @@
     }];
     return [[PPOcrLine alloc] initWithOcrChars:filteredCharacters];
 }
+
+-(void)updateConvertedPrices
+{
+    self.prices = [self.filteredPrices mapObjectsUsingBlock:^id(PPOcrPrice* price, NSUInteger idx) {
+        double conversionRate = [self.currencyRateService.rates rateWithBaseCurrency:self.baseCurrency otherCurrency:self.otherCurrency];
+        return [price priceWithConversionFactor:conversionRate];
+    }];
+}
+
+
 
 
 @end
