@@ -35,18 +35,24 @@
         }
     }
     if ([result isKindOfClass:[NSNumber class]]) {
-        NSInteger integerExpression = [(NSNumber *)result integerValue];
-        CGFloat floatExpression = [(NSNumber *)result floatValue];
-        if (integerExpression == floatExpression) {
-            return [(NSNumber *)result stringValue];
-        } else if (floatExpression >= CGFLOAT_MAX || floatExpression <= CGFLOAT_MIN || isnan(floatExpression)) {
-            return @"0";
-        } else {
-            NSString *moneyFormattedNumber = [[self numberFormatter] stringFromNumber:@(floatExpression)];
-            return [moneyFormattedNumber stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        }
+        NSNumber* sanitizedResult = [self sanitizedResult:result];
+        NSString *moneyFormattedNumber = [[self numberFormatter] stringFromNumber:sanitizedResult];
+        return [moneyFormattedNumber stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     } else {
         return nil;
+    }
+}
+
+-(NSNumber*)sanitizedResult:(NSNumber*)result
+{
+    NSInteger integerExpression = [(NSNumber *)result integerValue];
+    CGFloat floatExpression = [(NSNumber *)result floatValue];
+    if (integerExpression == floatExpression) {
+        return result;
+    } else if (floatExpression >= CGFLOAT_MAX || floatExpression <= CGFLOAT_MIN || isnan(floatExpression)) {
+        return @0;
+    } else {
+        return @(floatExpression);
     }
 }
 
@@ -63,7 +69,6 @@
         _numberFormatter = [NSNumberFormatter new];
         [_numberFormatter setLocale:self.locale];
         [_numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-        [_numberFormatter setCurrencySymbol:@""];
     }
     return _numberFormatter;
 }

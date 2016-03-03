@@ -32,12 +32,14 @@
 @property (nonatomic) CurrencySelectorViewModel* rightCurrencySelectorViewModel;
 
 @property (readonly) NSString* otherCurrencyText;
-@property NSString* baseCurrencyText;
+@property (readonly) NSString* baseCurrencyText;
+@property NSString* currencyText;
 
 @property (nonatomic) CurrencyViewModel* otherCurrencyViewModel;
 @property (nonatomic) CurrencyViewModel* baseCurrencyViewModel;
 
-@property (nonatomic) NSNumberFormatter* currencyFormatter;
+@property (readonly) NSNumberFormatter* currencyFormatter;
+@property (readonly) NSNumberFormatter* decimalFormatter;
 
 @end
 
@@ -47,6 +49,8 @@
 @synthesize rightCurrencySelectorViewModel = _rightCurrencySelectorViewModel;
 @synthesize isArrowPointingLeft = _isArrowPointingLeft;
 @synthesize otherCurrencyText = _otherCurrencyText;
+@synthesize currencyFormatter = _currencyFormatter;
+@synthesize decimalFormatter = _decimalFormatter;
 
 - (NSString*)leftCurrencyText
 {
@@ -68,19 +72,13 @@
     }
 }
 
+- (NSString*)baseCurrencyText
+{
+    NSString* text = [self.decimalFormatter stringFromNumber:self.amountToConvert];
+    return text;
+}
+
 - (NSString*)otherCurrencyText
-{
-    return [self convertedText];
-}
-
--(void)setCurrencyText:(NSString *)currencyText
-{
-    self.baseCurrencyText = currencyText;
-    self.prevAmountToConvert = nil;
-    self.justSwitched = NO;
-}
-
-- (NSString*)convertedText
 {
     NSString* text = [self.currencyFormatter stringFromNumber:self.otherCurrencyAmount];
     return text;
@@ -128,11 +126,20 @@
 
 - (NSNumber*)otherCurrencyAmount
 {
-    if(!self.justSwitched)
-    {
+    if (!self.justSwitched) {
         _otherCurrencyAmount = self.convertedAmount;
     }
     return _otherCurrencyAmount;
+}
+
+- (NSNumber*)amountToConvert
+{
+    return self.userPreferencesService.displayAmount;
+}
+
+- (void)setAmountToConvert:(NSNumber*)amountToConvert
+{
+    self.userPreferencesService.displayAmount = amountToConvert;
 }
 
 - (void)setIsArrowPointingLeft:(BOOL)isArrowPointingLeft
@@ -146,27 +153,10 @@
 - (void)switchCurrencies
 {
     self.justSwitched = YES;
-    if(self.prevAmountToConvert)
-    {
-        NSNumber* prevAmount = self.amountToConvert;
-        self.amountToConvert = self.prevAmountToConvert;
-        self.prevAmountToConvert = prevAmount;
-
-    }
-    else
-    {
-        self.prevAmountToConvert = self.amountToConvert;
-        self.amountToConvert = self.otherCurrencyAmount;
-    }
-    self.currencyText = [self baseCurrencyTextWithAmountToConvert];
+    NSNumber* prevAmount = self.amountToConvert;
+    self.amountToConvert = self.otherCurrencyAmount;
+    self.otherCurrencyAmount = prevAmount;
     [self.userPreferencesService switchCurrencies];
-}
-
-- (NSString*)baseCurrencyTextWithAmountToConvert
-{
-    NSNumber* amountToConvert = self.amountToConvert;
-    NSString* numberText = [self.currencyFormatter stringFromNumber:amountToConvert];
-    return numberText;
 }
 
 - (instancetype)init
@@ -187,14 +177,14 @@
     return _currencyFormatter;
 }
 
-- (NSNumber*)amountToConvert
+- (NSNumberFormatter*)decimalFormatter
 {
-    return self.userPreferencesService.displayAmount;
-}
-
-- (void)setAmountToConvert:(NSNumber*)amountToConvert
-{
-    self.userPreferencesService.displayAmount = amountToConvert;
+    if (!_decimalFormatter) {
+        _decimalFormatter = [[NSNumberFormatter alloc] init];
+        _decimalFormatter.numberStyle = NSNumberFormatterDecimalStyle;
+        _decimalFormatter.groupingSeparator = @"";
+    }
+    return _decimalFormatter;
 }
 
 - (void)initialize
@@ -218,17 +208,12 @@
     }];
 
     [RACObserve(self, amountToConvert) subscribeNext:^(id x) {
-        if(!self.justSwitched)
-        {
-            [self updateConversionService];
-        }
+        [self updateConversionService];
     }];
 
-    [RACObserve(self, baseCurrencyText) subscribeNext:^(id x) {
-        if(!self.justSwitched)
-        {
-            [self updateAmounts];
-        }
+    [RACObserve(self, currencyText) subscribeNext:^(id x) {
+        self.justSwitched = NO;
+        [self updateAmounts];
     }];
 
     self.updateTextSignal = RACObserve(self.conversionService, convertedAmount);
@@ -243,7 +228,7 @@
 
 - (void)updateAmounts
 {
-    self.amountToConvert = [MathParserService resultWithExpression:self.baseCurrencyText];
+    self.amountToConvert = [MathParserService resultWithExpression:self.currencyText];
 }
 
 - (NSNumber*)convertedAmount

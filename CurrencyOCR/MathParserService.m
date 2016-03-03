@@ -18,10 +18,23 @@ static NSString* const kDivisionOperator = @"÷";
 
 + (NSNumber*)resultWithExpression:(NSString*)expression
 {
-    NSArray* operands = [self operandsWithExpression:expression];
-    NSString* operator= [self operatorWithExpression:expression];
+    NSString* strippedExpression = [self removeSeparatorsFromExpression:expression];
+    NSArray* operands = [self operandsWithExpression:strippedExpression];
+    NSString* operator= [self operatorWithExpression:strippedExpression];
     double result = [self calculateResultWithOperands:operands operator:operator];
     return [NSNumber numberWithDouble:result];
+}
+
++(NSString*)removeSeparatorsFromExpression:(NSString*)expression
+{
+    NSString* strippedExpression = [expression stringByReplacingOccurrencesOfString:[self groupingSeparator] withString:@""];
+    return strippedExpression;
+}
+
++(NSString*)groupingSeparator
+{
+    NSLocale *currentLocale = [NSLocale currentLocale];
+    return [currentLocale objectForKey:NSLocaleGroupingSeparator];
 }
 
 + (double)calculateResultWithOperands:(NSArray*)operands operator:(NSString*) operator

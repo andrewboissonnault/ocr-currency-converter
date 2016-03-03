@@ -8,6 +8,11 @@
 
 @implementation VENCalculatorInputTextField
 
+-(NSNumberFormatter*)numberFormatter
+{
+    return self.moneyCalculator.numberFormatter;
+}
+
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {

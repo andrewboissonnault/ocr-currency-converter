@@ -115,6 +115,22 @@ SpecBegin(MathParserService)
             NSNumber* result = [MathParserService resultWithExpression:testString];
             expect(result).to.equal(expectedResult);
         });
+        
+        it(@"testCommas", ^{
+            NSString* testString = @"5,000.00";
+            NSNumber* expectedResult = [NSNumber numberWithDouble:5000];
+            
+            NSNumber* result = [MathParserService resultWithExpression:testString];
+            expect(result).to.equal(expectedResult);
+        });
+        
+        it(@"testCurrencySign", ^{
+            NSString* testString = @"$5";
+            NSNumber* expectedResult = [NSNumber numberWithDouble:5];
+            
+            NSNumber* result = [MathParserService resultWithExpression:testString];
+            expect(result).to.equal(expectedResult);
+        });
 
     });
 

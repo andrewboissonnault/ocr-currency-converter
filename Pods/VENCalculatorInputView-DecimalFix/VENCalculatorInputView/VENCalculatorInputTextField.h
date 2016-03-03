@@ -9,4 +9,6 @@
  */
 @property (strong, nonatomic) NSLocale *locale;
 
+@property (strong, nonatomic, readonly) NSNumberFormatter* numberFormatter;
+
 @end
