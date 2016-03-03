@@ -80,21 +80,19 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 {
     RAC(self.leftCurrencyView, viewModel) = RACObserve(self.viewModel, leftCurrencyViewModel);
     RAC(self.rightCurrencyView, viewModel) = RACObserve(self.viewModel, rightCurrencyViewModel);
+    
+    [self.leftCurrencyTextField addTarget:self
+                  action:@selector(textFieldDidChange:)
+        forControlEvents:UIControlEventEditingChanged];
 
-    [self.leftCurrencyTextField.rac_textSignal subscribeNext:^(id x) {
-        if ([self.leftCurrencyTextField isEqual:self.baseCurrencyTextField]) {
-            self.viewModel.currencyText = self.leftCurrencyTextField.text;
-        }
+    [self.rightCurrencyTextField addTarget:self
+                                   action:@selector(textFieldDidChange:)
+                         forControlEvents:UIControlEventEditingChanged];
+    
+    [self.viewModel.updateTextSignal subscribeNext:^(id x) {
+        self.rightCurrencyTextField.text = self.viewModel.rightCurrencyText;
+        self.leftCurrencyTextField.text = self.viewModel.leftCurrencyText;
     }];
-
-    [self.rightCurrencyTextField.rac_textSignal subscribeNext:^(id x) {
-        if ([self.rightCurrencyTextField isEqual:self.baseCurrencyTextField]) {
-            self.viewModel.currencyText = self.rightCurrencyTextField.text;
-        }
-    }];
-
-    RAC(self.rightCurrencyTextField, text) = RACObserve(self.viewModel, rightCurrencyText);
-    RAC(self.leftCurrencyTextField, text) = RACObserve(self.viewModel, leftCurrencyText);
 
     [RACObserve(self.viewModel, isArrowPointingLeft) subscribeNext:^(id x) {
         [self setupArrow];
@@ -216,6 +214,13 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 - (void)scanningViewController:(UIViewController<PPScanningViewController>*)scanningViewController didFindError:(NSError*)error
 {
     
+}
+
+-(void)textFieldDidChange:(UITextField*)textField
+{
+    if ([textField isEqual:self.baseCurrencyTextField]) {
+        [self.viewModel setCurrencyText:textField.text];
+    }
 }
 
 - (void)textFieldDidBeginEditing:(UITextField*)textField

@@ -24,6 +24,8 @@
 @property (readonly) CurrencyOverviewViewModel* currencyOverviewViewModel;
 @property (readonly) ConversionHistoryViewModel* conversionHistoryViewModel;
 
+@property (readonly) RACSignal* updateTextSignal;
+
 
 -(void)setCurrencyText:(NSString*)currencyText;
 -(void)leftTextFieldBecameFirstResponder;

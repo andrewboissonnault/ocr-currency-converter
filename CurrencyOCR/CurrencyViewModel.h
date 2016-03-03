@@ -17,6 +17,8 @@
 @property (readonly, nonatomic) UIImage* flagIconImage;
 @property (readonly, nonatomic) PFFile* flagIconFile;
 
+@property (readonly) Currency* currency;
+
 -(instancetype)initWithCurrency:(Currency*)currency;
 
 @end

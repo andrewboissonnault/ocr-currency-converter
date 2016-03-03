@@ -6,11 +6,11 @@
 //  Copyright © 2016 Andrew Boissonnault. All rights reserved.
 //
 
-#import "HomeViewModel.h"
-#import "UserPreferencesService.h"
-#import "MathParserService.h"
-#import "CurrencyService.h"
 #import "ConversionService.h"
+#import "CurrencyService.h"
+#import "HomeViewModel.h"
+#import "MathParserService.h"
+#import "UserPreferencesService.h"
 
 @interface HomeViewModel () <CurrencySelectorDelegate>
 
@@ -18,25 +18,26 @@
 @property CurrencyService* currencyService;
 @property ConversionService* conversionService;
 
+@property NSNumber* amountToConvert;
+@property NSNumber* prevAmountToConvert;
+@property (nonatomic) NSNumber* otherCurrencyAmount;
+@property RACSignal* updateTextSignal;
+
+@property BOOL justSwitched;
+
 @property (nonatomic) BOOL isArrowPointingLeft;
 @property (nonatomic) CurrencyViewModel* leftCurrencyViewModel;
 @property (nonatomic) CurrencyViewModel* rightCurrencyViewModel;
-@property NSNumber* leftCurrencyAmount;
-@property NSNumber* rightCurrencyAmount;
-@property NSString* leftCurrencyText;
-@property NSString* rightCurrencyText;
 @property (nonatomic) CurrencySelectorViewModel* leftCurrencySelectorViewModel;
 @property (nonatomic) CurrencySelectorViewModel* rightCurrencySelectorViewModel;
 
-@property NSString* otherCurrencyText;
+@property (readonly) NSString* otherCurrencyText;
 @property NSString* baseCurrencyText;
-@property NSNumber* otherCurrencyAmount;
-@property NSNumber* baseCurrencyAmount;
+
 @property (nonatomic) CurrencyViewModel* otherCurrencyViewModel;
 @property (nonatomic) CurrencyViewModel* baseCurrencyViewModel;
 
 @property (nonatomic) NSNumberFormatter* currencyFormatter;
-@property (nonatomic) NSNumberFormatter* baseCurrencyFormatter;
 
 @end
 
@@ -45,176 +46,131 @@
 @synthesize leftCurrencySelectorViewModel = _leftCurrencySelectorViewModel;
 @synthesize rightCurrencySelectorViewModel = _rightCurrencySelectorViewModel;
 @synthesize isArrowPointingLeft = _isArrowPointingLeft;
+@synthesize otherCurrencyText = _otherCurrencyText;
 
--(NSString*)otherCurrencyText
+- (NSString*)leftCurrencyText
 {
-    if(self.isArrowPointingLeft)
-    {
-        return self.leftCurrencyText;
+    if (self.isArrowPointingLeft) {
+        return self.otherCurrencyText;
     }
-    else
-    {
-        return self.rightCurrencyText;
+    else {
+        return self.baseCurrencyText;
     }
 }
 
--(void)setOtherCurrencyText:(NSString *)otherCurrencyText
+- (NSString*)rightCurrencyText
 {
-    if(self.isArrowPointingLeft)
-    {
-        self.leftCurrencyText = otherCurrencyText;
+    if (self.isArrowPointingLeft) {
+        return self.baseCurrencyText;
     }
-    else
-    {
-        self.rightCurrencyText = otherCurrencyText;
+    else {
+        return self.otherCurrencyText;
     }
 }
 
--(NSString*)baseCurrencyText
+- (NSString*)otherCurrencyText
 {
-    if(self.isArrowPointingLeft)
-    {
-        return self.rightCurrencyText;
-    }
-    else
-    {
-        return self.leftCurrencyText;
-    }
+    return [self convertedText];
 }
 
--(void)setBaseCurrencyText:(NSString *)baseCurrencyText
+-(void)setCurrencyText:(NSString *)currencyText
 {
-    if(self.isArrowPointingLeft)
-    {
-        self.rightCurrencyText = baseCurrencyText;
-    }
-    else
-    {
-        self.leftCurrencyText = baseCurrencyText;
-    }
+    self.baseCurrencyText = currencyText;
+    self.prevAmountToConvert = nil;
+    self.justSwitched = NO;
 }
 
--(CurrencyViewModel*)otherCurrencyViewModel
+- (NSString*)convertedText
 {
-    if(self.isArrowPointingLeft)
-    {
+    NSString* text = [self.currencyFormatter stringFromNumber:self.otherCurrencyAmount];
+    return text;
+}
+
+- (CurrencyViewModel*)otherCurrencyViewModel
+{
+    if (self.isArrowPointingLeft) {
         return self.leftCurrencyViewModel;
     }
-    else
-    {
+    else {
         return self.rightCurrencyViewModel;
     }
 }
 
--(void)setOtherCurrencyViewModel:(CurrencyViewModel *)otherCurrencyViewModel
+- (void)setOtherCurrencyViewModel:(CurrencyViewModel*)otherCurrencyViewModel
 {
-    if(self.isArrowPointingLeft)
-    {
+    if (self.isArrowPointingLeft) {
         self.leftCurrencyViewModel = otherCurrencyViewModel;
     }
-    else
-    {
+    else {
         self.rightCurrencyViewModel = otherCurrencyViewModel;
     }
 }
 
--(CurrencyViewModel*)baseCurrencyViewModel
+- (CurrencyViewModel*)baseCurrencyViewModel
 {
-    if(self.isArrowPointingLeft)
-    {
+    if (self.isArrowPointingLeft) {
         return self.rightCurrencyViewModel;
     }
-    else
-    {
+    else {
         return self.leftCurrencyViewModel;
     }
 }
 
--(void)setBaseCurrencyViewModel:(CurrencyViewModel *)baseCurrencyViewModel
+- (void)setBaseCurrencyViewModel:(CurrencyViewModel*)baseCurrencyViewModel
 {
-    if(self.isArrowPointingLeft)
-    {
+    if (self.isArrowPointingLeft) {
         self.rightCurrencyViewModel = baseCurrencyViewModel;
     }
-    else
-    {
+    else {
         self.leftCurrencyViewModel = baseCurrencyViewModel;
     }
 }
 
--(NSNumber*)otherCurrencyAmount
+- (NSNumber*)otherCurrencyAmount
 {
-    if(self.isArrowPointingLeft)
+    if(!self.justSwitched)
     {
-        return self.leftCurrencyAmount;
+        _otherCurrencyAmount = self.convertedAmount;
     }
-    else
-    {
-        return self.rightCurrencyAmount;
-    }
+    return _otherCurrencyAmount;
 }
 
--(void)setOtherCurrencyAmount:(NSNumber *)otherCurrencyAmount
+- (void)setIsArrowPointingLeft:(BOOL)isArrowPointingLeft
 {
-    if(self.isArrowPointingLeft)
-    {
-        self.leftCurrencyAmount = otherCurrencyAmount;
-    }
-    else
-    {
-        self.rightCurrencyAmount = otherCurrencyAmount;
-    }
-}
-
--(NSNumber*)baseCurrencyAmount
-{
-    if(self.isArrowPointingLeft)
-    {
-        return self.rightCurrencyAmount;
-    }
-    else
-    {
-        return self.leftCurrencyAmount;
-    }
-}
-
--(void)setBaseCurrencyAmount:(NSNumber *)baseCurrencyAmount
-{
-    if(self.isArrowPointingLeft)
-    {
-        self.rightCurrencyAmount = baseCurrencyAmount;
-    }
-    else
-    {
-        self.leftCurrencyAmount = baseCurrencyAmount;
-    }
-}
-
--(void)setIsArrowPointingLeft:(BOOL)isArrowPointingLeft
-{
-    if(_isArrowPointingLeft != isArrowPointingLeft)
-    {
+    if (_isArrowPointingLeft != isArrowPointingLeft) {
         _isArrowPointingLeft = isArrowPointingLeft;
         [self switchCurrencies];
     }
 }
 
--(void)switchCurrencies
+- (void)switchCurrencies
 {
-    NSNumber* convertedResult = self.convertedResult;
+    self.justSwitched = YES;
+    if(self.prevAmountToConvert)
+    {
+        NSNumber* prevAmount = self.amountToConvert;
+        self.amountToConvert = self.prevAmountToConvert;
+        self.prevAmountToConvert = prevAmount;
+
+    }
+    else
+    {
+        self.prevAmountToConvert = self.amountToConvert;
+        self.amountToConvert = self.otherCurrencyAmount;
+    }
+    self.currencyText = [self baseCurrencyTextWithAmountToConvert];
     [self.userPreferencesService switchCurrencies];
-    self.amountToConvert = convertedResult;
-    self.baseCurrencyText = [self baseCurrencyTextWithAmountToConvert];
 }
 
--(NSString*)baseCurrencyTextWithAmountToConvert
+- (NSString*)baseCurrencyTextWithAmountToConvert
 {
     NSNumber* amountToConvert = self.amountToConvert;
-    NSString* numberText = [self.baseCurrencyFormatter stringFromNumber:amountToConvert];
-    return [@"$" stringByAppendingString:numberText];
+    NSString* numberText = [self.currencyFormatter stringFromNumber:amountToConvert];
+    return numberText;
 }
 
-- (instancetype)init {
+- (instancetype)init
+{
     self = [super init];
     if (self) {
         [self initialize];
@@ -222,47 +178,35 @@
     return self;
 }
 
--(NSNumberFormatter*)currencyFormatter
+- (NSNumberFormatter*)currencyFormatter
 {
-    if(!_currencyFormatter)
-    {
+    if (!_currencyFormatter) {
         _currencyFormatter = [[NSNumberFormatter alloc] init];
         _currencyFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
     }
     return _currencyFormatter;
 }
 
--(NSNumberFormatter*)baseCurrencyFormatter
-{
-    if(!_baseCurrencyFormatter)
-    {
-        _baseCurrencyFormatter = [[NSNumberFormatter alloc] init];
-        _baseCurrencyFormatter.numberStyle = NSNumberFormatterDecimalStyle;
-    }
-    return _baseCurrencyFormatter;
-}
-
--(NSNumber*)amountToConvert
+- (NSNumber*)amountToConvert
 {
     return self.userPreferencesService.displayAmount;
 }
 
--(void)setAmountToConvert:(NSNumber *)amountToConvert
+- (void)setAmountToConvert:(NSNumber*)amountToConvert
 {
     self.userPreferencesService.displayAmount = amountToConvert;
 }
 
--(void)initialize
+- (void)initialize
 {
     self.userPreferencesService = [UserPreferencesService sharedInstance];
     self.currencyService = [CurrencyService sharedInstance];
-    self.conversionService = [[ConversionService alloc] initWithBaseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency amount:self.baseCurrencyAmount];
-    self.baseCurrencyText = @"$0";
+    self.conversionService = [[ConversionService alloc] initWithBaseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency amount:self.amountToConvert];
     [self bindCurrencyService];
     [self bindUserPreferencesService];
 }
 
--(void)bindUserPreferencesService
+- (void)bindUserPreferencesService
 {
     [RACObserve(self.userPreferencesService, baseCurrency) subscribeNext:^(id baseCurrency) {
         [self updateConversionService];
@@ -272,110 +216,106 @@
         [self updateConversionService];
         self.otherCurrencyViewModel = [[CurrencyViewModel alloc] initWithCurrency:otherCurrency];
     }];
-    
+
     [RACObserve(self, amountToConvert) subscribeNext:^(id x) {
-        [self updateConversionService];
+        if(!self.justSwitched)
+        {
+            [self updateConversionService];
+        }
     }];
-    
-    [RACObserve(self.conversionService, convertedAmount) subscribeNext:^(id x) {
-        [self updateTexts   ];
+
+    [RACObserve(self, baseCurrencyText) subscribeNext:^(id x) {
+        if(!self.justSwitched)
+        {
+            [self updateAmounts];
+        }
     }];
-    
+
+    self.updateTextSignal = RACObserve(self.conversionService, convertedAmount);
 }
 
--(void)updateConversionService
+- (void)updateConversionService
 {
     self.conversionService.baseCurrency = self.userPreferencesService.baseCurrency;
     self.conversionService.otherCurrency = self.userPreferencesService.otherCurrency;
     self.conversionService.amount = self.amountToConvert;
 }
 
--(void)updateTexts
+- (void)updateAmounts
 {
-    self.otherCurrencyText = [self.currencyFormatter stringFromNumber:self.convertedResult];
+    self.amountToConvert = [MathParserService resultWithExpression:self.baseCurrencyText];
 }
 
--(void)setCurrencyText:(NSString *)currencyText
+- (NSNumber*)convertedAmount
 {
-    self.amountToConvert = [MathParserService resultWithExpression:currencyText];
+    NSNumber* convertedAmount = self.conversionService.convertedAmount;
+    return convertedAmount;
 }
 
--(NSNumber*)convertedResult
-{
-    NSNumber* convertedResult = self.conversionService.convertedAmount;
-    return convertedResult;
-}
-
--(void)bindCurrencyService
+- (void)bindCurrencyService
 {
     [self.currencyService refreshCurrencyData];
 }
 
--(void)toggleConversionArrow
+- (void)toggleConversionArrow
 {
     self.isArrowPointingLeft = !self.isArrowPointingLeft;
 }
 
--(void)leftTextFieldBecameFirstResponder
+- (void)leftTextFieldBecameFirstResponder
 {
     self.isArrowPointingLeft = NO;
 }
 
--(void)rightTextFieldBecameFirstResponder
+- (void)rightTextFieldBecameFirstResponder
 {
     self.isArrowPointingLeft = YES;
 }
 
--(CurrencySelectorViewModel*)leftCurrencySelectorViewModel
+- (CurrencySelectorViewModel*)leftCurrencySelectorViewModel
 {
-    if(!_leftCurrencySelectorViewModel)
-    {
+    if (!_leftCurrencySelectorViewModel) {
         _leftCurrencySelectorViewModel = [[CurrencySelectorViewModel alloc] initWithCurrency:self.userPreferencesService.baseCurrency delegate:self];
     }
     return _leftCurrencySelectorViewModel;
 }
 
--(CurrencySelectorViewModel*)rightCurrencySelectorViewModel
+- (CurrencySelectorViewModel*)rightCurrencySelectorViewModel
 {
-    if(!_rightCurrencySelectorViewModel)
-    {
+    if (!_rightCurrencySelectorViewModel) {
         _rightCurrencySelectorViewModel = [[CurrencySelectorViewModel alloc] initWithCurrency:self.userPreferencesService.otherCurrency delegate:self];
     }
     return _rightCurrencySelectorViewModel;
 }
 
--(ScanningViewModel*)scanningViewModel
+- (ScanningViewModel*)scanningViewModel
 {
     return [[ScanningViewModel alloc] initWithBaseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency];
 }
 
--(CurrencyOverviewViewModel*)currencyOverviewViewModel
+- (CurrencyOverviewViewModel*)currencyOverviewViewModel
 {
     return [[CurrencyOverviewViewModel alloc] initWithBaseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency];
 }
 
--(ConversionHistoryViewModel*)conversionHistoryViewModel
+- (ConversionHistoryViewModel*)conversionHistoryViewModel
 {
     return [[ConversionHistoryViewModel alloc] init];
 }
 
--(void)didSelectCurrency:(Currency *)currency withSelector:(CurrencySelectorViewModel *)selector
+- (void)didSelectCurrency:(Currency*)currency withSelector:(CurrencySelectorViewModel*)selector
 {
-    if([self.leftCurrencySelectorViewModel isEqual:selector])
-    {
+    if ([self.leftCurrencySelectorViewModel isEqual:selector]) {
         self.userPreferencesService.baseCurrency = currency;
     }
-    if([self.rightCurrencySelectorViewModel isEqual:selector])
-    {
+    if ([self.rightCurrencySelectorViewModel isEqual:selector]) {
         self.userPreferencesService.otherCurrency = currency;
     }
 }
 
--(void)saveButtonPressed
+- (void)saveButtonPressed
 {
-    [self.conversionHistoryViewModel saveConversionHistory:self.baseCurrencyAmount baseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency];
+    [self.conversionHistoryViewModel saveConversionHistory:self.amountToConvert baseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency];
 }
-
-
 
 @end
