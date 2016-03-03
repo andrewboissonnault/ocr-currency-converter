@@ -14,7 +14,6 @@
 #import "PPOcrService.h"
 #import "VENCalculatorInputTextField.h"
 #import "VENCalculatorInputView.h"
-#import "ConversionHistoryDataSource.h"
 
 static NSString* const kSelectBaseCurrencySegue = @"selectBaseCurrencySegue";
 static NSString* const kSelectOtherCurrencySegue = @"selectOtherCurrencySegue";
@@ -31,7 +30,6 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 
 @property PPCurrencyOverlayViewController* overlayViewController;
 @property HomeViewModel* viewModel;
-@property ConversionHistoryDataSource* tableViewSource;
 
 @end
 
@@ -55,7 +53,6 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 {
     [super viewDidLoad];
     [self initializeViewModel];
-    [self initializeDataSource];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -65,15 +62,6 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 }
 
 #pragma mark - Initialization
-
--(void)initializeDataSource
-{
-    self.tableViewSource = [[ConversionHistoryDataSource alloc] init];
-    self.tableViewSource.viewModel = self.viewModel.conversionHistoryViewModel;
-    self.tableViewSource.tableView = self.tableView;
-    self.tableView.delegate = self.tableViewSource;
-    self.tableView.dataSource = self.tableViewSource;
-}
 
 - (void)initializeViewModel
 {

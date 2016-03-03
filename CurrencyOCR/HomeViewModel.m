@@ -284,11 +284,6 @@
     return [[CurrencyOverviewViewModel alloc] initWithBaseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency];
 }
 
-- (ConversionHistoryViewModel*)conversionHistoryViewModel
-{
-    return [[ConversionHistoryViewModel alloc] init];
-}
-
 - (void)didSelectCurrency:(Currency*)currency withSelector:(CurrencySelectorViewModel*)selector
 {
     if ([self.leftCurrencySelectorViewModel isEqual:selector]) {
@@ -297,11 +292,6 @@
     if ([self.rightCurrencySelectorViewModel isEqual:selector]) {
         self.userPreferencesService.otherCurrency = currency;
     }
-}
-
-- (void)saveButtonPressed
-{
-    [self.conversionHistoryViewModel saveConversionHistory:self.amountToConvert baseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency];
 }
 
 @end

@@ -10,7 +10,6 @@
 #import "CurrencyViewModel.h"
 #import "ScanningViewModel.h"
 #import <Foundation/Foundation.h>
-#import "ConversionHistoryViewModel.h"
 
 @interface HomeViewModel : NSObject
 
@@ -22,7 +21,6 @@
 @property (readonly, nonatomic) CurrencySelectorViewModel* leftCurrencySelectorViewModel;
 @property (readonly, nonatomic) CurrencySelectorViewModel* rightCurrencySelectorViewModel;
 @property (readonly) CurrencyOverviewViewModel* currencyOverviewViewModel;
-@property (readonly) ConversionHistoryViewModel* conversionHistoryViewModel;
 
 @property (readonly) RACSignal* updateTextSignal;
 
