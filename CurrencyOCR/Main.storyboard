@@ -68,10 +68,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zqL-Hr-BhR">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="214.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="227.5"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zXS-Sr-EXG" customClass="VENCalculatorInputTextField">
-                                        <rect key="frame" x="8" y="180.5" width="211" height="30"/>
+                                        <rect key="frame" x="8" y="193.5" width="230.5" height="30"/>
                                         <color key="backgroundColor" red="0.18823529410000001" green="0.74901960779999999" blue="0.043137254899999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="jSA-Bp-dHD"/>
@@ -83,7 +83,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AUv-ao-sfF" customClass="VENCalculatorInputTextField">
-                                        <rect key="frame" x="381" y="180.5" width="211" height="30"/>
+                                        <rect key="frame" x="361.5" y="193.5" width="230.5" height="30"/>
                                         <color key="backgroundColor" red="0.18823529410000001" green="0.74901960779999999" blue="0.043137254899999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="bzh-ec-JP1"/>
@@ -95,10 +95,10 @@
                                         </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKn-pL-w9u" customClass="CurrencyView">
-                                        <rect key="frame" x="381" y="32" width="211" height="140.5"/>
+                                        <rect key="frame" x="361.5" y="32" width="230.5" height="153.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7wt-VZ-Uc9">
-                                                <rect key="frame" x="0.0" y="0.0" width="211" height="140.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="230.5" height="153.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <connections>
                                                     <action selector="otherCurrencyButtonPressed:" destination="LXp-Gf-TCI" eventType="touchUpInside" id="xQh-fp-RCY"/>
@@ -126,10 +126,10 @@
                                         </variation>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eKo-Lh-7m7" customClass="CurrencyView">
-                                        <rect key="frame" x="8" y="32" width="211" height="140.5"/>
+                                        <rect key="frame" x="8" y="32" width="230.5" height="153.5"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F1z-8V-RME">
-                                                <rect key="frame" x="0.0" y="0.0" width="211" height="140.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="230.5" height="153.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <connections>
                                                     <action selector="baseCurrencyButtonPressed:" destination="LXp-Gf-TCI" eventType="touchUpInside" id="gXa-7Q-yeB"/>
@@ -159,7 +159,7 @@
                                         </variation>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fii-E9-lLv">
-                                        <rect key="frame" x="244" y="51.5" width="112" height="112"/>
+                                        <rect key="frame" x="248.5" y="63" width="103" height="102.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="fii-E9-lLv" secondAttribute="height" multiplier="1:1" id="D7Q-nZ-bNK"/>
                                         </constraints>
@@ -174,7 +174,7 @@
                                     <constraint firstAttribute="height" constant="141" id="6Kq-SQ-5eb"/>
                                     <constraint firstAttribute="trailing" secondItem="cKn-pL-w9u" secondAttribute="trailing" constant="8" id="8FI-J7-J2J"/>
                                     <constraint firstItem="fii-E9-lLv" firstAttribute="centerY" secondItem="zqL-Hr-BhR" secondAttribute="centerY" id="8oS-yc-VU0"/>
-                                    <constraint firstItem="7wt-VZ-Uc9" firstAttribute="leading" secondItem="fii-E9-lLv" secondAttribute="trailing" constant="25" id="EOJ-rj-xXa"/>
+                                    <constraint firstItem="7wt-VZ-Uc9" firstAttribute="leading" secondItem="fii-E9-lLv" secondAttribute="trailing" constant="10" id="EOJ-rj-xXa"/>
                                     <constraint firstItem="eKo-Lh-7m7" firstAttribute="width" secondItem="cKn-pL-w9u" secondAttribute="width" id="Ijv-Wp-vxd"/>
                                     <constraint firstAttribute="bottom" secondItem="eKo-Lh-7m7" secondAttribute="bottom" constant="8" id="Kdf-V2-WPi"/>
                                     <constraint firstAttribute="bottom" secondItem="zXS-Sr-EXG" secondAttribute="bottom" constant="4" id="Nx6-UL-NOs"/>
@@ -185,7 +185,7 @@
                                     <constraint firstItem="AUv-ao-sfF" firstAttribute="trailing" secondItem="7wt-VZ-Uc9" secondAttribute="trailing" id="Y1P-QA-ecm"/>
                                     <constraint firstItem="zXS-Sr-EXG" firstAttribute="leading" secondItem="zqL-Hr-BhR" secondAttribute="leading" constant="8" id="d8y-Ja-9lF"/>
                                     <constraint firstItem="zXS-Sr-EXG" firstAttribute="trailing" secondItem="eKo-Lh-7m7" secondAttribute="trailing" id="dVd-K8-3KW"/>
-                                    <constraint firstItem="fii-E9-lLv" firstAttribute="width" secondItem="eKo-Lh-7m7" secondAttribute="height" multiplier="4:5" id="eTp-0i-srZ"/>
+                                    <constraint firstItem="fii-E9-lLv" firstAttribute="width" secondItem="eKo-Lh-7m7" secondAttribute="height" multiplier="4:6" id="eTp-0i-srZ"/>
                                     <constraint firstItem="fii-E9-lLv" firstAttribute="width" secondItem="7wt-VZ-Uc9" secondAttribute="height" multiplier="4:5" id="faG-Es-Myz"/>
                                     <constraint firstItem="eKo-Lh-7m7" firstAttribute="leading" secondItem="zqL-Hr-BhR" secondAttribute="leading" constant="8" id="g6B-Qb-CIQ"/>
                                     <constraint firstItem="eKo-Lh-7m7" firstAttribute="height" secondItem="cKn-pL-w9u" secondAttribute="height" id="gbm-Su-bFL"/>
@@ -193,18 +193,19 @@
                                     <constraint firstItem="AUv-ao-sfF" firstAttribute="top" secondItem="cKn-pL-w9u" secondAttribute="bottom" constant="8" id="ke0-RN-QgX"/>
                                     <constraint firstItem="cKn-pL-w9u" firstAttribute="top" secondItem="zqL-Hr-BhR" secondAttribute="top" constant="32" id="nLa-1I-8YU"/>
                                     <constraint firstAttribute="bottom" secondItem="cKn-pL-w9u" secondAttribute="bottom" constant="8" id="uGG-Gk-gB3"/>
-                                    <constraint firstItem="fii-E9-lLv" firstAttribute="leading" secondItem="F1z-8V-RME" secondAttribute="trailing" constant="25" id="xOu-WU-XVE"/>
+                                    <constraint firstItem="fii-E9-lLv" firstAttribute="leading" secondItem="F1z-8V-RME" secondAttribute="trailing" constant="10" id="xOu-WU-XVE"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="6Kq-SQ-5eb"/>
                                         <exclude reference="Kdf-V2-WPi"/>
+                                        <exclude reference="faG-Es-Myz"/>
                                         <exclude reference="uGG-Gk-gB3"/>
                                     </mask>
                                 </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zjp-Jg-nqZ">
-                                <rect key="frame" x="0.0" y="215" width="600" height="38"/>
+                                <rect key="frame" x="0.0" y="228" width="600" height="38"/>
                                 <subviews>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZLO-FN-G0C">
                                         <rect key="frame" x="92" y="4" width="34" height="30"/>
@@ -249,7 +250,7 @@
                                 </variation>
                             </view>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="51" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="g54-qv-dsb" userLabel="ConvertedCurrencies">
-                                <rect key="frame" x="0.0" y="253" width="600" height="346.5"/>
+                                <rect key="frame" x="0.0" y="266" width="600" height="333.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="pastConversionCell" rowHeight="51" id="9wB-UZ-K0u" customClass="PastConversionCell">
