@@ -53,6 +53,7 @@
     [self setupCurrencyNameLabel];
     [self setupCurrencyCodeLabel];
     [self setupImageView];
+    [self bindViewModel];
 }
 
 - (void)setupCurrencyNameLabel
@@ -82,29 +83,15 @@
     [self addSubview:self.flagImageView];
     [self.flagImageView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:4];
     [self.flagImageView autoAlignAxisToSuperviewAxis:ALAxisVertical];
-
     [self.flagImageView autoPinEdge:ALEdgeBottom toEdge:ALEdgeTop ofView:self.currencyCodeLabel];
-}
-
-- (void)setViewModel:(CurrencyViewModel*)viewModel
-{
-    if(![self.viewModel isEqual:viewModel])
-    {
-        _viewModel = viewModel;
-        [self bindViewModel];
-    }
 }
 
 - (void)bindViewModel
 {
-    RAC(self, currencyNameLabel.text) = RACObserve(self.viewModel, currencyName);
-    RAC(self, currencyCodeLabel.text) = RACObserve(self.viewModel, currencyCode);
-    RAC(self, flagImageView.image) = RACObserve(self.viewModel, flagIconImage);
-
-    [RACObserve(self.viewModel, flagIconFile) subscribeNext:^(PFFile* file) {
-        self.flagImageView.file = file;
-        [self.flagImageView loadInBackground];
-    }];
+    RAC(self, currencyNameLabel.text) = RACObserve(self, viewModel.currencyName);
+    RAC(self, currencyCodeLabel.text) = RACObserve(self, viewModel.currencyCode);
+    RAC(self, flagImageView.image) = RACObserve(self, viewModel.flagIconImage);
+    RAC(self, flagImageView.file) = RACObserve(self, viewModel.flagIconFile);
 }
 
 @end

@@ -214,7 +214,7 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 -(void)textFieldDidChange:(UITextField*)textField
 {
     if ([textField isEqual:self.baseCurrencyTextField]) {
-        [self.viewModel setCurrencyText:textField.text];
+        [self.viewModel setExpression:textField.text];
     }
 }
 

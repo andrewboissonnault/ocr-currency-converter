@@ -24,7 +24,7 @@
 @property (readonly, nonatomic) CurrencySelectorViewModel* rightCurrencySelectorViewModel;
 @property (readonly) CurrencyOverviewViewModel* currencyOverviewViewModel;
 
--(void)setCurrencyText:(NSString*)currencyText;
+-(void)setExpression:(NSString*)expression;
 -(void)leftTextFieldBecameFirstResponder;
 -(void)rightTextFieldBecameFirstResponder;
 -(void)toggleConversionArrow;

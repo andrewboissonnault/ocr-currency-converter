@@ -12,6 +12,7 @@
 static NSString* const kBaseCurrencyCodeKey = @"baseCurrencyCode";
 static NSString* const kOtherCurrencyCodeKey = @"otherCurrencyCode";
 static NSString* const kDisplayAmountKey = @"displayAmount";
+static NSString* const kIsArrowPointingLeftKey = @"isArrowPointingLeft";
 
 @interface UserPreferencesService()
 
@@ -124,6 +125,16 @@ static NSString* const kDisplayAmountKey = @"displayAmount";
 -(void)setDisplayAmount:(NSNumber *)displayAmount
 {
     [Archiver persist:displayAmount key:kDisplayAmountKey];
+}
+
+-(BOOL)isArrowPointingLeft
+{
+    return [[Archiver retrieve:kIsArrowPointingLeftKey] boolValue];
+}
+
+-(void)setIsArrowPointingLeft:(BOOL)isArrowPointingLeft
+{
+    [Archiver persist:[NSNumber numberWithBool:isArrowPointingLeft] key:kIsArrowPointingLeftKey];
 }
 
 -(void)switchCurrencies

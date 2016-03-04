@@ -13,13 +13,9 @@
 
 @class CurrencySelectorViewModel;
 
-@protocol CurrencySelectorDelegate <NSObject>
-
-- (void)didSelectCurrency:(Currency*)currency withSelector:(CurrencySelectorViewModel*)selector;
-
-@end
-
 @interface CurrencySelectorViewModel : NSObject
+
+@property Currency* selectedCurrency;
 
 @property (readonly) RACSignal* reloadDataSignal;
 @property (readonly) NSArray* sectionIndexTitles;
@@ -30,12 +26,10 @@
 -(CurrencyViewModel*)childViewModelForIndexPath:(NSIndexPath*)indexPath;
 
 @property UISearchController* searchController;
-@property id<CurrencySelectorDelegate> delegate;
 
 -(void)searchForText:(NSString*)searchText;
 -(void)selectCurrencyAtIndexPath:(NSIndexPath*)indexPath;
 
 -(instancetype)initWithCurrency:(Currency*)currency;
--(instancetype)initWithCurrency:(Currency*)currency delegate:(id<CurrencySelectorDelegate>)delegate;
 
 @end

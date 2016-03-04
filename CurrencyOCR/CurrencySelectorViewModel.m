@@ -17,7 +17,6 @@
 @property NSArray* filteredCurrencies;
 @property (readonly) BOOL isSearchControllerActive;
 @property CurrencyService* currencyRateService;
-@property Currency* currency;
 
 @end
 
@@ -47,17 +46,10 @@
 -(instancetype)initWithCurrency:(Currency*)currency
 {
     self = [super init];
-    self.currency = currency;
+    self.selectedCurrency = currency;
     if(self) {
         [self initialize];
     }
-    return self;
-}
-
--(instancetype)initWithCurrency:(Currency*)currency delegate:(id<CurrencySelectorDelegate>)delegate
-{
-    self = [self initWithCurrency:currency];
-    self.delegate = delegate;
     return self;
 }
 
@@ -124,8 +116,7 @@
 
 - (void)selectCurrencyAtIndexPath:(NSIndexPath *)indexPath
 {
-    Currency* currency = [self currencyForIndexPath:indexPath];
-    [self.delegate didSelectCurrency:currency withSelector:self];
+    self.selectedCurrency = [self currencyForIndexPath:indexPath];
 }
 
 -(Currency*)currencyForIndexPath:(NSIndexPath*)indexPath

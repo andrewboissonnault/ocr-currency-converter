@@ -11,29 +11,22 @@
 #import "HomeViewModel.h"
 #import "MathParserService.h"
 #import "UserPreferencesService.h"
+#import "RACBlockTrampoline.h"
 
 typedef id (^ReduceLeftAndRightBlock)(id baseObject, id otherObject, NSNumber* isArrowPointingLeft);
 
-@interface HomeViewModel () <CurrencySelectorDelegate>
-
-@property (nonatomic) BOOL isArrowPointingLeft;
+@interface HomeViewModel ()
 
 @property RACSignal* leftCurrencyTextSignal;
 @property RACSignal* rightCurrencyTextSignal;
-
-@property (readonly) NSString* baseCurrencyText;
-@property (readonly) NSString* otherCurrencyText;
-@property NSString* currencyText;
-
-
-
-@property (nonatomic) NSNumber* baseCurrencyAmount;
-@property (nonatomic) NSNumber* otherCurrencyAmount;
-@property BOOL justSwitched;
-
-
 @property RACSignal* leftCurrencyViewModelSignal;
 @property RACSignal* rightCurrencyViewModelSignal;
+
+@property (nonatomic) BOOL isArrowPointingLeft;
+@property NSString* expression;
+
+@property NSNumber* otherCurrencyAmount;
+@property NSNumber* baseCurrencyAmount;
 
 @property (nonatomic) CurrencySelectorViewModel* leftCurrencySelectorViewModel;
 @property (nonatomic) CurrencySelectorViewModel* rightCurrencySelectorViewModel;
@@ -49,43 +42,33 @@ typedef id (^ReduceLeftAndRightBlock)(id baseObject, id otherObject, NSNumber* i
 
 @implementation HomeViewModel
 
-@synthesize leftCurrencySelectorViewModel = _leftCurrencySelectorViewModel;
-@synthesize rightCurrencySelectorViewModel = _rightCurrencySelectorViewModel;
-@synthesize isArrowPointingLeft = _isArrowPointingLeft;
-@synthesize otherCurrencyText = _otherCurrencyText;
 @synthesize currencyFormatter = _currencyFormatter;
 @synthesize decimalFormatter = _decimalFormatter;
 
-- (void)setIsArrowPointingLeft:(BOOL)isArrowPointingLeft
+- (CurrencySelectorViewModel*)leftCurrencySelectorViewModel
 {
-    if (_isArrowPointingLeft != isArrowPointingLeft) {
-        _isArrowPointingLeft = isArrowPointingLeft;
-        [self switchCurrencies];
+    if (!_leftCurrencySelectorViewModel) {
+        _leftCurrencySelectorViewModel = [[CurrencySelectorViewModel alloc] init];
     }
+    return _leftCurrencySelectorViewModel;
 }
 
-- (NSNumber*)baseCurrencyAmount
+- (CurrencySelectorViewModel*)rightCurrencySelectorViewModel
 {
-    return self.userPreferencesService.displayAmount;
-}
-
-- (void)setBaseCurrencyAmount:(NSNumber*)amountToConvert
-{
-    self.userPreferencesService.displayAmount = amountToConvert;
-}
-
-- (NSNumber*)otherCurrencyAmount
-{
-    if (!self.justSwitched) {
-        _otherCurrencyAmount = self.convertedAmount;
+    if (!_rightCurrencySelectorViewModel) {
+        _rightCurrencySelectorViewModel = [[CurrencySelectorViewModel alloc] init];
     }
-    return _otherCurrencyAmount;
+    return _rightCurrencySelectorViewModel;
 }
 
-- (NSNumber*)convertedAmount
+- (ScanningViewModel*)scanningViewModel
 {
-    NSNumber* convertedAmount = self.conversionService.convertedAmount;
-    return convertedAmount;
+    return [[ScanningViewModel alloc] initWithBaseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency];
+}
+
+- (CurrencyOverviewViewModel*)currencyOverviewViewModel
+{
+    return [[CurrencyOverviewViewModel alloc] initWithBaseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency];
 }
 
 - (NSNumberFormatter*)currencyFormatter
@@ -119,11 +102,22 @@ typedef id (^ReduceLeftAndRightBlock)(id baseObject, id otherObject, NSNumber* i
 - (void)initialize
 {
     [self initializeServices];
+    [self initializeWithUserPreferences];
     [self refreshCurrencyService];
     [self setupBindings];
 }
 
--(void)initializeServices
+- (void)initializeWithUserPreferences
+{
+    Currency* baseCurrency = self.userPreferencesService.baseCurrency;
+    Currency* otherCurrency = self.userPreferencesService.otherCurrency;
+    NSNumber* isArrowPointingLeft = [NSNumber numberWithBool:self.isArrowPointingLeft];
+    
+    self.leftCurrencySelectorViewModel.selectedCurrency = [self combine:@[baseCurrency, otherCurrency, isArrowPointingLeft] reduce:[self reduceLeftBlock]];
+    self.rightCurrencySelectorViewModel.selectedCurrency = [self combine:@[baseCurrency, otherCurrency, isArrowPointingLeft] reduce:[self reduceRightBlock]];
+}
+
+- (void)initializeServices
 {
     self.userPreferencesService = [UserPreferencesService sharedInstance];
     self.currencyService = [CurrencyService sharedInstance];
@@ -135,95 +129,107 @@ typedef id (^ReduceLeftAndRightBlock)(id baseObject, id otherObject, NSNumber* i
     [self.currencyService refreshCurrencyData];
 }
 
+-(id)combine:(NSArray*)values reduce:(id (^)())reduceBlock
+{
+    RACTuple* tuple = [RACTuple tupleWithObjectsFromArray:values];
+    return [RACBlockTrampoline invokeBlock:reduceBlock withArguments:tuple];
+}
+
 - (void)setupBindings
 {
     [self bindTextSignals];
     [self bindCurrencySignals];
-    
+    [self bindSelectCurrencySignals];
+
     RAC(self.conversionService, baseCurrency) = RACObserve(self.userPreferencesService, baseCurrency);
     RAC(self.conversionService, otherCurrency) = RACObserve(self.userPreferencesService, otherCurrency);
     RAC(self.conversionService, amount) = RACObserve(self, baseCurrencyAmount);
-    
+
     RAC(self, otherCurrencyAmount) = RACObserve(self.conversionService, convertedAmount);
-    
-    [RACObserve(self, currencyText) subscribeNext:^(id x) {
-        self.justSwitched = NO;
-        [self updateAmounts];
+    RAC(self, baseCurrencyAmount) = [RACObserve(self, expression) map:^id(NSString* expression) {
+        return [MathParserService resultWithExpression:expression];
     }];
 }
 
--(void)bindTextSignals
+- (void)bindTextSignals
 {
     RACSignal* baseAmountSignal = RACObserve(self, baseCurrencyAmount);
     RACSignal* otherAmountSignal = RACObserve(self, otherCurrencyAmount);
-    RACSignal* isArrowPointingLeft = RACObserve(self, isArrowPointingLeft);
-    
+    RACSignal* isArrowPointingLeftSignal = RACObserve(self, isArrowPointingLeft);
+
     RACSignal* baseCurrencyTextSignal = [baseAmountSignal map:^id(NSNumber* baseAmount) {
         return [self.decimalFormatter stringFromNumber:baseAmount];
     }];
-    
+
     RACSignal* otherCurrencyTextSignal = [otherAmountSignal map:^id(NSNumber* otherAmount) {
         return [self.currencyFormatter stringFromNumber:otherAmount];
     }];
+
+    self.leftCurrencyTextSignal = [RACSignal combineLatest:@[ baseCurrencyTextSignal, otherCurrencyTextSignal, isArrowPointingLeftSignal ] reduce:[self reduceLeftBlock]];
+    self.rightCurrencyTextSignal = [RACSignal combineLatest:@[ baseCurrencyTextSignal, otherCurrencyTextSignal, isArrowPointingLeftSignal ] reduce:[self reduceRightBlock]];
+}
+
+- (void)bindSelectCurrencySignals
+{
+    RACSignal* leftCurrencySelectorSignal = RACObserve(self.leftCurrencySelectorViewModel, selectedCurrency);
+    RACSignal* rightCurrencySelectorSignal = RACObserve(self.rightCurrencySelectorViewModel, selectedCurrency);
+    RACSignal* isArrowPointingLeftSignal = RACObserve(self, isArrowPointingLeft);
     
-    self.leftCurrencyTextSignal = [RACSignal combineLatest:@[baseCurrencyTextSignal, otherCurrencyTextSignal, isArrowPointingLeft] reduce:[self reduceLeftBlock]];
-    self.rightCurrencyTextSignal = [RACSignal combineLatest:@[baseCurrencyTextSignal, otherCurrencyTextSignal, isArrowPointingLeft] reduce:[self reduceRightBlock]];
+    [[RACSignal combineLatest:@[ leftCurrencySelectorSignal, rightCurrencySelectorSignal, isArrowPointingLeftSignal ] reduce:[self reduceLeftBlock]] subscribeNext:^(id x) {
+        //
+    }];
+
+    RAC(self.userPreferencesService, baseCurrency) = [RACSignal combineLatest:@[ leftCurrencySelectorSignal, rightCurrencySelectorSignal, isArrowPointingLeftSignal ] reduce:[self reduceLeftBlock]];
+
+    RAC(self.userPreferencesService, otherCurrency) = [RACSignal combineLatest:@[ leftCurrencySelectorSignal, rightCurrencySelectorSignal, isArrowPointingLeftSignal ] reduce:[self reduceRightBlock]];
 }
 
 - (void)bindCurrencySignals
 {
     RACSignal* baseCurrencySignal = RACObserve(self.userPreferencesService, baseCurrency);
     RACSignal* otherCurrencySignal = RACObserve(self.userPreferencesService, otherCurrency);
-    RACSignal* isArrowPointingLeft = RACObserve(self, isArrowPointingLeft);
-    
+    RACSignal* isArrowPointingLeftSignal = RACObserve(self, isArrowPointingLeft);
+
     RACSignal* baseCurrencyViewModelSignal = [baseCurrencySignal map:^id(Currency* currency) {
         return [[CurrencyViewModel alloc] initWithCurrency:currency];
     }];
-    
+
     RACSignal* otherCurrencyViewModelSignal = [otherCurrencySignal map:^id(Currency* currency) {
         return [[CurrencyViewModel alloc] initWithCurrency:currency];
     }];
-    
-    self.leftCurrencyViewModelSignal = [RACSignal combineLatest:@[baseCurrencyViewModelSignal, otherCurrencyViewModelSignal, isArrowPointingLeft] reduce:[self reduceLeftBlock]];
-    self.rightCurrencyViewModelSignal = [RACSignal combineLatest:@[baseCurrencyViewModelSignal, otherCurrencyViewModelSignal, isArrowPointingLeft] reduce:[self reduceRightBlock]];
+
+    self.leftCurrencyViewModelSignal = [RACSignal combineLatest:@[ baseCurrencyViewModelSignal, otherCurrencyViewModelSignal, isArrowPointingLeftSignal ] reduce:[self reduceLeftBlock]];
+    self.rightCurrencyViewModelSignal = [RACSignal combineLatest:@[ baseCurrencyViewModelSignal, otherCurrencyViewModelSignal, isArrowPointingLeftSignal ] reduce:[self reduceRightBlock]];
 }
 
--(ReduceLeftAndRightBlock)reduceLeftBlock
+- (ReduceLeftAndRightBlock)reduceLeftBlock
 {
     return ^(id baseObject, id otherObject, NSNumber* isArrowPointingLeft) {
-        if([isArrowPointingLeft boolValue])
-        {
+        if ([isArrowPointingLeft boolValue]) {
             return otherObject;
         }
-        else
-        {
+        else {
             return baseObject;
         }
     };
 }
 
--(ReduceLeftAndRightBlock)reduceRightBlock
+- (ReduceLeftAndRightBlock)reduceRightBlock
 {
     return ^(id baseObject, id otherObject, NSNumber* isArrowPointingLeft) {
-        if([isArrowPointingLeft boolValue])
-        {
+        if ([isArrowPointingLeft boolValue]) {
             return baseObject;
         }
-        else
-        {
+        else {
             return otherObject;
         }
     };
-}
-
-- (void)updateAmounts
-{
-    self.baseCurrencyAmount = [MathParserService resultWithExpression:self.currencyText];
 }
 
 - (void)toggleConversionArrow
 {
     self.isArrowPointingLeft = !self.isArrowPointingLeft;
+    [self switchCurrencies];
 }
 
 - (void)leftTextFieldBecameFirstResponder
@@ -238,47 +244,9 @@ typedef id (^ReduceLeftAndRightBlock)(id baseObject, id otherObject, NSNumber* i
 
 - (void)switchCurrencies
 {
-    self.justSwitched = YES;
     NSNumber* prevAmount = self.baseCurrencyAmount;
     self.baseCurrencyAmount = self.otherCurrencyAmount;
     self.otherCurrencyAmount = prevAmount;
-    [self.userPreferencesService switchCurrencies];
-}
-
-- (CurrencySelectorViewModel*)leftCurrencySelectorViewModel
-{
-    if (!_leftCurrencySelectorViewModel) {
-        _leftCurrencySelectorViewModel = [[CurrencySelectorViewModel alloc] initWithCurrency:self.userPreferencesService.baseCurrency delegate:self];
-    }
-    return _leftCurrencySelectorViewModel;
-}
-
-- (CurrencySelectorViewModel*)rightCurrencySelectorViewModel
-{
-    if (!_rightCurrencySelectorViewModel) {
-        _rightCurrencySelectorViewModel = [[CurrencySelectorViewModel alloc] initWithCurrency:self.userPreferencesService.otherCurrency delegate:self];
-    }
-    return _rightCurrencySelectorViewModel;
-}
-
-- (ScanningViewModel*)scanningViewModel
-{
-    return [[ScanningViewModel alloc] initWithBaseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency];
-}
-
-- (CurrencyOverviewViewModel*)currencyOverviewViewModel
-{
-    return [[CurrencyOverviewViewModel alloc] initWithBaseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency];
-}
-
-- (void)didSelectCurrency:(Currency*)currency withSelector:(CurrencySelectorViewModel*)selector
-{
-    if ([self.leftCurrencySelectorViewModel isEqual:selector]) {
-        self.userPreferencesService.baseCurrency = currency;
-    }
-    if ([self.rightCurrencySelectorViewModel isEqual:selector]) {
-        self.userPreferencesService.otherCurrency = currency;
-    }
 }
 
 @end
