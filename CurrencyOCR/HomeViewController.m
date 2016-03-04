@@ -71,8 +71,8 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 
 - (void)bindViewModel
 {
-    RAC(self.leftCurrencyView, viewModel) = RACObserve(self.viewModel, leftCurrencyViewModel);
-    RAC(self.rightCurrencyView, viewModel) = RACObserve(self.viewModel, rightCurrencyViewModel);
+    RAC(self.leftCurrencyView, viewModel) = self.viewModel.leftCurrencyViewModelSignal;
+    RAC(self.rightCurrencyView, viewModel) = self.viewModel.rightCurrencyViewModelSignal;
     
     [self.leftCurrencyTextField addTarget:self
                   action:@selector(textFieldDidChange:)
@@ -82,10 +82,8 @@ static NSString* const kShowScanViewSegue = @"showScanView";
                                    action:@selector(textFieldDidChange:)
                          forControlEvents:UIControlEventEditingChanged];
     
-    [self.viewModel.updateTextSignal subscribeNext:^(id x) {
-        self.rightCurrencyTextField.text = self.viewModel.rightCurrencyText;
-        self.leftCurrencyTextField.text = self.viewModel.leftCurrencyText;
-    }];
+    RAC(self.leftCurrencyTextField, text) = self.viewModel.leftCurrencyTextSignal;
+    RAC(self.rightCurrencyTextField, text) = self.viewModel.rightCurrencyTextSignal;
 
     [RACObserve(self.viewModel, isArrowPointingLeft) subscribeNext:^(id x) {
         [self updateArrow];

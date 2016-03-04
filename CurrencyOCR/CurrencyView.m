@@ -88,8 +88,11 @@
 
 - (void)setViewModel:(CurrencyViewModel*)viewModel
 {
-    _viewModel = viewModel;
-    [self bindViewModel];
+    if(![self.viewModel isEqual:viewModel])
+    {
+        _viewModel = viewModel;
+        [self bindViewModel];
+    }
 }
 
 - (void)bindViewModel

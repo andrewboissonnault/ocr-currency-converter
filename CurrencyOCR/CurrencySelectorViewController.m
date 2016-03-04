@@ -44,7 +44,10 @@
 
 - (void)initializeViewModel
 {
-    self.viewModel = [[CurrencySelectorViewModel alloc] init];
+    if(!self.viewModel)
+    {
+        self.viewModel = [[CurrencySelectorViewModel alloc] init];
+    }
     self.viewModel.searchController = self.searchController;
     [self bindViewModel];
 }

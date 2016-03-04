@@ -14,12 +14,12 @@
 @interface HomeViewModel : NSObject
 
 @property (readonly, nonatomic) BOOL isArrowPointingLeft;
-@property (readonly) NSString* leftCurrencyText;
-@property (readonly) NSString* rightCurrencyText;
-@property (readonly) RACSignal* updateTextSignal;
+@property (readonly) RACSignal* leftCurrencyTextSignal;
+@property (readonly) RACSignal* rightCurrencyTextSignal;
 
-@property (readonly) CurrencyViewModel* leftCurrencyViewModel;
-@property (readonly) CurrencyViewModel* rightCurrencyViewModel;
+@property (readonly) RACSignal* leftCurrencyViewModelSignal;
+@property (readonly) RACSignal* rightCurrencyViewModelSignal;
+
 @property (readonly, nonatomic) CurrencySelectorViewModel* leftCurrencySelectorViewModel;
 @property (readonly, nonatomic) CurrencySelectorViewModel* rightCurrencySelectorViewModel;
 @property (readonly) CurrencyOverviewViewModel* currencyOverviewViewModel;
