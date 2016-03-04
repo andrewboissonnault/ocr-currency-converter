@@ -11,13 +11,15 @@
 
 static NSString* const kBaseCurrencyCodeKey = @"baseCurrencyCode";
 static NSString* const kOtherCurrencyCodeKey = @"otherCurrencyCode";
-static NSString* const kDisplayAmountKey = @"displayAmount";
+static NSString* const kExpressionKey = @"expression";
 static NSString* const kIsArrowPointingLeftKey = @"isArrowPointingLeft";
 
 @interface UserPreferencesService()
 
 @property NSString* baseCurrencyCode;
 @property NSString* otherCurrencyCode;
+
+@property BOOL didTryToFetch;
 
 @end
 
@@ -41,6 +43,7 @@ static NSString* const kIsArrowPointingLeftKey = @"isArrowPointingLeft";
     self = [super init];
     if(self)
     {
+        self.didTryToFetch = NO;
         [self initialize];
     }
     return self;
@@ -53,7 +56,7 @@ static NSString* const kIsArrowPointingLeftKey = @"isArrowPointingLeft";
 
 -(Currency*)baseCurrency
 {
-    if(!_baseCurrency)
+    if(!_baseCurrency && self.didTryToFetch)
     {
         return [Currency defaultBaseCurrency];
     }
@@ -68,7 +71,7 @@ static NSString* const kIsArrowPointingLeftKey = @"isArrowPointingLeft";
 
 -(Currency*)otherCurrency
 {
-    if(!_otherCurrency)
+    if(!_otherCurrency && self.didTryToFetch)
     {
         return [Currency defaultOtherCurrency];
     }
@@ -83,22 +86,23 @@ static NSString* const kIsArrowPointingLeftKey = @"isArrowPointingLeft";
 
 -(NSString*)baseCurrencyCode
 {
-    return [Archiver retrieve:kBaseCurrencyCodeKey];
+    return [[NSUserDefaults standardUserDefaults] objectForKey:kBaseCurrencyCodeKey];
 }
 
 -(void)setBaseCurrencyCode:(NSString *)baseCurrencyCode
 {
-    [Archiver persist:baseCurrencyCode key:kBaseCurrencyCodeKey];
+    [[NSUserDefaults standardUserDefaults] setObject:baseCurrencyCode forKey:kBaseCurrencyCodeKey];
+    [[NSUserDefaults standardUserDefaults] setObject:baseCurrencyCode forKey:kBaseCurrencyCodeKey];
 }
 
 -(NSString*)otherCurrencyCode
 {
-    return [Archiver retrieve:kOtherCurrencyCodeKey];
+    return [[NSUserDefaults standardUserDefaults] objectForKey:kOtherCurrencyCodeKey];
 }
 
 -(void)setOtherCurrencyCode:(NSString *)otherCurrencyCode
 {
-    [Archiver persist:otherCurrencyCode key:kOtherCurrencyCodeKey];
+    [[NSUserDefaults standardUserDefaults] setObject:otherCurrencyCode forKey:kOtherCurrencyCodeKey];
 }
 
 -(void)refreshData
@@ -107,41 +111,37 @@ static NSString* const kIsArrowPointingLeftKey = @"isArrowPointingLeft";
     {
         [Currency fetchCurrencyWithCodeInBackground:self.baseCurrencyCode block:^(Currency * _Nullable currency, NSError * _Nullable error) {
             self.baseCurrency = currency;
+            self.didTryToFetch = YES;
         }];
     }
     if(self.otherCurrencyCode)
     {
         [Currency fetchCurrencyWithCodeInBackground:self.otherCurrencyCode block:^(Currency * _Nullable currency, NSError * _Nullable error) {
             self.otherCurrency = currency;
+            self.didTryToFetch = YES;
         }];
     }
 }
 
--(NSNumber*)displayAmount
+-(NSString*)expression
 {
-    return [Archiver retrieve:kDisplayAmountKey];
+    return [[NSUserDefaults standardUserDefaults] objectForKey:kExpressionKey];
 }
 
--(void)setDisplayAmount:(NSNumber *)displayAmount
+-(void)setExpression:(NSString *)expression
 {
-    [Archiver persist:displayAmount key:kDisplayAmountKey];
+    [[NSUserDefaults standardUserDefaults] setObject:expression forKey:kExpressionKey];
 }
 
 -(BOOL)isArrowPointingLeft
 {
-    return [[Archiver retrieve:kIsArrowPointingLeftKey] boolValue];
+    BOOL isArrowPointingLeft = [[[NSUserDefaults standardUserDefaults] objectForKey:kIsArrowPointingLeftKey] boolValue];
+    return isArrowPointingLeft;
 }
 
 -(void)setIsArrowPointingLeft:(BOOL)isArrowPointingLeft
 {
-    [Archiver persist:[NSNumber numberWithBool:isArrowPointingLeft] key:kIsArrowPointingLeftKey];
-}
-
--(void)switchCurrencies
-{
-    Currency* tmpCurrency = self.baseCurrency;
-    self.baseCurrency = self.otherCurrency;
-    self.otherCurrency = tmpCurrency;
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:isArrowPointingLeft] forKey:kIsArrowPointingLeftKey];
 }
 
 @end

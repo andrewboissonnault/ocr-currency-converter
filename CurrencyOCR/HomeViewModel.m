@@ -22,7 +22,7 @@ typedef id (^ReduceLeftAndRightBlock)(id baseObject, id otherObject, NSNumber* i
 @property RACSignal* leftCurrencyViewModelSignal;
 @property RACSignal* rightCurrencyViewModelSignal;
 
-@property (nonatomic) BOOL isArrowPointingLeft;
+@property BOOL isArrowPointingLeft;
 @property NSString* expression;
 
 @property NSNumber* otherCurrencyAmount;
@@ -103,18 +103,43 @@ typedef id (^ReduceLeftAndRightBlock)(id baseObject, id otherObject, NSNumber* i
 {
     [self initializeServices];
     [self initializeWithUserPreferences];
+    [self initializeCurrencySelectors];
     [self refreshCurrencyService];
     [self setupBindings];
 }
 
-- (void)initializeWithUserPreferences
+-(void)initializeWithUserPreferences
 {
-    Currency* baseCurrency = self.userPreferencesService.baseCurrency;
-    Currency* otherCurrency = self.userPreferencesService.otherCurrency;
-    NSNumber* isArrowPointingLeft = [NSNumber numberWithBool:self.isArrowPointingLeft];
+    self.isArrowPointingLeft = self.userPreferencesService.isArrowPointingLeft;
+    self.expression = self.userPreferencesService.expression;
+}
+
+-(void)initializeCurrencySelectors
+{
+    RACSignal* leftSignal = RACObserve(self.userPreferencesService, baseCurrency);
+    RACSignal* rightSignal = RACObserve(self.userPreferencesService, otherCurrency);
+    RACSignal* isArrowPointingLeftSignal = RACObserve(self, isArrowPointingLeft);
     
-    self.leftCurrencySelectorViewModel.selectedCurrency = [self combine:@[baseCurrency, otherCurrency, isArrowPointingLeft] reduce:[self reduceLeftBlock]];
-    self.rightCurrencySelectorViewModel.selectedCurrency = [self combine:@[baseCurrency, otherCurrency, isArrowPointingLeft] reduce:[self reduceRightBlock]];
+    RACSignal* leftCurrencySignal = [[RACSignal combineLatest:@[ leftSignal, rightSignal, isArrowPointingLeftSignal ] reduce:[self reduceLeftBlock]] filter:^BOOL(Currency* currency) {
+        BOOL valid = (currency != nil && ![currency isEqual:[NSNull null]]);
+        return valid;
+    }];
+    
+    RACSignal* rightCurrencySignal = [[RACSignal combineLatest:@[ leftSignal, rightSignal, isArrowPointingLeftSignal ] reduce:[self reduceRightBlock]] filter:^BOOL(Currency* currency) {
+        BOOL valid = (currency != nil && ![currency isEqual:[NSNull null]]);
+        return valid;
+    }];
+    
+    RACSignal* lastLeftSignal = [leftCurrencySignal takeUntilBlock:^BOOL(id x) {
+        return self.leftCurrencySelectorViewModel.selectedCurrency;
+    }];
+    
+    RACSignal* lastRightSignal = [rightCurrencySignal takeUntilBlock:^BOOL(id x) {
+        return self.rightCurrencySelectorViewModel.selectedCurrency;
+    }];
+    
+    RAC(self.leftCurrencySelectorViewModel, selectedCurrency) = lastLeftSignal;
+    RAC(self.rightCurrencySelectorViewModel, selectedCurrency) = lastRightSignal;
 }
 
 - (void)initializeServices
@@ -149,6 +174,9 @@ typedef id (^ReduceLeftAndRightBlock)(id baseObject, id otherObject, NSNumber* i
     RAC(self, baseCurrencyAmount) = [RACObserve(self, expression) map:^id(NSString* expression) {
         return [MathParserService resultWithExpression:expression];
     }];
+    
+    RAC(self.userPreferencesService, isArrowPointingLeft) = RACObserve(self, isArrowPointingLeft);
+    RAC(self.userPreferencesService, expression) = RACObserve(self, expression);
 }
 
 - (void)bindTextSignals
@@ -171,17 +199,19 @@ typedef id (^ReduceLeftAndRightBlock)(id baseObject, id otherObject, NSNumber* i
 
 - (void)bindSelectCurrencySignals
 {
-    RACSignal* leftCurrencySelectorSignal = RACObserve(self.leftCurrencySelectorViewModel, selectedCurrency);
-    RACSignal* rightCurrencySelectorSignal = RACObserve(self.rightCurrencySelectorViewModel, selectedCurrency);
+    RACSignal* leftSignal = RACObserve(self.leftCurrencySelectorViewModel, selectedCurrency);
+    RACSignal* rightSignal = RACObserve(self.rightCurrencySelectorViewModel, selectedCurrency);
     RACSignal* isArrowPointingLeftSignal = RACObserve(self, isArrowPointingLeft);
-    
-    [[RACSignal combineLatest:@[ leftCurrencySelectorSignal, rightCurrencySelectorSignal, isArrowPointingLeftSignal ] reduce:[self reduceLeftBlock]] subscribeNext:^(id x) {
-        //
+
+    RAC(self.userPreferencesService, baseCurrency) = [[RACSignal combineLatest:@[ leftSignal, rightSignal, isArrowPointingLeftSignal ] reduce:[self reduceLeftBlock]] filter:^BOOL(Currency* currency) {
+        BOOL valid = (currency != nil && ![currency isEqual:[NSNull null]]);
+        return valid;
     }];
 
-    RAC(self.userPreferencesService, baseCurrency) = [RACSignal combineLatest:@[ leftCurrencySelectorSignal, rightCurrencySelectorSignal, isArrowPointingLeftSignal ] reduce:[self reduceLeftBlock]];
-
-    RAC(self.userPreferencesService, otherCurrency) = [RACSignal combineLatest:@[ leftCurrencySelectorSignal, rightCurrencySelectorSignal, isArrowPointingLeftSignal ] reduce:[self reduceRightBlock]];
+    RAC(self.userPreferencesService, otherCurrency) = [[RACSignal combineLatest:@[ leftSignal, rightSignal, isArrowPointingLeftSignal ] reduce:[self reduceRightBlock]] filter:^BOOL(Currency* currency) {
+        BOOL valid = (currency != nil && ![currency isEqual:[NSNull null]]);
+        return valid;
+    }];
 }
 
 - (void)bindCurrencySignals
@@ -228,8 +258,8 @@ typedef id (^ReduceLeftAndRightBlock)(id baseObject, id otherObject, NSNumber* i
 
 - (void)toggleConversionArrow
 {
-    self.isArrowPointingLeft = !self.isArrowPointingLeft;
     [self switchCurrencies];
+    self.isArrowPointingLeft = !self.isArrowPointingLeft;
 }
 
 - (void)leftTextFieldBecameFirstResponder
@@ -244,9 +274,7 @@ typedef id (^ReduceLeftAndRightBlock)(id baseObject, id otherObject, NSNumber* i
 
 - (void)switchCurrencies
 {
-    NSNumber* prevAmount = self.baseCurrencyAmount;
-    self.baseCurrencyAmount = self.otherCurrencyAmount;
-    self.otherCurrencyAmount = prevAmount;
+    self.expression = [self.otherCurrencyAmount stringValue];
 }
 
 @end

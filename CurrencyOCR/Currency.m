@@ -47,4 +47,14 @@ static NSString* const kCodeKey = @"code";
         [query getFirstObjectInBackgroundWithBlock:block];
 }
 
+-(NSString*)description
+{
+    return [self debugDescription];
+}
+
+-(NSString*)debugDescription
+{
+    return [NSString stringWithFormat:@"%@ ( %@ )", self.code, self.name];
+}
+
 @end

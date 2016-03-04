@@ -15,7 +15,7 @@
 
 @property Currency* baseCurrency;
 @property Currency* otherCurrency;
-@property NSNumber* displayAmount;
+@property NSString* expression;
 @property BOOL isArrowPointingLeft;
 
 -(void)switchCurrencies;
