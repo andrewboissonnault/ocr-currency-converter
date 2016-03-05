@@ -59,8 +59,7 @@ static NSString* const kCurrenciesKey = @"currencies";
 
 -(void)bindService
 {
-    RACSignal *ratesSignal = RACObserve(self, rates);
-    [ratesSignal subscribeNext:^(id x) {
+    [self.ratesSignal doNext:^(id x) {
         [self refreshCurrencyDataIfRequired];
     }];
 }

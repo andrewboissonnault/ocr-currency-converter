@@ -45,7 +45,7 @@
 
 - (void)initializeViewModel
 {
-    self.viewModel.filter = 85;
+    self.viewModel.filter = @85.0;
 }
 
 -(void)initializeSliderView
@@ -54,7 +54,7 @@
     self.slider.minimumValue = 70;
     self.slider.maximumValue = 100;
     self.slider.continuous = YES;
-    self.slider.value = self.viewModel.filter;
+    self.slider.value = [self.viewModel.filter doubleValue];
     [self.view addSubview:self.slider];
     [self.slider autoAlignAxis:ALAxisVertical toSameAxisOfView:self.view];
     [self.slider autoPinEdgesToSuperviewEdgesWithInsets:ALEdgeInsetsMake(0, 25, 25, 25) excludingEdge:ALEdgeTop];
@@ -69,15 +69,12 @@
 - (void)bindViewModel {
     
     RACSignal *pricesSignal = RACObserve(self.viewModel, prices);
-    [pricesSignal subscribeNext:^(NSArray* prices) {
+    [pricesSignal doNext:^(NSArray* prices) {
         [self clearLabels];
         [self showPrices:prices];
     }];
     
-    RACSignal *filterSignal = RACObserve(self.slider, value);
-    [filterSignal subscribeNext:^(NSNumber* filterNumber) {
-        [self.viewModel setFilter:[filterNumber doubleValue]];
-    }];
+    RAC(self.viewModel, filter) = RACObserve(self.slider, value);
 }
 
 -(void)clearLabels

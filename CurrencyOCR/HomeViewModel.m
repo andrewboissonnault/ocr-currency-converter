@@ -14,7 +14,7 @@
 #import "RACBlockTrampoline.h"
 
 typedef id (^ReduceLeftAndRightBlock)(id baseObject, id otherObject, NSNumber* isArrowPointingLeft);
-typedef BOOL (^FilterBlock)(Currency* currency);
+typedef BOOL (^FilterBlock)(id object);
 
 @interface HomeViewModel ()
 
@@ -238,11 +238,11 @@ typedef BOOL (^FilterBlock)(Currency* currency);
 -(void)initializeCurrencySelectors
 {
     RACSignal* initializeLeftCurrencySignal = [self.leftCurrencySignal takeUntilBlock:^BOOL(id x) {
-        return self.leftCurrencySelectorViewModel.selectedCurrency;
+        return self.leftCurrencySelectorViewModel.selectedCurrency != nil;
     }];
     
     RACSignal* initializeRightCurrencySignal = [self.rightCurrencySignal takeUntilBlock:^BOOL(id x) {
-        return self.rightCurrencySelectorViewModel.selectedCurrency;
+        return self.rightCurrencySelectorViewModel.selectedCurrency != nil;
     }];
     
     RAC(self.leftCurrencySelectorViewModel, selectedCurrency) = initializeLeftCurrencySignal;

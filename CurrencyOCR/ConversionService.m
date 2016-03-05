@@ -66,6 +66,10 @@ typedef id (^CalculateResultBlock)(CurrencyRates* rates, Currency* baseCurrency,
 - (CalculateResultBlock)calculateResultBlock
 {
     return ^(CurrencyRates* rates, Currency* baseCurrency, Currency* otherCurrency, NSNumber* baseAmount) {
+        if([baseAmount integerValue] == 0)
+        {
+            return [NSNumber numberWithDouble:0];
+        }
         double conversionRate = [rates rateWithBaseCurrency:self.baseCurrency otherCurrency:self.otherCurrency];
         double convertedResult = [baseAmount doubleValue] * conversionRate;
         return [NSNumber numberWithDouble:convertedResult];

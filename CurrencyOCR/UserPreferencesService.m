@@ -6,15 +6,21 @@
 //  Copyright © 2016 Andrew Boissonnault. All rights reserved.
 //
 
+#import "ReactiveCocoa.h"
 #import "UserPreferencesService.h"
 #import <Archiver.h>
+
+
+
+typedef Currency* (^ReduceBlock)(Currency* currency, NSNumber* didTryToFetchSignal);
+typedef BOOL (^FilterBlock)(id object);
 
 static NSString* const kBaseCurrencyCodeKey = @"baseCurrencyCode";
 static NSString* const kOtherCurrencyCodeKey = @"otherCurrencyCode";
 static NSString* const kExpressionKey = @"expression";
 static NSString* const kIsArrowPointingLeftKey = @"isArrowPointingLeft";
 
-@interface UserPreferencesService()
+@interface UserPreferencesService ()
 
 @property NSString* baseCurrencyCode;
 @property NSString* otherCurrencyCode;
@@ -38,108 +44,145 @@ static NSString* const kIsArrowPointingLeftKey = @"isArrowPointingLeft";
     return _sharedInstance;
 }
 
--(instancetype)init
+- (instancetype)init
 {
     self = [super init];
-    if(self)
-    {
+    if (self) {
         self.didTryToFetch = NO;
         [self initialize];
     }
     return self;
 }
 
--(void)initialize
+- (void)initialize
 {
     [self refreshData];
 }
 
--(Currency*)baseCurrency
+- (RACSignal*)didTryToFetchSignal
 {
-    if(!_baseCurrency && self.didTryToFetch)
+    return RACObserve(self, didTryToFetch);
+}
+
+- (RACSignal*)initialBaseCurrencySignal
+{
+    RACSignal* currencySignal = RACObserve(self, baseCurrency);
+
+    return [[RACSignal combineLatest:@[ currencySignal, self.didTryToFetchSignal ] reduce:[self reduceBlock]] filter:[self filterNullsBlock]];
+}
+
+- (ReduceBlock)reduceBlock
+{
+    return ^(Currency* currency, NSNumber* didTryToFetchSignal) {
+        return currency;
+    };
+}
+
+-(FilterBlock)filterNullsBlock
+{
+    return ^BOOL(id object) {
+        BOOL valid = (object != nil && ![object isEqual:[NSNull null]]);
+        return valid;
+    };
+}
+
+- (RACSignal*)initialOtherCurrencySignal
+{
+    RACSignal* currencySignal = RACObserve(self, otherCurrency);
+    
+    return [[RACSignal combineLatest:@[ currencySignal, self.didTryToFetchSignal ] reduce:[self reduceBlock]] filter:[self filterNullsBlock]];
+}
+
+- (Currency*)baseCurrency
+{
+    if(!self.baseCurrencyCode)
     {
         return [Currency defaultBaseCurrency];
     }
-    return _baseCurrency;
+    else
+    {
+        return _baseCurrency;
+    }
 }
 
--(void)setBaseCurrency:(Currency *)baseCurrency
+- (void)setBaseCurrency:(Currency*)baseCurrency
 {
     _baseCurrency = baseCurrency;
     self.baseCurrencyCode = baseCurrency.code;
 }
 
--(Currency*)otherCurrency
+- (Currency*)otherCurrency
 {
-    if(!_otherCurrency && self.didTryToFetch)
+    if(!self.otherCurrencyCode)
     {
         return [Currency defaultOtherCurrency];
     }
-    return _otherCurrency;
+    else
+    {
+        return _otherCurrency;
+    }
 }
 
--(void)setOtherCurrency:(Currency *)otherCurrency
+- (void)setOtherCurrency:(Currency*)otherCurrency
 {
     _otherCurrency = otherCurrency;
     self.otherCurrencyCode = otherCurrency.code;
 }
 
--(NSString*)baseCurrencyCode
+- (NSString*)baseCurrencyCode
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:kBaseCurrencyCodeKey];
 }
 
--(void)setBaseCurrencyCode:(NSString *)baseCurrencyCode
+- (void)setBaseCurrencyCode:(NSString*)baseCurrencyCode
 {
     [[NSUserDefaults standardUserDefaults] setObject:baseCurrencyCode forKey:kBaseCurrencyCodeKey];
     [[NSUserDefaults standardUserDefaults] setObject:baseCurrencyCode forKey:kBaseCurrencyCodeKey];
 }
 
--(NSString*)otherCurrencyCode
+- (NSString*)otherCurrencyCode
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:kOtherCurrencyCodeKey];
 }
 
--(void)setOtherCurrencyCode:(NSString *)otherCurrencyCode
+- (void)setOtherCurrencyCode:(NSString*)otherCurrencyCode
 {
     [[NSUserDefaults standardUserDefaults] setObject:otherCurrencyCode forKey:kOtherCurrencyCodeKey];
 }
 
--(void)refreshData
+- (void)refreshData
 {
-    if(self.baseCurrencyCode)
-    {
-        [Currency fetchCurrencyWithCodeInBackground:self.baseCurrencyCode block:^(Currency * _Nullable currency, NSError * _Nullable error) {
+    if (self.baseCurrencyCode) {
+        [Currency fetchCurrencyWithCodeInBackground:self.baseCurrencyCode block:^(Currency* _Nullable currency, NSError* _Nullable error) {
             self.baseCurrency = currency;
-            self.didTryToFetch = YES;
+            
         }];
     }
-    if(self.otherCurrencyCode)
-    {
-        [Currency fetchCurrencyWithCodeInBackground:self.otherCurrencyCode block:^(Currency * _Nullable currency, NSError * _Nullable error) {
+    if (self.otherCurrencyCode) {
+        [Currency fetchCurrencyWithCodeInBackground:self.otherCurrencyCode block:^(Currency* _Nullable currency, NSError* _Nullable error) {
             self.otherCurrency = currency;
             self.didTryToFetch = YES;
         }];
     }
 }
 
--(NSString*)expression
+- (NSString*)expression
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:kExpressionKey];
 }
 
--(void)setExpression:(NSString *)expression
+- (void)setExpression:(NSString*)expression
 {
     [[NSUserDefaults standardUserDefaults] setObject:expression forKey:kExpressionKey];
 }
 
--(BOOL)isArrowPointingLeft
+- (BOOL)isArrowPointingLeft
 {
     BOOL isArrowPointingLeft = [[[NSUserDefaults standardUserDefaults] objectForKey:kIsArrowPointingLeftKey] boolValue];
     return isArrowPointingLeft;
 }
 
--(void)setIsArrowPointingLeft:(BOOL)isArrowPointingLeft
+- (void)setIsArrowPointingLeft:(BOOL)isArrowPointingLeft
 {
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:isArrowPointingLeft] forKey:kIsArrowPointingLeftKey];
 }

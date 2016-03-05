@@ -54,7 +54,7 @@
 
 -(void)bindViewModel
 {
-    [self.viewModel.reloadDataSignal subscribeNext:^(id x) {
+    [self.viewModel.reloadDataSignal doNext:^(id x) {
         [self.tableView reloadData];
     }];
 }

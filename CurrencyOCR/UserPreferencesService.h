@@ -8,10 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "Currency.h"
+#import "ReactiveCocoa.h"
 
 @interface UserPreferencesService : NSObject
 
 +(instancetype)sharedInstance;
+
+@property RACSignal* baseCurrencySignal;
+@property RACSignal* otherCurrencySignal;
 
 @property Currency* baseCurrency;
 @property Currency* otherCurrency;

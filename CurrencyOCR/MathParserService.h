@@ -12,5 +12,4 @@
 
 +(NSNumber*)resultWithExpression:(NSString*)expression;
 
-
 @end

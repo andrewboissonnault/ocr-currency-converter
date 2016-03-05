@@ -15,7 +15,7 @@
 @property (readonly) NSArray* prices;
 
 @property (strong, nonatomic) NSArray* ocrResults;
-@property (nonatomic) double filter;
+@property (nonatomic) NSNumber* filter;
 
 -(instancetype)initWithBaseCurrency:(Currency*)baseCurrency otherCurrency:(Currency*)otherCurrency;
 

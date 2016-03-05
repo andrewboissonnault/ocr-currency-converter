@@ -88,7 +88,7 @@ typedef NSArray* (^CalculatePricesBlock)(NSArray* ocrResults, CurrencyRates* rat
     [self updateFilteredPrices];
 }
 
--(void)setFilter:(double)filter
+-(void)setFilter:(NSNumber*)filter
 {
     _filter = filter;
     [self updateFilteredPrices];
@@ -132,7 +132,7 @@ typedef NSArray* (^CalculatePricesBlock)(NSArray* ocrResults, CurrencyRates* rat
 {
     NSArray* filteredCharacters = [line.chars filterUsingBlock:^BOOL(id object, NSDictionary *bindings) {
         PPOcrChar* character = (PPOcrChar*)object;
-        return !character.uncertain && character.quality > self.filter;
+        return !character.uncertain && character.quality > [self.filter doubleValue];
     }];
     return [[PPOcrLine alloc] initWithOcrChars:filteredCharacters];
 }
