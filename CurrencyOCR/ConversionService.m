@@ -21,6 +21,16 @@
 
 @implementation ConversionService
 
+-(instancetype)init
+{
+    self = [super init];
+    if(self)
+    {
+        [self initialize];
+    }
+    return self;
+}
+
 -(instancetype)initWithBaseCurrency:(Currency*)baseCurrency otherCurrency:(Currency*)otherCurrency amount:(NSNumber *)amount
 {
     self = [super init];
