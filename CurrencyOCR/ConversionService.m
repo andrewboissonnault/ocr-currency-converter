@@ -11,6 +11,8 @@
 #import "UserPreferencesService.h"
 #import <ReactiveCocoa.h>
 
+typedef id (^CalculateResultBlock)(CurrencyRates* rates, Currency* baseCurrency, Currency* otherCurrency, NSNumber* baseAmount);
+
 @interface ConversionService ()
 
 @property NSNumber* convertedAmount;
@@ -53,33 +55,21 @@
 
 -(void)bindCurrencyService
 {
-    RACSignal *ratesSignal = RACObserve(self.currencyService, rates);
-    [ratesSignal subscribeNext:^(id x) {
-        self.convertedAmount = [self convertResultWithCurrencies:self.amount];
-    }];
-    
+    RACSignal *ratesSignal = self.currencyService.ratesSignal;
     RACSignal *baseCurrencySignal = RACObserve(self, baseCurrency);
-    [baseCurrencySignal subscribeNext:^(id x) {
-        self.convertedAmount = [self convertResultWithCurrencies:self.amount];
-    }];
-    
     RACSignal *otherCurrencySignal = RACObserve(self, otherCurrency);
-    [otherCurrencySignal subscribeNext:^(id x) {
-        self.convertedAmount = [self convertResultWithCurrencies:self.amount];
-    }];
-    
     RACSignal *amountSignal = RACObserve(self, amount);
-    [amountSignal subscribeNext:^(id x) {
-        self.convertedAmount = [self convertResultWithCurrencies:self.amount];
-    }];
     
+    RAC(self, convertedAmount) = [RACSignal combineLatest:@[ratesSignal, baseCurrencySignal, otherCurrencySignal, amountSignal] reduce:[self calculateResultBlock]];
 }
 
--(NSNumber*)convertResultWithCurrencies:(NSNumber*)result
+- (CalculateResultBlock)calculateResultBlock
 {
-    double conversionRate = [self.currencyService.rates rateWithBaseCurrency:self.baseCurrency otherCurrency:self.otherCurrency];
-    double convertedResult = [result doubleValue] * conversionRate;
-    return [NSNumber numberWithDouble:convertedResult];
+    return ^(CurrencyRates* rates, Currency* baseCurrency, Currency* otherCurrency, NSNumber* baseAmount) {
+        double conversionRate = [rates rateWithBaseCurrency:self.baseCurrency otherCurrency:self.otherCurrency];
+        double convertedResult = [baseAmount doubleValue] * conversionRate;
+        return [NSNumber numberWithDouble:convertedResult];
+    };
 }
 
 @end

@@ -12,6 +12,8 @@
 		7F08F8BE1C42B80F00B75957 /* convertIconRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F08F8BC1C42B80F00B75957 /* convertIconRight.png */; };
 		7F1248861C88F95000394E24 /* PPOcrLine+Price.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1248851C88F95000394E24 /* PPOcrLine+Price.m */; };
 		7F1248871C88FA2700394E24 /* PPOcrLine+Price.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1248851C88F95000394E24 /* PPOcrLine+Price.m */; };
+		7F12488C1C8AE2A000394E24 /* HomeViewModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F12488B1C8AE2A000394E24 /* HomeViewModelTests.m */; };
+		7F12488D1C8AE2C900394E24 /* HomeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F5625661C3928470021C242 /* HomeViewModel.m */; };
 		7F2EA7991C5A5D6D000BB5C5 /* ConversionService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F2EA7981C5A5D6D000BB5C5 /* ConversionService.m */; };
 		7F40295B1C26DCB100436DEB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F40295A1C26DCB100436DEB /* main.m */; };
 		7F40295E1C26DCB100436DEB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F40295D1C26DCB100436DEB /* AppDelegate.m */; };
@@ -344,6 +346,7 @@
 		7F08F8BC1C42B80F00B75957 /* convertIconRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = convertIconRight.png; sourceTree = "<group>"; };
 		7F1248841C88F95000394E24 /* PPOcrLine+Price.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PPOcrLine+Price.h"; sourceTree = "<group>"; };
 		7F1248851C88F95000394E24 /* PPOcrLine+Price.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PPOcrLine+Price.m"; sourceTree = "<group>"; };
+		7F12488B1C8AE2A000394E24 /* HomeViewModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewModelTests.m; sourceTree = "<group>"; };
 		7F1A70101C2D3A5B00A02EEB /* NSArray+Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Map.h"; sourceTree = "<group>"; };
 		7F2EA7971C5A5D6D000BB5C5 /* ConversionService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversionService.h; sourceTree = "<group>"; };
 		7F2EA7981C5A5D6D000BB5C5 /* ConversionService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversionService.m; sourceTree = "<group>"; };
@@ -799,6 +802,7 @@
 			children = (
 				7F4029741C26DCB100436DEB /* CurrencyOCRTests.m */,
 				7FD45BC01C355CD7004219CB /* PPOcrLineUnitTests.m */,
+				7F12488B1C8AE2A000394E24 /* HomeViewModelTests.m */,
 				7FD45BEE1C36F960004219CB /* CurrencyRatesTest.m */,
 				7F5625811C3A72C40021C242 /* MathParserTests.m */,
 				7F4029721C26DCB100436DEB /* Supporting Files */,
@@ -1739,7 +1743,9 @@
 				7F5623371C38E2490021C242 /* UploadIcons.m in Sources */,
 				7F4029751C26DCB100436DEB /* CurrencyOCRTests.m in Sources */,
 				7F5625801C3A71830021C242 /* MathParserService.m in Sources */,
+				7F12488D1C8AE2C900394E24 /* HomeViewModel.m in Sources */,
 				7FD45BF31C37A5C0004219CB /* PPOcrChar+String.m in Sources */,
+				7F12488C1C8AE2A000394E24 /* HomeViewModelTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

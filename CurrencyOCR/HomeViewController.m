@@ -85,7 +85,7 @@ static NSString* const kShowScanViewSegue = @"showScanView";
     RAC(self.leftCurrencyTextField, text) = self.viewModel.leftCurrencyTextSignal;
     RAC(self.rightCurrencyTextField, text) = self.viewModel.rightCurrencyTextSignal;
 
-    [RACObserve(self.viewModel, isArrowPointingLeft) subscribeNext:^(id x) {
+    [RACObserve(self.viewModel, isArrowPointingLeft) doNext:^(id x) {
         [self updateArrow];
     }];
 }

@@ -14,6 +14,8 @@
 #import "Currency.h"
 #import "PPOcrService.h"
 
+typedef NSArray* (^CalculatePricesBlock)(NSArray* ocrResults, CurrencyRates* rates, NSNumber* filter);
+
 @interface CurrencyOverviewViewModel ()
 
 @property NSArray* prices;
@@ -55,10 +57,28 @@
     self.currencyRateService = [[CurrencyService alloc] init];
     [self.currencyRateService refreshCurrencyData];
     
-    RACSignal *conversionRateSignal = RACObserve(self.currencyRateService, rates);
-    [conversionRateSignal subscribeNext:^(NSNumber* conversionRate) {
-        [self updateConvertedPrices];
-    }];
+    [self bindPrices];
+}
+
+-(void)bindPrices
+{
+    RACSignal *filterSignal = RACObserve(self, filter);
+    RACSignal *ocrResultsSignal = RACObserve(self, ocrResults);
+    
+    RAC(self, prices) = [RACSignal combineLatest:@[ocrResultsSignal, self.currencyRateService.ratesSignal, filterSignal] reduce:
+                         [self calculatePricesBlock]];
+}
+
+- (CalculatePricesBlock)calculatePricesBlock
+{
+    return ^(NSArray* ocrResults, CurrencyRates* rates, NSNumber* filter) {
+        [self updatePriceLayout];
+        [self updateFilteredPrices];
+        return [self.filteredPrices mapObjectsUsingBlock:^id(PPOcrPrice* price, NSUInteger idx) {
+            double conversionRate = [rates rateWithBaseCurrency:self.baseCurrency otherCurrency:self.otherCurrency];
+            return [price priceWithConversionFactor:conversionRate];
+        }];
+    };
 }
 
 -(void)setOcrResults:(NSArray *)ocrResults
@@ -66,14 +86,12 @@
     _ocrResults = ocrResults;
     [self updatePriceLayout];
     [self updateFilteredPrices];
-    [self updateConvertedPrices];
 }
 
 -(void)setFilter:(double)filter
 {
     _filter = filter;
     [self updateFilteredPrices];
-    [self updateConvertedPrices];
 }
 
 -(void)updatePriceLayout
@@ -118,16 +136,5 @@
     }];
     return [[PPOcrLine alloc] initWithOcrChars:filteredCharacters];
 }
-
--(void)updateConvertedPrices
-{
-    self.prices = [self.filteredPrices mapObjectsUsingBlock:^id(PPOcrPrice* price, NSUInteger idx) {
-        double conversionRate = [self.currencyRateService.rates rateWithBaseCurrency:self.baseCurrency otherCurrency:self.otherCurrency];
-        return [price priceWithConversionFactor:conversionRate];
-    }];
-}
-
-
-
 
 @end

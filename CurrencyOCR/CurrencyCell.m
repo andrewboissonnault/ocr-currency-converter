@@ -32,15 +32,9 @@
     RAC(self, currencyCodeLabel.text) = RACObserve(self.viewModel, currencyCode);
     RAC(self, flagImageView.image) = RACObserve(self.viewModel, flagIconImage);
     
-    [RACObserve(self.viewModel, flagIconFile) subscribeNext:^(PFFile* file) {
-        [self updateFlag];
+    RAC(self, flagImageView.file) = [RACObserve(self.viewModel, flagIconFile) doNext:^(id x) {
+        [self.flagImageView loadInBackground];
     }];
-}
-
--(void)updateFlag
-{
-    self.flagImageView.file = self.viewModel.flagIconFile;
-    [self.flagImageView loadInBackground];
 }
 
 @end

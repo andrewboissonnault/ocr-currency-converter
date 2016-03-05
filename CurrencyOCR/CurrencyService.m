@@ -34,6 +34,11 @@ static NSString* const kCurrenciesKey = @"currencies";
     return _sharedInstance;
 }
 
+-(RACSignal*)ratesSignal
+{
+    return RACObserve(self, rates);
+}
+
 @synthesize rates = _rates;
 @synthesize currencies = _currencies;
 

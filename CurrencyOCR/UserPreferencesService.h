@@ -18,6 +18,4 @@
 @property NSString* expression;
 @property BOOL isArrowPointingLeft;
 
--(void)switchCurrencies;
-
 @end

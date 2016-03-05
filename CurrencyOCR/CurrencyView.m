@@ -91,7 +91,10 @@
     RAC(self, currencyNameLabel.text) = RACObserve(self, viewModel.currencyName);
     RAC(self, currencyCodeLabel.text) = RACObserve(self, viewModel.currencyCode);
     RAC(self, flagImageView.image) = RACObserve(self, viewModel.flagIconImage);
-    RAC(self, flagImageView.file) = RACObserve(self, viewModel.flagIconFile);
+    
+    RAC(self, flagImageView.file) = [RACObserve(self.viewModel, flagIconFile) doNext:^(id x) {
+        [self.flagImageView loadInBackground];
+    }];
 }
 
 @end

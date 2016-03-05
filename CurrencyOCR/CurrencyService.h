@@ -8,13 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "CurrencyRates.h"
+#import "ReactiveCocoa.h"
 
 @interface CurrencyService : NSObject
 
 +(instancetype)sharedInstance;
 
 @property (nonatomic, readonly) NSArray* currencies;
-@property (nonatomic, readonly)  CurrencyRates* rates;
+
+@property (nonatomic, readonly) RACSignal* ratesSignal;
 
 -(void)refreshCurrencyData;
 
