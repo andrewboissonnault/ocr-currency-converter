@@ -221,7 +221,7 @@
                                         <rect key="frame" x="273" y="4" width="54" height="30"/>
                                         <color key="backgroundColor" red="0.18823529410000001" green="0.74901960779999999" blue="0.043137254899999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="camera.png">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">

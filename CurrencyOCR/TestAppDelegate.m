@@ -1,27 +1,22 @@
 //
-//  AppDelegate.m
+//  TestAppDelegate.m
 //  CurrencyOCR
 //
-//  Created by Andrew Boissonnault on 12/20/15.
-//  Copyright (c) 2015 Andrew Boissonnault. All rights reserved.
+//  Created by Andrew Boissonnault on 3/6/16.
+//  Copyright © 2016 Andrew Boissonnault. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "TestAppDelegate.h"
+#import <Parse/Parse.h>
 #import "CurrencyRates.h"
 #import "Currency.h"
 #import "ParseKeys.h"
 
-@interface AppDelegate ()
-
-@end
-
-@implementation AppDelegate
-
+@implementation TestAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self setupParse];
-    [self setupAppearances];
-    return YES;
+    return NO;
 }
 
 -(void)setupParse
@@ -33,9 +28,5 @@
     [Currency registerSubclass];
 }
 
--(void)setupAppearances
-{
-    [UISearchBar appearance].barTintColor = [UIColor greenColor];
-}
 
 @end
