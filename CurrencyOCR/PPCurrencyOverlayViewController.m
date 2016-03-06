@@ -16,36 +16,21 @@
 
 @interface PPCurrencyOverlayViewController ()
 
-@property (readonly)  NSMutableArray* labels;
-
 @property UISlider* slider;
+
+@property NSArray* labels;
+
+@property (readonly) RACSignal* labelsSignal;
 
 @end
 
 @implementation PPCurrencyOverlayViewController
 
-@synthesize labels = _labels;
-
--(NSMutableArray*)labels
-{
-    if(!_labels)
-    {
-        _labels = [NSMutableArray array];
-    }
-    return _labels;
-}
-
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    [self initializeViewModel];
     [self initializeSliderView];
     [self bindViewModel];
-}
-
-- (void)initializeViewModel
-{
-    self.viewModel.filter = @85.0;
 }
 
 -(void)initializeSliderView
@@ -54,10 +39,19 @@
     self.slider.minimumValue = 70;
     self.slider.maximumValue = 100;
     self.slider.continuous = YES;
-    self.slider.value = [self.viewModel.filter doubleValue];
     [self.view addSubview:self.slider];
     [self.slider autoAlignAxis:ALAxisVertical toSameAxisOfView:self.view];
     [self.slider autoPinEdgesToSuperviewEdgesWithInsets:ALEdgeInsetsMake(0, 25, 25, 25) excludingEdge:ALEdgeTop];
+}
+
+- (void)bindViewModel {
+    
+    RAC(self, labels) = [self.labelsSignal doNext:^(NSArray* labels) {
+        [self clearLabels];
+        [self addLabelsToSubview:labels];
+    }];
+    
+    RAC(self.viewModel, filter) = RACObserve(self.slider, value);
 }
 
 - (void)cameraViewController:(id<PPScanningViewController>)cameraViewController
@@ -66,15 +60,19 @@
     self.viewModel.ocrResults = results;
 }
 
-- (void)bindViewModel {
-    
-    RACSignal *pricesSignal = RACObserve(self.viewModel, prices);
-    [pricesSignal doNext:^(NSArray* prices) {
-        [self clearLabels];
-        [self showPrices:prices];
+-(RACSignal*)labelsSignal
+{
+    return [self.viewModel.pricesSignal map:^(NSArray* prices) {
+        return [self priceLabels:prices];
     }];
-    
-    RAC(self.viewModel, filter) = RACObserve(self.slider, value);
+}
+
+-(NSArray*)priceLabels:(NSArray*)prices
+{
+    RACSequence *sequence = [[prices rac_sequence] map:^id(PPOcrPrice* price) {
+        return [self buildLabelWithPrice:price];
+    }];
+    return [sequence array];
 }
 
 -(void)clearLabels
@@ -83,42 +81,17 @@
     {
         [label removeFromSuperview];
     }
-    [self.labels removeAllObjects];
 }
 
--(void)showPrices:(NSArray*)prices
+-(void)addLabelsToSubview:(NSArray*)labels
 {
-    for(PPOcrPrice* price in prices)
+    for(UILabel* priceLabel in labels)
     {
-        [self showPrice:price];
+        [self.view addSubview:priceLabel];
     }
 }
 
--(void)showLayout:(PPOcrLayout*)layout
-{
-    for(PPOcrBlock* block in layout.blocks)
-    {
-        [self showBlock:block];
-    }
-}
-
--(void)showBlock:(PPOcrBlock*)block
-{
-   for(PPOcrLine* line in block.lines)
-   {
-       [self showLine:line];
-   }
-}
-
--(void)showLine:(PPOcrLine*)line
-{
-    for(PPOcrChar* character in line.chars)
-    {
-        [self showCharacter:character];
-    }
-}
-
--(void)showPrice:(PPOcrPrice*)price
+-(UILabel*)buildLabelWithPrice:(PPOcrPrice*)price
 {
     NSString* formattedString = price.formattedPriceString;
     
@@ -128,40 +101,7 @@
     priceLabel.text = formattedString;
     priceLabel.backgroundColor = [UIColor clearColor];
     [priceLabel sizeToFit];
-    
-    [self.labels addObject:priceLabel];
-    [self.view addSubview:priceLabel];
-}
-
--(void)showCharacter:(PPOcrChar*)character
-{
-    CGRect frame = [self frameWithCharacter:character];
-    
-    NSString* string = [NSString stringWithUnichar:character.value];
-    CGFloat fontSize = character.height;
-    
-    UILabel* characterLabel = [[UILabel alloc] initWithFrame:frame];
-    characterLabel.font = [UIFont systemFontOfSize:fontSize];
-    characterLabel.textColor = [UIColor blueColor];
-    characterLabel.text = string;
-    characterLabel.backgroundColor = [UIColor clearColor];
-    [characterLabel sizeToFit];
-    
-    [self.labels addObject:characterLabel];
-    [self.view addSubview:characterLabel];
-}
-
--(CGRect)frameWithCharacter:(PPOcrChar*)character
-{
-    PPPosition* position = character.position;
-    CGPoint upperLeft = position.ul;
-    CGPoint origin = upperLeft;
-    CGPoint lowerRight = position.lr;
-    
-    CGFloat width = fabs(lowerRight.x - origin.x);
-    CGFloat height = fabs(lowerRight.y - origin.y);
-    CGRect frame = CGRectMake(origin.x, origin.y, width, height);
-    return frame;
+    return priceLabel;
 }
 
 @end

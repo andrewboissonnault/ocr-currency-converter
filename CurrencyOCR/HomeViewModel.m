@@ -102,7 +102,7 @@ typedef BOOL (^FilterBlock)(id object);
     return _decimalFormatter;
 }
 
-#pragma mark Input Signals
+#pragma mark - Input Signals
 
 -(RACSignal*)isArrowPointingLeftSignal
 {

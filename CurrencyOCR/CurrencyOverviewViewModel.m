@@ -14,13 +14,16 @@
 #import "Currency.h"
 #import "PPOcrService.h"
 
-typedef NSArray* (^CalculatePricesBlock)(NSArray* ocrResults, CurrencyRates* rates, NSNumber* filter);
+typedef NSArray* (^CalculatePricesBlock)(NSArray* filteredPrices, CurrencyRates* rates);
 
 @interface CurrencyOverviewViewModel ()
 
-@property NSArray* prices;
-@property PPOcrLayout* priceLayout;
-@property NSArray* filteredPrices;
+@property (readonly) RACSignal* ocrResultsSignal;
+@property (readonly) RACSignal* filterSignal;
+
+@property (readonly) RACSignal* priceLayoutSignal;
+@property (readonly) RACSignal* filteredPricesSignal;
+
 @property CurrencyService* currencyRateService;
 
 @property Currency* baseCurrency;
@@ -31,7 +34,9 @@ typedef NSArray* (^CalculatePricesBlock)(NSArray* ocrResults, CurrencyRates* rat
 @implementation CurrencyOverviewViewModel
 
 @synthesize ocrResults = _ocrResults;
-@synthesize filter = _filter;
+@synthesize pricesSignal = _pricesSignal;
+
+#pragma mark - Initialization
 
 - (instancetype)init {
     self = [super init];
@@ -56,83 +61,93 @@ typedef NSArray* (^CalculatePricesBlock)(NSArray* ocrResults, CurrencyRates* rat
 {
     self.currencyRateService = [[CurrencyService alloc] init];
     [self.currencyRateService refreshCurrencyData];
-    
-    [self bindPrices];
 }
 
--(void)bindPrices
+#pragma mark - Input Signals
+
+-(RACSignal*)ocrResultsSignal
 {
-    RACSignal *filterSignal = RACObserve(self, filter);
-    RACSignal *ocrResultsSignal = RACObserve(self, ocrResults);
-    
-    RAC(self, prices) = [RACSignal combineLatest:@[ocrResultsSignal, self.currencyRateService.ratesSignal, filterSignal] reduce:
+    return RACObserve(self, ocrResults);
+}
+
+-(RACSignal*)filterSignal
+{
+    return RACObserve(self, filter);
+}
+
+#pragma mark - Output Signals
+
+-(RACSignal*)pricesSignal
+{
+    return [RACSignal combineLatest:@[self.filteredPricesSignal, self.currencyRateService.ratesSignal] reduce:
                          [self calculatePricesBlock]];
 }
 
 - (CalculatePricesBlock)calculatePricesBlock
 {
-    return ^(NSArray* ocrResults, CurrencyRates* rates, NSNumber* filter) {
-        [self updatePriceLayout];
-        [self updateFilteredPrices];
-        return [self.filteredPrices mapObjectsUsingBlock:^id(PPOcrPrice* price, NSUInteger idx) {
+    return ^(NSArray* filteredPrices, CurrencyRates* rates) {
+        return [filteredPrices mapObjectsUsingBlock:^id(PPOcrPrice* price, NSUInteger idx) {
             double conversionRate = [rates rateWithBaseCurrency:self.baseCurrency otherCurrency:self.otherCurrency];
             return [price priceWithConversionFactor:conversionRate];
         }];
     };
 }
 
--(void)setOcrResults:(NSArray *)ocrResults
+#pragma mark - Internal Signals
+
+-(RACSignal*)priceLayoutSignal
 {
-    _ocrResults = ocrResults;
-    [self updatePriceLayout];
-    [self updateFilteredPrices];
+    return [self.ocrResultsSignal map:^id(NSArray* ocrResults) {
+        return [self priceLayoutWithOcrResults:ocrResults];
+    }];
 }
 
--(void)setFilter:(NSNumber*)filter
+-(PPOcrLayout*)priceLayoutWithOcrResults:(NSArray*)ocrResults
 {
-    _filter = filter;
-    [self updateFilteredPrices];
-}
-
--(void)updatePriceLayout
-{
-    for (PPRecognizerResult* result in self.ocrResults) {
+    for (PPRecognizerResult* result in ocrResults) {
         
         if ([result isKindOfClass:[PPOcrRecognizerResult class]]) {
             PPOcrRecognizerResult* ocrRecognizerResult = (PPOcrRecognizerResult*)result;
-            self.priceLayout = [ocrRecognizerResult ocrLayoutForParserGroup:kPriceIdentifier];
-            return;
+            return [ocrRecognizerResult ocrLayoutForParserGroup:kPriceIdentifier];
         }
     };
+    return nil;
 }
 
--(void)updateFilteredPrices
+-(RACSignal*)filteredPricesSignal
 {
-    PPOcrLayout* filteredPriceLayout = [self filterLayout:self.priceLayout];
-    self.filteredPrices = [PPOcrPrice pricesWithLayout:filteredPriceLayout];
+    return [RACSignal combineLatest:@[self.priceLayoutSignal, self.filterSignal] reduce:(id)^(PPOcrLayout* priceLayout, NSNumber* filter) {
+        return [self filteredPrices:priceLayout filter:filter];
+    }];
 }
 
--(PPOcrLayout*)filterLayout:(PPOcrLayout*)layout
+-(NSArray*)filteredPrices:(PPOcrLayout*)priceLayout filter:(NSNumber*)filter
+{
+    PPOcrLayout* filteredPriceLayout = [self filterLayout:priceLayout filter:filter];
+    return [PPOcrPrice pricesWithLayout:filteredPriceLayout];
+}
+
+-(PPOcrLayout*)filterLayout:(PPOcrLayout*)layout filter:(NSNumber*)filter
 {
     NSArray* filteredBlocks = [layout.blocks mapObjectsUsingBlock:^id(id obj, NSUInteger idx) {
-        return [self filterBlock:obj];
+        return [self filterBlock:obj filter:filter];
     }];
     return [[PPOcrLayout alloc] initWithOcrBlocks:filteredBlocks];
 }
 
--(PPOcrBlock*)filterBlock:(PPOcrBlock*)block
+-(PPOcrBlock*)filterBlock:(PPOcrBlock*)block filter:(NSNumber*)filter
 {
     NSArray* filteredLines = [block.lines mapObjectsUsingBlock:^id(id obj, NSUInteger idx) {
-        return [self filterLine:obj];
+        return [self filterLine:obj filter:filter];
     }];
     return [[PPOcrBlock alloc] initWithOcrLines:filteredLines];
 }
 
--(PPOcrLine*)filterLine:(PPOcrLine*)line
+-(PPOcrLine*)filterLine:(PPOcrLine*)line filter:(NSNumber*)filter
 {
     NSArray* filteredCharacters = [line.chars filterUsingBlock:^BOOL(id object, NSDictionary *bindings) {
         PPOcrChar* character = (PPOcrChar*)object;
-        return !character.uncertain && character.quality > [self.filter doubleValue];
+        return !character.uncertain && character.quality > [filter doubleValue];
     }];
     return [[PPOcrLine alloc] initWithOcrChars:filteredCharacters];
 }

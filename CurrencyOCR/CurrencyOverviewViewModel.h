@@ -9,14 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <MicroBlink/MicroBlink.h>
 #import "Currency.h"
+#import "ReactiveCocoa.h"
 
 @interface CurrencyOverviewViewModel : NSObject
 
-@property (readonly) NSArray* prices;
-
-@property (strong, nonatomic) NSArray* ocrResults;
-@property (nonatomic) NSNumber* filter;
-
 -(instancetype)initWithBaseCurrency:(Currency*)baseCurrency otherCurrency:(Currency*)otherCurrency;
+
+@property NSNumber* filter;
+@property (nonatomic) NSArray* ocrResults;
+
+@property (readonly) RACSignal* pricesSignal;
 
 @end
