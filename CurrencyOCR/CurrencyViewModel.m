@@ -13,67 +13,64 @@
 
 @property Currency* currency;
 
-@property (nonatomic) UIImage* flagIconImage;
-
 @end
 
 @implementation CurrencyViewModel
 
--(instancetype)initWithCurrency:(Currency*)currency
+- (instancetype)initWithCurrency:(Currency*)currency
 {
     self = [super init];
     self.currency = currency;
-    if(self)
-    {
+    if (self) {
         [self initialize];
     }
     return self;
 }
 
--(NSString*)currencyCode
+- (void)initialize
 {
-    return self.currency.code;
-}
-
--(NSString*)currencyName
-{
-    return self.currency.name;
-}
-
--(PFFile*)flagIconFile
-{
-    if(self.currency.isDataAvailable)
-    {
-        return self.currency.flagIcon;
-    }
-    else
-    {
-        return nil;
-    }
-}
-
--(void)initialize
-{
-    [self setUpImage];}
-
--(void)setUpImage
-{
-    if(self.currency.shouldFetchFlagIcon && self.currency.isDataAvailable)
-    {
+    [self.willFetchCurrencySignal subscribeNext:^(id x) {
         [self.currency fetchInBackground];
-    }
-    self.flagIconImage = [self localFlagIcon];
+    }];
 }
 
--(UIImage*)localFlagIcon
+- (RACSignal*)currencyCodeSignal
 {
-    NSString* iconName = [self flagIconName];
-    return [UIImage imageNamed:iconName];
+    return RACObserve(self, currency.code);
 }
 
--(NSString*)flagIconName
+- (RACSignal*)currencyNameSignal
 {
-    NSString* twoLetterCountryCode = [[self.currencyCode substringToIndex:2] lowercaseString];
+    return RACObserve(self, currency.name);
+}
+
+- (RACSignal*)flagIconImageSignal
+{
+    return [self.currencyCodeSignal map:^id(NSString* currencyCode) {
+        NSString* flagIconName = [CurrencyViewModel flagIconNameWithCurrencyCode:currencyCode];
+        return [UIImage imageNamed:flagIconName];
+    }];
+}
+
+- (RACSignal*)flagIconFileSignal
+{
+    return RACObserve(self, currency.flagIcon);
+}
+
+-(RACSignal*)willFetchCurrencySignal
+{
+    RACSignal* isDataAvailableSignal = RACObserve(self, currency.isDataAvailable);
+    RACSignal* shouldFetchFlagIconSignal = RACObserve(self, currency.shouldFetchFlagIcon);
+    return [[RACSignal combineLatest:@[isDataAvailableSignal, shouldFetchFlagIconSignal] reduce:(id)^(BOOL isDataAvailable, BOOL shouldFetchFlagIcon) {
+        return isDataAvailable && shouldFetchFlagIcon;
+    }] filter:^BOOL(NSNumber* willFetch) {
+        return [willFetch boolValue];
+    }];
+}
+
++ (NSString*)flagIconNameWithCurrencyCode:(NSString*)currencyCode
+{
+    NSString* twoLetterCountryCode = [[currencyCode substringToIndex:2] lowercaseString];
     return [twoLetterCountryCode stringByAppendingString:@".png"];
 }
 

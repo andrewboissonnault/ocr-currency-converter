@@ -46,7 +46,7 @@
 
 - (void)bindViewModel {
     
-    RAC(self, labels) = [self.labelsSignal doNext:^(NSArray* labels) {
+    RAC(self, labels) = [[self.labelsSignal deliverOnMainThread] doNext:^(NSArray* labels) {
         [self clearLabels];
         [self addLabelsToSubview:labels];
     }];
@@ -70,7 +70,7 @@
 -(NSArray*)priceLabels:(NSArray*)prices
 {
     RACSequence *sequence = [[prices rac_sequence] map:^id(PPOcrPrice* price) {
-        return [self buildLabelWithPrice:price];
+        return [PPCurrencyOverlayViewController buildLabelWithPrice:price];
     }];
     return [sequence array];
 }
@@ -91,7 +91,7 @@
     }
 }
 
--(UILabel*)buildLabelWithPrice:(PPOcrPrice*)price
++(UILabel*)buildLabelWithPrice:(PPOcrPrice*)price
 {
     NSString* formattedString = price.formattedPriceString;
     

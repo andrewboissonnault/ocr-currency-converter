@@ -135,12 +135,12 @@ typedef BOOL (^FilterBlock)(id object);
 
 -(RACSignal*)leftCurrencyTextSignal
 {
-    return [self.combinedTextSignal reduceEach:[self reduceLeftBlock]];
+    return [self.combinedTextSignal reduceEach:[HomeViewModel reduceLeftBlock]];
 }
 
 -(RACSignal*)rightCurrencyTextSignal
 {
-    return [self.combinedTextSignal reduceEach:[self reduceRightBlock]];
+    return [self.combinedTextSignal reduceEach:[HomeViewModel reduceRightBlock]];
 }
 
 -(RACSignal*)leftCurrencyViewModelSignal
@@ -192,14 +192,14 @@ typedef BOOL (^FilterBlock)(id object);
 
 -(RACSignal*)leftCurrencySignal
 {
-    RACSignal* reducedSignal = [self.combinedCurrencySignal reduceEach:[self reduceLeftBlock]];
-    return [reducedSignal filter:[self filterNullsBlock]];
+    RACSignal* reducedSignal = [self.combinedCurrencySignal reduceEach:[HomeViewModel reduceLeftBlock]];
+    return [reducedSignal filter:[HomeViewModel filterNullsBlock]];
 }
 
 -(RACSignal*)rightCurrencySignal
 {
-    RACSignal* reducedSignal = [self.combinedCurrencySignal reduceEach:[self reduceRightBlock]];
-    return [reducedSignal filter:[self filterNullsBlock]];
+    RACSignal* reducedSignal = [self.combinedCurrencySignal reduceEach:[HomeViewModel reduceRightBlock]];
+    return [reducedSignal filter:[HomeViewModel filterNullsBlock]];
 }
 
 #pragma mark - Initialization
@@ -279,16 +279,16 @@ typedef BOOL (^FilterBlock)(id object);
     
     RACSignal* combinedSignal = [RACSignal combineLatest:@[leftSignal, rightSignal, self.isArrowPointingLeftSignal]];
     
-    RACSignal* reducedLeftSignal = [combinedSignal reduceEach:[self reduceLeftBlock]];
-    RACSignal* reducedRightSignal = [combinedSignal reduceEach:[self reduceRightBlock]];
+    RACSignal* reducedLeftSignal = [combinedSignal reduceEach:[HomeViewModel reduceLeftBlock]];
+    RACSignal* reducedRightSignal = [combinedSignal reduceEach:[HomeViewModel reduceRightBlock]];
     
-    RAC(self.userPreferencesService, baseCurrency) = [reducedLeftSignal filter:[self filterNullsBlock]];
-    RAC(self.userPreferencesService, otherCurrency) = [reducedRightSignal filter:[self filterNullsBlock]];
+    RAC(self.userPreferencesService, baseCurrency) = [reducedLeftSignal filter:[HomeViewModel filterNullsBlock]];
+    RAC(self.userPreferencesService, otherCurrency) = [reducedRightSignal filter:[HomeViewModel filterNullsBlock]];
 }
 
 #pragma mark - Blocks
 
-- (ReduceLeftAndRightBlock)reduceLeftBlock
++(ReduceLeftAndRightBlock)reduceLeftBlock
 {
     return ^(id baseObject, id otherObject, NSNumber* isArrowPointingLeft) {
         if ([isArrowPointingLeft boolValue]) {
@@ -300,7 +300,7 @@ typedef BOOL (^FilterBlock)(id object);
     };
 }
 
-- (ReduceLeftAndRightBlock)reduceRightBlock
++(ReduceLeftAndRightBlock)reduceRightBlock
 {
     return ^(id baseObject, id otherObject, NSNumber* isArrowPointingLeft) {
         if ([isArrowPointingLeft boolValue]) {
@@ -312,7 +312,7 @@ typedef BOOL (^FilterBlock)(id object);
     };
 }
 
-- (FilterBlock)filterNullsBlock
++(FilterBlock)filterNullsBlock
 {
     return ^BOOL(id object) {
         BOOL valid = (object != nil && ![object isEqual:[NSNull null]]);

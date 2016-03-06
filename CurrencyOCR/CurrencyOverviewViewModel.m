@@ -98,11 +98,11 @@ typedef NSArray* (^CalculatePricesBlock)(NSArray* filteredPrices, CurrencyRates*
 -(RACSignal*)priceLayoutSignal
 {
     return [self.ocrResultsSignal map:^id(NSArray* ocrResults) {
-        return [self priceLayoutWithOcrResults:ocrResults];
+        return [CurrencyOverviewViewModel priceLayoutWithOcrResults:ocrResults];
     }];
 }
 
--(PPOcrLayout*)priceLayoutWithOcrResults:(NSArray*)ocrResults
++(PPOcrLayout*)priceLayoutWithOcrResults:(NSArray*)ocrResults
 {
     for (PPRecognizerResult* result in ocrResults) {
         
@@ -117,17 +117,17 @@ typedef NSArray* (^CalculatePricesBlock)(NSArray* filteredPrices, CurrencyRates*
 -(RACSignal*)filteredPricesSignal
 {
     return [RACSignal combineLatest:@[self.priceLayoutSignal, self.filterSignal] reduce:(id)^(PPOcrLayout* priceLayout, NSNumber* filter) {
-        return [self filteredPrices:priceLayout filter:filter];
+        return [CurrencyOverviewViewModel filteredPrices:priceLayout filter:filter];
     }];
 }
 
--(NSArray*)filteredPrices:(PPOcrLayout*)priceLayout filter:(NSNumber*)filter
++(NSArray*)filteredPrices:(PPOcrLayout*)priceLayout filter:(NSNumber*)filter
 {
-    PPOcrLayout* filteredPriceLayout = [self filterLayout:priceLayout filter:filter];
+    PPOcrLayout* filteredPriceLayout = [CurrencyOverviewViewModel filterLayout:priceLayout filter:filter];
     return [PPOcrPrice pricesWithLayout:filteredPriceLayout];
 }
 
--(PPOcrLayout*)filterLayout:(PPOcrLayout*)layout filter:(NSNumber*)filter
++(PPOcrLayout*)filterLayout:(PPOcrLayout*)layout filter:(NSNumber*)filter
 {
     NSArray* filteredBlocks = [layout.blocks mapObjectsUsingBlock:^id(id obj, NSUInteger idx) {
         return [self filterBlock:obj filter:filter];
@@ -135,15 +135,15 @@ typedef NSArray* (^CalculatePricesBlock)(NSArray* filteredPrices, CurrencyRates*
     return [[PPOcrLayout alloc] initWithOcrBlocks:filteredBlocks];
 }
 
--(PPOcrBlock*)filterBlock:(PPOcrBlock*)block filter:(NSNumber*)filter
++(PPOcrBlock*)filterBlock:(PPOcrBlock*)block filter:(NSNumber*)filter
 {
     NSArray* filteredLines = [block.lines mapObjectsUsingBlock:^id(id obj, NSUInteger idx) {
-        return [self filterLine:obj filter:filter];
+        return [CurrencyOverviewViewModel filterLine:obj filter:filter];
     }];
     return [[PPOcrBlock alloc] initWithOcrLines:filteredLines];
 }
 
--(PPOcrLine*)filterLine:(PPOcrLine*)line filter:(NSNumber*)filter
++(PPOcrLine*)filterLine:(PPOcrLine*)line filter:(NSNumber*)filter
 {
     NSArray* filteredCharacters = [line.chars filterUsingBlock:^BOOL(id object, NSDictionary *bindings) {
         PPOcrChar* character = (PPOcrChar*)object;

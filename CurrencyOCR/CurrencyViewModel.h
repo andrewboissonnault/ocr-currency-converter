@@ -9,16 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "Currency.h"
+#import "ReactiveCocoa.h"
 
 @interface CurrencyViewModel : NSObject
 
-@property (readonly) NSString* currencyCode;
-@property (readonly) NSString* currencyName;
-@property (readonly, nonatomic) UIImage* flagIconImage;
-@property (readonly, nonatomic) PFFile* flagIconFile;
-
-@property (readonly) Currency* currency;
-
 -(instancetype)initWithCurrency:(Currency*)currency;
+
+@property (readonly) RACSignal* currencyCodeSignal;
+@property (readonly) RACSignal* currencyNameSignal;
+@property (readonly) RACSignal* flagIconImageSignal;
+@property (readonly) RACSignal* flagIconFileSignal;
 
 @end
