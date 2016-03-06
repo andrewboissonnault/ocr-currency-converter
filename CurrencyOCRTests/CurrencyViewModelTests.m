@@ -16,8 +16,6 @@
 
 #import "CurrencyViewModel.h"
 
-static NSString* const kTestString = @"43,523  \n 80.90";
-
 SpecBegin(CurrencyViewModel)
 
 describe(@"CurrencyViewModel", ^{

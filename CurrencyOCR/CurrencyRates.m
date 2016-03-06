@@ -13,7 +13,7 @@ static NSString* const kCurrencyRatesClassName = @"CurrencyData";
 @implementation CurrencyRates
 
 @dynamic rates;
-@dynamic baseCurrency;
+@dynamic referenceCurrencyCode;
 
 +(NSString*)parseClassName
 {
@@ -22,12 +22,11 @@ static NSString* const kCurrencyRatesClassName = @"CurrencyData";
 
 -(double)rateWithBaseCurrency:(Currency*)baseCurrency otherCurrency:(Currency*)otherCurrency
 {
-    
-    if([self.baseCurrency isEqualToString:baseCurrency.code])
+    if([self.referenceCurrencyCode isEqualToString:baseCurrency.code])
     {
         return [self.rates[otherCurrency.code] doubleValue];
     }
-    else if([self.baseCurrency isEqualToString:otherCurrency.code])
+    else if([self.referenceCurrencyCode isEqualToString:otherCurrency.code])
     {
         return 1 / [self.rates[baseCurrency.code] doubleValue];
     }

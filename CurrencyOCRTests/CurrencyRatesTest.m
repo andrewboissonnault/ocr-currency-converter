@@ -46,7 +46,7 @@ describe(@"CurrencyRates", ^{
         gbpCurrency.code = kGBPKey;
         
         currencyRates = [[CurrencyRates alloc] init];
-        currencyRates.baseCurrency = kUSDKey;
+        currencyRates.referenceCurrencyCode = kUSDKey;
         
         currencyRates.rates = @{kTHBKey : @36.03, kEURKey: @.92, kGBPKey : @.67};
     });

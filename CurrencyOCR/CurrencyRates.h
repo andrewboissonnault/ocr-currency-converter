@@ -11,7 +11,7 @@
 
 @interface CurrencyRates : PFObject <PFSubclassing>
 
-@property (strong, nonatomic) NSString* baseCurrency;
+@property (strong, nonatomic) NSString* referenceCurrencyCode;
 @property (strong, nonatomic) NSDictionary* rates;
 
 -(double)rateWithBaseCurrency:(Currency*)baseCurrency otherCurrency:(Currency*)otherCurrency;
