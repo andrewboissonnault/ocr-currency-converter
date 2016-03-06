@@ -88,12 +88,24 @@
 
 - (void)bindViewModel
 {
-    RAC(self, currencyNameLabel.text) = self.viewModel.currencyNameSignal;
-    RAC(self, currencyCodeLabel.text) = self.viewModel.currencyCodeSignal;
-    RAC(self, flagImageView.image) = self.viewModel.flagIconImageSignal;
+    RACSignal* viewModelSignal = [RACObserve(self, viewModel) filter:^BOOL(id value) {
+        return self.viewModel != nil;
+    }];
     
-    RAC(self, flagImageView.file) = [self.viewModel.flagIconFileSignal doNext:^(id x) {
-        [self.flagImageView loadInBackground];
+    [viewModelSignal subscribeNext:^(id x) {
+        [self.viewModel.currencyNameSignal subscribeNext:^(id x) {
+            self.currencyNameLabel.text = x;
+        }];
+        [self.viewModel.currencyCodeSignal subscribeNext:^(id x) {
+            self.currencyCodeLabel.text = x;
+        }];
+        [self.viewModel.flagIconImageSignal subscribeNext:^(id x) {
+            self.flagImageView.image = x;
+        }];
+        [self.viewModel.flagIconFileSignal subscribeNext:^(id x) {
+            self.flagImageView.file = x;
+            [self.flagImageView loadInBackground];
+        }];
     }];
 }
 
