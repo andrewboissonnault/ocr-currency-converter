@@ -85,34 +85,40 @@ static NSString* const kShowScanViewSegue = @"showScanView";
     RAC(self.leftCurrencyTextField, text) = self.viewModel.leftCurrencyTextSignal;
     RAC(self.rightCurrencyTextField, text) = self.viewModel.rightCurrencyTextSignal;
 
-    [RACObserve(self.viewModel, isArrowPointingLeft) doNext:^(id x) {
-        [self updateArrow];
+    [self.conversionButtonImageSignal subscribeNext:^(UIImage* image) {
+        [self setArrowImage:image];
+        [self updateFirstResponder];
+    }];
+}
+
+-(RACSignal*)conversionButtonImageSignal
+{
+    return [RACObserve(self.viewModel, isArrowPointingLeft) map:^id(NSNumber* isArrowPointingLeft) {
+        return [HomeViewController arrowImage:[isArrowPointingLeft boolValue]];
     }];
 }
 
 #pragma mark - Update Views
 
-- (void)updateArrow
+- (void)setArrowImage:(UIImage*)image
 {
-    UIImage* image = [self conversionButtonImage];
     [self.toggleConversionButton setImage:image forState:UIControlStateNormal];
-    [self updateFirstResponder];
-}
-
-- (UIImage*)conversionButtonImage
-{
-    if (self.viewModel.isArrowPointingLeft) {
-        return [UIImage imageNamed:@"convertIconLeft"];
-    }
-    else {
-        return [UIImage imageNamed:@"convertIconRight"];
-    }
 }
 
 - (void)updateFirstResponder
 {
     if (!self.baseCurrencyTextField.isFirstResponder) {
         [self.baseCurrencyTextField becomeFirstResponder];
+    }
+}
+
++ (UIImage*)arrowImage:(BOOL)isArrowPointingLeft
+{
+    if (isArrowPointingLeft) {
+        return [UIImage imageNamed:@"convertIconLeft"];
+    }
+    else {
+        return [UIImage imageNamed:@"convertIconRight"];
     }
 }
 

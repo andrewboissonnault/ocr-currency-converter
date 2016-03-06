@@ -14,6 +14,7 @@
 @interface HomeViewModel : NSObject
 
 @property (readonly, nonatomic) BOOL isArrowPointingLeft;
+
 @property (readonly) RACSignal* leftCurrencyTextSignal;
 @property (readonly) RACSignal* rightCurrencyTextSignal;
 
