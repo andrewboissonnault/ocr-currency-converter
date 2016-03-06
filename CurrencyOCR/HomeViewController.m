@@ -6,6 +6,7 @@
 //  Copyright © 2016 Andrew Boissonnault. All rights reserved.
 //
 
+#import "Blocks.h"
 #import "CurrencySelectorViewController.h"
 #import "CurrencyView.h"
 #import "HomeViewController.h"
@@ -14,6 +15,7 @@
 #import "PPOcrService.h"
 #import "VENCalculatorInputTextField.h"
 #import "VENCalculatorInputView.h"
+#import "UITextField+RAC.h"
 
 static NSString* const kSelectBaseCurrencySegue = @"selectBaseCurrencySegue";
 static NSString* const kSelectOtherCurrencySegue = @"selectOtherCurrencySegue";
@@ -26,7 +28,7 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 @property (weak, nonatomic) IBOutlet CurrencyView* leftCurrencyView;
 @property (weak, nonatomic) IBOutlet CurrencyView* rightCurrencyView;
 @property (weak, nonatomic) IBOutlet UIButton* toggleConversionButton;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UITableView* tableView;
 
 @property PPCurrencyOverlayViewController* overlayViewController;
 @property HomeViewModel* viewModel;
@@ -37,14 +39,23 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 
 #pragma mark - Properties
 
-- (VENCalculatorInputTextField*)baseCurrencyTextField
+- (RACSignal*)baseTextFieldSignal
 {
-    if (self.viewModel.isArrowPointingLeft) {
-        return self.rightCurrencyTextField;
-    }
-    else {
-        return self.leftCurrencyTextField;
-    }
+    return [self.viewModel.isArrowPointingLeftSignal map:^id(id isArrowPointingLeft) {
+        if ([isArrowPointingLeft boolValue]) {
+            return self.rightCurrencyTextField;
+        }
+        else {
+            return self.leftCurrencyTextField;
+        }
+    }];
+}
+
+- (RACSignal*)baseTextSignal
+{
+    RACSignal* leftTextSignal = self.leftCurrencyTextField.rac_textSignal;
+    RACSignal* rightTextSignal = self.rightCurrencyTextField.rac_textSignal;
+    return [RACSignal merge:@[leftTextSignal, rightTextSignal]];
 }
 
 #pragma mark - Activity Lifecycle
@@ -55,45 +66,68 @@ static NSString* const kShowScanViewSegue = @"showScanView";
     [self initializeViewModel];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.baseCurrencyTextField becomeFirstResponder];
-}
-
 #pragma mark - Initialization
 
 - (void)initializeViewModel
 {
-    self.viewModel = [[HomeViewModel alloc] init];
+    self.viewModel = [[HomeViewModel alloc] initWithToggleArrowSignal:self.toggleArrowSignal];
     [self bindViewModel];
+}
+
+- (RACSignal*)toggleArrowSignal
+{
+    RACSignal *pressSignal = [[self.toggleConversionButton rac_signalForControlEvents:UIControlEventTouchDown] map:^id(id value) {
+        return @YES;
+    }];
+    
+    RACSignal* toggleArrowSignal = [RACSignal merge:@[self.toggleLeftSignal, self.toggleRightSignal, pressSignal]];
+    [toggleArrowSignal subscribeNext:^(id x) {
+        //
+    }];
+    
+    return toggleArrowSignal;
+}
+
+-(RACSignal*)toggleLeftSignal
+{
+    return [[self.leftCurrencyTextField rac_signalForControlEvents:UIControlEventTouchDown] filter:^BOOL(id value) {
+        return !self.leftCurrencyTextField.isFirstResponder;
+    }];
+}
+
+-(RACSignal*)toggleRightSignal
+{
+    return [[self.rightCurrencyTextField rac_signalForControlEvents:UIControlEventTouchDown] filter:^BOOL(id value) {
+        return !self.rightCurrencyTextField.isFirstResponder;
+    }];
 }
 
 - (void)bindViewModel
 {
     RAC(self.leftCurrencyView, viewModel) = self.viewModel.leftCurrencyViewModelSignal;
     RAC(self.rightCurrencyView, viewModel) = self.viewModel.rightCurrencyViewModelSignal;
-    
-    [self.leftCurrencyTextField addTarget:self
-                  action:@selector(textFieldDidChange:)
-        forControlEvents:UIControlEventEditingChanged];
 
-    [self.rightCurrencyTextField addTarget:self
-                                   action:@selector(textFieldDidChange:)
-                         forControlEvents:UIControlEventEditingChanged];
-    
     RAC(self.leftCurrencyTextField, text) = self.viewModel.leftCurrencyTextSignal;
     RAC(self.rightCurrencyTextField, text) = self.viewModel.rightCurrencyTextSignal;
 
     [self.conversionButtonImageSignal subscribeNext:^(UIImage* image) {
         [self setArrowImage:image];
-        [self updateFirstResponder];
+    }];
+
+    [self.baseTextFieldSignal subscribeNext:^(UITextField* textField) {
+        if (!textField.isFirstResponder) {
+            [textField becomeFirstResponder];
+        }
+    }];
+
+    [[self.baseTextSignal skip:3] subscribeNext:^(NSString* text) {
+        [self.viewModel setExpression:text];
     }];
 }
 
--(RACSignal*)conversionButtonImageSignal
+- (RACSignal*)conversionButtonImageSignal
 {
-    return [RACObserve(self.viewModel, isArrowPointingLeft) map:^id(NSNumber* isArrowPointingLeft) {
+    return [self.viewModel.isArrowPointingLeftSignal map:^id(NSNumber* isArrowPointingLeft) {
         return [HomeViewController arrowImage:[isArrowPointingLeft boolValue]];
     }];
 }
@@ -103,13 +137,6 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 - (void)setArrowImage:(UIImage*)image
 {
     [self.toggleConversionButton setImage:image forState:UIControlStateNormal];
-}
-
-- (void)updateFirstResponder
-{
-    if (!self.baseCurrencyTextField.isFirstResponder) {
-        [self.baseCurrencyTextField becomeFirstResponder];
-    }
 }
 
 + (UIImage*)arrowImage:(BOOL)isArrowPointingLeft
@@ -126,7 +153,7 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 
 - (IBAction)toggleCurrencyButtonPressed:(id)sender
 {
-    [self.viewModel toggleConversionArrow];
+//    [self.viewModel toggleConversionArrow];
 }
 
 - (IBAction)baseCurrencyButtonPressed:(id)sender
@@ -148,7 +175,7 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 
 - (IBAction)unwindToHomeViewController:(UIStoryboardSegue*)segue
 {
-    [self.baseCurrencyTextField becomeFirstResponder];
+    //  [self.baseCurrencyTextField becomeFirstResponder];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender
@@ -197,7 +224,6 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 
 - (void)scanningViewControllerUnauthorizedCamera:(UIViewController<PPScanningViewController>*)scanningViewController
 {
-    
 }
 
 - (void)scanningViewControllerDidClose:(UIViewController<PPScanningViewController>*)scanningViewController
@@ -207,31 +233,10 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 
 - (void)scanningViewController:(UIViewController<PPScanningViewController>*)scanningViewController didOutputResults:(NSArray*)results
 {
-    
 }
 
 - (void)scanningViewController:(UIViewController<PPScanningViewController>*)scanningViewController didFindError:(NSError*)error
 {
-    
-}
-
-#pragma mark - UITextFieldDelegate
-
--(void)textFieldDidChange:(UITextField*)textField
-{
-    if ([textField isEqual:self.baseCurrencyTextField]) {
-        [self.viewModel setExpression:textField.text];
-    }
-}
-
-- (void)textFieldDidBeginEditing:(UITextField*)textField
-{
-    if ([textField isEqual:self.leftCurrencyTextField]) {
-        [self.viewModel leftTextFieldBecameFirstResponder];
-    }
-    else if ([textField isEqual:self.rightCurrencyTextField]) {
-        [self.viewModel rightTextFieldBecameFirstResponder];
-    }
 }
 
 @end

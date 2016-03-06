@@ -13,7 +13,7 @@
 
 @interface HomeViewModel : NSObject
 
-@property (readonly, nonatomic) BOOL isArrowPointingLeft;
+@property (readonly) RACSignal* isArrowPointingLeftSignal;
 
 @property (readonly) RACSignal* leftCurrencyTextSignal;
 @property (readonly) RACSignal* rightCurrencyTextSignal;
@@ -26,8 +26,7 @@
 @property (readonly) CurrencyOverviewViewModel* currencyOverviewViewModel;
 
 -(void)setExpression:(NSString*)expression;
--(void)leftTextFieldBecameFirstResponder;
--(void)rightTextFieldBecameFirstResponder;
--(void)toggleConversionArrow;
+
+-(instancetype)initWithToggleArrowSignal:(RACSignal*)toggleArrowSignal;
 
 @end

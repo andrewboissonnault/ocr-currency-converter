@@ -11,20 +11,18 @@
 #import "HomeViewModel.h"
 #import "MathParserService.h"
 #import "UserPreferencesService.h"
+#import "Blocks.h"
 #import "RACBlockTrampoline.h"
 
-typedef id (^ReduceLeftAndRightBlock)(id baseObject, id otherObject, NSNumber* isArrowPointingLeft);
-typedef BOOL (^FilterBlock)(id object);
-
 @interface HomeViewModel ()
+
+@property RACSignal* toggleArrowSignal;
 
 @property (readonly) RACSignal* baseCurrencySignal;
 @property (readonly) RACSignal* otherCurrencySignal;
 @property (readonly) RACSignal* combinedCurrencySignal;
 @property (readonly) RACSignal* leftCurrencySignal;
 @property (readonly) RACSignal* rightCurrencySignal;
-
-@property (readonly) RACSignal* isArrowPointingLeftSignal;
 
 @property (readonly) RACSignal* baseAmountSignal;
 @property (readonly) RACSignal* otherAmountSignal;
@@ -33,7 +31,6 @@ typedef BOOL (^FilterBlock)(id object);
 @property (readonly) RACSignal* otherTextSignal;
 @property (readonly) RACSignal* combinedTextSignal;
 
-@property BOOL isArrowPointingLeft;
 @property NSString* expression;
 
 @property (nonatomic) CurrencySelectorViewModel* leftCurrencySelectorViewModel;
@@ -104,11 +101,6 @@ typedef BOOL (^FilterBlock)(id object);
 
 #pragma mark - Input Signals
 
--(RACSignal*)isArrowPointingLeftSignal
-{
-    return RACObserve(self, isArrowPointingLeft);
-}
-
 -(RACSignal*)expressionSignal
 {
     return RACObserve(self, expression);
@@ -133,14 +125,19 @@ typedef BOOL (^FilterBlock)(id object);
 
 #pragma mark - Output Signals
 
+-(RACSignal*)isArrowPointingLeftSignal
+{
+    return RACObserve(self, userPreferencesService.isArrowPointingLeft);
+}
+
 -(RACSignal*)leftCurrencyTextSignal
 {
-    return [self.combinedTextSignal reduceEach:[HomeViewModel reduceLeftBlock]];
+    return [self.combinedTextSignal reduceEach:[Blocks reduceLeftBlock]];
 }
 
 -(RACSignal*)rightCurrencyTextSignal
 {
-    return [self.combinedTextSignal reduceEach:[HomeViewModel reduceRightBlock]];
+    return [self.combinedTextSignal reduceEach:[Blocks reduceRightBlock]];
 }
 
 -(RACSignal*)leftCurrencyViewModelSignal
@@ -192,17 +189,27 @@ typedef BOOL (^FilterBlock)(id object);
 
 -(RACSignal*)leftCurrencySignal
 {
-    RACSignal* reducedSignal = [self.combinedCurrencySignal reduceEach:[HomeViewModel reduceLeftBlock]];
-    return [reducedSignal filter:[HomeViewModel filterNullsBlock]];
+    RACSignal* reducedSignal = [self.combinedCurrencySignal reduceEach:[Blocks reduceLeftBlock]];
+    return [reducedSignal filter:[Blocks filterNullsBlock]];
 }
 
 -(RACSignal*)rightCurrencySignal
 {
-    RACSignal* reducedSignal = [self.combinedCurrencySignal reduceEach:[HomeViewModel reduceRightBlock]];
-    return [reducedSignal filter:[HomeViewModel filterNullsBlock]];
+    RACSignal* reducedSignal = [self.combinedCurrencySignal reduceEach:[Blocks reduceRightBlock]];
+    return [reducedSignal filter:[Blocks filterNullsBlock]];
 }
 
 #pragma mark - Initialization
+
+-(instancetype)initWithToggleArrowSignal:(RACSignal *)toggleArrowSignal
+{
+    self = [super init];
+    if(self) {
+        self.toggleArrowSignal = toggleArrowSignal;
+        [self initialize];
+    }
+    return self;
+}
 
 - (instancetype)init
 {
@@ -231,7 +238,6 @@ typedef BOOL (^FilterBlock)(id object);
 
 -(void)initializeWithUserPreferences
 {
-    self.isArrowPointingLeft = self.userPreferencesService.isArrowPointingLeft;
     self.expression = self.userPreferencesService.expression;
 }
 
@@ -260,6 +266,7 @@ typedef BOOL (^FilterBlock)(id object);
 {
     [self bindConversionService];
     [self bindUserPreferencesService];
+    [self bindInputSignals];
 }
 
 - (void)bindConversionService
@@ -271,7 +278,6 @@ typedef BOOL (^FilterBlock)(id object);
 
 - (void)bindUserPreferencesService
 {
-    RAC(self.userPreferencesService, isArrowPointingLeft) = self.isArrowPointingLeftSignal;
     RAC(self.userPreferencesService, expression) = self.expressionSignal;
     
     RACSignal* leftSignal = RACObserve(self.leftCurrencySelectorViewModel, selectedCurrency);
@@ -279,74 +285,32 @@ typedef BOOL (^FilterBlock)(id object);
     
     RACSignal* combinedSignal = [RACSignal combineLatest:@[leftSignal, rightSignal, self.isArrowPointingLeftSignal]];
     
-    RACSignal* reducedLeftSignal = [combinedSignal reduceEach:[HomeViewModel reduceLeftBlock]];
-    RACSignal* reducedRightSignal = [combinedSignal reduceEach:[HomeViewModel reduceRightBlock]];
+    RACSignal* reducedLeftSignal = [combinedSignal reduceEach:[Blocks reduceLeftBlock]];
+    RACSignal* reducedRightSignal = [combinedSignal reduceEach:[Blocks reduceRightBlock]];
     
-    RAC(self.userPreferencesService, baseCurrency) = [reducedLeftSignal filter:[HomeViewModel filterNullsBlock]];
-    RAC(self.userPreferencesService, otherCurrency) = [reducedRightSignal filter:[HomeViewModel filterNullsBlock]];
+    RAC(self.userPreferencesService, baseCurrency) = [reducedLeftSignal filter:[Blocks filterNullsBlock]];
+    RAC(self.userPreferencesService, otherCurrency) = [reducedRightSignal filter:[Blocks filterNullsBlock]];
 }
 
-#pragma mark - Blocks
-
-+(ReduceLeftAndRightBlock)reduceLeftBlock
+-(void)bindInputSignals
 {
-    return ^(id baseObject, id otherObject, NSNumber* isArrowPointingLeft) {
-        if ([isArrowPointingLeft boolValue]) {
-            return otherObject;
-        }
-        else {
-            return baseObject;
-        }
-    };
-}
-
-+(ReduceLeftAndRightBlock)reduceRightBlock
-{
-    return ^(id baseObject, id otherObject, NSNumber* isArrowPointingLeft) {
-        if ([isArrowPointingLeft boolValue]) {
-            return baseObject;
-        }
-        else {
-            return otherObject;
-        }
-    };
-}
-
-+(FilterBlock)filterNullsBlock
-{
-    return ^BOOL(id object) {
-        BOOL valid = (object != nil && ![object isEqual:[NSNull null]]);
-        return valid;
-    };
+    [self.toggleArrowSignal subscribeNext:^(id x) {
+        [self toggleArrow];
+    }];
 }
 
 #pragma mark - Inputs
 
-- (void)toggleConversionArrow
+- (void)toggleArrow
 {
-    [self swapExpression];
-    self.isArrowPointingLeft = !self.isArrowPointingLeft;
-}
-
-- (void)leftTextFieldBecameFirstResponder
-{
-    if(self.isArrowPointingLeft)
-    {
-        [self toggleConversionArrow];
-    }
-}
-
-- (void)rightTextFieldBecameFirstResponder
-{
-    if(!self.isArrowPointingLeft)
-    {
-        [self toggleConversionArrow];
-    }
+   // [self swapExpression];
+    self.userPreferencesService.isArrowPointingLeft = !self.userPreferencesService.isArrowPointingLeft;
 }
 
 - (void)swapExpression
 {
-    self.expression = [self.conversionService.convertedAmount stringValue];
+    NSString* convertedExpression = [self.conversionService.convertedAmount stringValue];
+    self.expression = convertedExpression;
 }
 
 @end
