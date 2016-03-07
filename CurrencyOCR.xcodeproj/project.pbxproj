@@ -307,6 +307,13 @@
 		7FA6E7221C354AD80071A00D /* PPOcrPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E7211C354AD80071A00D /* PPOcrPrice.m */; };
 		7FA6E7241C3551330071A00D /* NSArray+Map.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E7231C3551330071A00D /* NSArray+Map.m */; };
 		7FB3877E1C8C96BC0014F76B /* HomeViewModelTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB3877D1C8C96BC0014F76B /* HomeViewModelTests.m */; };
+		7FB387811C8C9F0F0014F76B /* Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB387801C8C9F0F0014F76B /* Blocks.m */; };
+		7FB387841C8CB06C0014F76B /* UITextField+RAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB387831C8CB06C0014F76B /* UITextField+RAC.m */; };
+		7FB387851C8CC7950014F76B /* UserPreferencesService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F56256A1C392ECF0021C242 /* UserPreferencesService.m */; };
+		7FB387871C8CCEB90014F76B /* UserPreferencesServiceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB387861C8CCEB90014F76B /* UserPreferencesServiceTest.m */; };
+		7FB3878A1C8CE3AB0014F76B /* UserPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB387891C8CE3AB0014F76B /* UserPreferences.m */; };
+		7FB3878B1C8D8BF30014F76B /* UserPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB387891C8CE3AB0014F76B /* UserPreferences.m */; };
+		7FB3878E1C8D91290014F76B /* RACSignal+Test.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB3878D1C8D91290014F76B /* RACSignal+Test.m */; };
 		7FB38EC11C4286F200132A49 /* PPOcrService.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB38EC01C4286F200132A49 /* PPOcrService.m */; };
 		7FD45BC11C355CD7004219CB /* PPOcrLineUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FD45BC01C355CD7004219CB /* PPOcrLineUnitTests.m */; };
 		7FD45BC71C35657D004219CB /* PPOcrPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6E7211C354AD80071A00D /* PPOcrPrice.m */; };
@@ -666,6 +673,15 @@
 		7FA6E7211C354AD80071A00D /* PPOcrPrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPOcrPrice.m; sourceTree = "<group>"; };
 		7FA6E7231C3551330071A00D /* NSArray+Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Map.m"; sourceTree = "<group>"; };
 		7FB3877D1C8C96BC0014F76B /* HomeViewModelTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewModelTests.m; sourceTree = "<group>"; };
+		7FB3877F1C8C9F0F0014F76B /* Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Blocks.h; sourceTree = "<group>"; };
+		7FB387801C8C9F0F0014F76B /* Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Blocks.m; sourceTree = "<group>"; };
+		7FB387821C8CB06C0014F76B /* UITextField+RAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+RAC.h"; sourceTree = "<group>"; };
+		7FB387831C8CB06C0014F76B /* UITextField+RAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+RAC.m"; sourceTree = "<group>"; };
+		7FB387861C8CCEB90014F76B /* UserPreferencesServiceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPreferencesServiceTest.m; sourceTree = "<group>"; };
+		7FB387881C8CE3AB0014F76B /* UserPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPreferences.h; sourceTree = "<group>"; };
+		7FB387891C8CE3AB0014F76B /* UserPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPreferences.m; sourceTree = "<group>"; };
+		7FB3878C1C8D91290014F76B /* RACSignal+Test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RACSignal+Test.h"; sourceTree = "<group>"; };
+		7FB3878D1C8D91290014F76B /* RACSignal+Test.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RACSignal+Test.m"; sourceTree = "<group>"; };
 		7FB38EBF1C4286F200132A49 /* PPOcrService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPOcrService.h; sourceTree = "<group>"; };
 		7FB38EC01C4286F200132A49 /* PPOcrService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPOcrService.m; sourceTree = "<group>"; };
 		7FD45BC01C355CD7004219CB /* PPOcrLineUnitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPOcrLineUnitTests.m; sourceTree = "<group>"; };
@@ -792,6 +808,8 @@
 				7F4029651C26DCB100436DEB /* Images.xcassets */,
 				7F4029671C26DCB100436DEB /* LaunchScreen.xib */,
 				7F4029581C26DCB100436DEB /* Supporting Files */,
+				7FB3877F1C8C9F0F0014F76B /* Blocks.h */,
+				7FB387801C8C9F0F0014F76B /* Blocks.m */,
 			);
 			path = CurrencyOCR;
 			sourceTree = "<group>";
@@ -813,6 +831,8 @@
 				7FB3877A1C8C942A0014F76B /* ModelTests */,
 				7F4029721C26DCB100436DEB /* Supporting Files */,
 				7F5623361C38E2490021C242 /* UploadIcons.m */,
+				7FB3878C1C8D91290014F76B /* RACSignal+Test.h */,
+				7FB3878D1C8D91290014F76B /* RACSignal+Test.m */,
 			);
 			path = CurrencyOCRTests;
 			sourceTree = "<group>";
@@ -1137,6 +1157,7 @@
 			isa = PBXGroup;
 			children = (
 				7F5625811C3A72C40021C242 /* MathParserTests.m */,
+				7FB387861C8CCEB90014F76B /* UserPreferencesServiceTest.m */,
 			);
 			name = ServiceTests;
 			sourceTree = "<group>";
@@ -1153,6 +1174,8 @@
 				7FA6E71E1C3523230071A00D /* NSString+Unichar.m */,
 				7FD45BE21C36C577004219CB /* NSDate+Hours.h */,
 				7FD45BE31C36C577004219CB /* NSDate+Hours.m */,
+				7FB387821C8CB06C0014F76B /* UITextField+RAC.h */,
+				7FB387831C8CB06C0014F76B /* UITextField+RAC.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -1160,6 +1183,8 @@
 		7FD45BD41C36A6F2004219CB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7FB387881C8CE3AB0014F76B /* UserPreferences.h */,
+				7FB387891C8CE3AB0014F76B /* UserPreferences.m */,
 				7FA6E7201C354AD80071A00D /* PPOcrPrice.h */,
 				7FA6E7211C354AD80071A00D /* PPOcrPrice.m */,
 				7F56232D1C37EB880021C242 /* Currency.h */,
@@ -1731,6 +1756,7 @@
 				7FD45BD21C36653A004219CB /* PPOcrChar+String.m in Sources */,
 				7F56232F1C37EB880021C242 /* Currency.m in Sources */,
 				7F56257D1C3A6C750021C242 /* MathParserService.m in Sources */,
+				7FB3878A1C8CE3AB0014F76B /* UserPreferences.m in Sources */,
 				7FD45BE41C36C577004219CB /* NSDate+Hours.m in Sources */,
 				7FD45BF61C37ACA5004219CB /* HomeViewController.m in Sources */,
 				7FD45BFC1C37C3EB004219CB /* UIView+Borders.swift in Sources */,
@@ -1757,7 +1783,9 @@
 				7F2EA7991C5A5D6D000BB5C5 /* ConversionService.m in Sources */,
 				7F40295B1C26DCB100436DEB /* main.m in Sources */,
 				7F5625671C3928470021C242 /* HomeViewModel.m in Sources */,
+				7FB387841C8CB06C0014F76B /* UITextField+RAC.m in Sources */,
 				7FB38EC11C4286F200132A49 /* PPOcrService.m in Sources */,
+				7FB387811C8C9F0F0014F76B /* Blocks.m in Sources */,
 				7F5625851C3AD9680021C242 /* ScanningViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1770,10 +1798,14 @@
 				7FD45BC81C35657F004219CB /* NSString+Unichar.m in Sources */,
 				7F5625821C3A72C40021C242 /* MathParserTests.m in Sources */,
 				7FDF551D1C8C3CDF009627DE /* CurrencyViewModel.m in Sources */,
+				7FB3878E1C8D91290014F76B /* RACSignal+Test.m in Sources */,
 				7F1248871C88FA2700394E24 /* PPOcrLine+Price.m in Sources */,
 				7FD45BC71C35657D004219CB /* PPOcrPrice.m in Sources */,
 				7FD45BC11C355CD7004219CB /* PPOcrLineUnitTests.m in Sources */,
 				7FD45BC91C356583004219CB /* NSArray+Map.m in Sources */,
+				7FB387851C8CC7950014F76B /* UserPreferencesService.m in Sources */,
+				7FB3878B1C8D8BF30014F76B /* UserPreferences.m in Sources */,
+				7FB387871C8CCEB90014F76B /* UserPreferencesServiceTest.m in Sources */,
 				7F5623371C38E2490021C242 /* UploadIcons.m in Sources */,
 				7F5625801C3A71830021C242 /* MathParserService.m in Sources */,
 				7F12488D1C8AE2C900394E24 /* HomeViewModel.m in Sources */,

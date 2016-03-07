@@ -6,49 +6,60 @@
 //  Copyright © 2016 Andrew Boissonnault. All rights reserved.
 //
 
+#import "Blocks.h"
 #import "ReactiveCocoa.h"
+#import "UserPreferences.h"
 #import "UserPreferencesService.h"
-#import <Archiver.h>
 
-
-
-typedef Currency* (^ReduceBlock)(Currency* currency, NSNumber* didTryToFetchSignal);
+typedef NSString* (^CurrencyCodeBlock)(Currency* currency);
 typedef BOOL (^FilterBlock)(id object);
-
-static NSString* const kBaseCurrencyCodeKey = @"baseCurrencyCode";
-static NSString* const kOtherCurrencyCodeKey = @"otherCurrencyCode";
-static NSString* const kExpressionKey = @"expression";
-static NSString* const kIsArrowPointingLeftKey = @"isArrowPointingLeft";
 
 @interface UserPreferencesService ()
 
-@property NSString* baseCurrencyCode;
-@property NSString* otherCurrencyCode;
+@property UserPreferences* userPreferences;
 
-@property BOOL didTryToFetch;
+@property RACSignal* toggleCurrenciesSignal;
+@property RACSignal* inputExpressionSignal;
+@property RACSignal* inputLeftCurrencySignal;
+@property RACSignal* inputRightCurrencySignal;
+
+@property (readonly) RACSignal* baseCurrencyCodeSignal;
+@property (readonly) RACSignal* otherCurrencyCodeSignal;
+@property (readonly) RACSignal* combinedInputSignal;
+@property (readonly) RACSignal* setBaseCurrencySignal;
+@property (readonly) RACSignal* setOtherCurrencySignal;
 
 @end
 
 @implementation UserPreferencesService
 
-@synthesize baseCurrency = _baseCurrency;
-@synthesize otherCurrency = _otherCurrency;
+@synthesize combinedInputSignal = _combinedInputSignal;
+@synthesize setBaseCurrencySignal = _setBaseCurrencySignal;
+@synthesize setOtherCurrencySignal = _setOtherCurrencySignal;
 
-+ (instancetype)sharedInstance
+- (instancetype)initWithSignals_toggle:(RACSignal*)toggleCurrenciesSignal expression:(RACSignal*)setExpressionSignal leftCurrency:(RACSignal*)leftCurrencySignal rightCurrency:(RACSignal*)rightCurrencySignal
 {
-    static UserPreferencesService* _sharedInstance = nil;
-    static dispatch_once_t oncePredicate;
-    dispatch_once(&oncePredicate, ^{
-        _sharedInstance = [[UserPreferencesService alloc] init];
-    });
-    return _sharedInstance;
+    self = [super init];
+    if (self) {
+        self.userPreferences = [self buildUserPreferences];
+        self.toggleCurrenciesSignal = toggleCurrenciesSignal;
+        self.inputExpressionSignal = setExpressionSignal;
+        self.inputLeftCurrencySignal = leftCurrencySignal;
+        self.inputRightCurrencySignal = rightCurrencySignal;
+        [self initialize];
+    }
+    return self;
+}
+
+-(UserPreferences*)buildUserPreferences
+{
+    return [[UserPreferences alloc] init];
 }
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        self.didTryToFetch = NO;
         [self initialize];
     }
     return self;
@@ -56,135 +67,135 @@ static NSString* const kIsArrowPointingLeftKey = @"isArrowPointingLeft";
 
 - (void)initialize
 {
-    [self refreshData];
+    [self bindModels];
+    
+    [self.inputLeftCurrencySignal subscribeNext:^(id x) {
+        //
+    }];
+    
+    [self.combinedInputSignal subscribeNext:^(id x) {
+        //
+    }];
 }
 
-- (RACSignal*)didTryToFetchSignal
+- (void)bindModels
 {
-    return RACObserve(self, didTryToFetch);
+    RAC(self, userPreferences.baseCurrency) = self.setBaseCurrencySignal;
+    RAC(self, userPreferences.otherCurrency) = self.setOtherCurrencySignal;
+    RAC(self, userPreferences.isArrowPointingLeft) = self.setIsArrowPointingLeftSignal;
+    RAC(self, userPreferences.expression) = self.inputExpressionSignal;
+}
+
+- (RACSignal*)setIsArrowPointingLeftSignal
+{
+    return [[self.isArrowPointingLeftSignal sample:self.toggleCurrenciesSignal] map:^id(NSNumber* isArrowPointingLeft) {
+        NSNumber* toggledArrow = [NSNumber numberWithBool:![isArrowPointingLeft boolValue]];
+        return toggledArrow;
+    }];
+}
+
+- (CurrencyCodeBlock)mapCurrencyCode
+{
+    return ^id(Currency* currency) {
+        return currency.code;
+    };
+}
+
+- (RACSignal*)baseCurrencyCodeSignal
+{
+    
+    return [RACObserve(self, userPreferences.baseCurrencyCode) filter:[Blocks filterNullsBlock]];
+}
+
+- (RACSignal*)otherCurrencyCodeSignal
+{
+    return [RACObserve(self, userPreferences.otherCurrencyCode) filter:[Blocks filterNullsBlock]];
+}
+
+- (RACSignal*)expressionSignal
+{
+    return [RACObserve(self, userPreferences.expression) filter:[Blocks filterNullsBlock]];
+}
+
+- (RACSignal*)isArrowPointingLeftSignal
+{
+    return [RACObserve(self, userPreferences.isArrowPointingLeft) filter:[Blocks filterNullsBlock]];
+}
+
+- (RACSignal*)baseCurrencySignal
+{
+    return [RACObserve(self, userPreferences.baseCurrency) filter:[Blocks filterNullsBlock]];
+}
+
+- (RACSignal*)otherCurrencySignal
+{
+    return [RACObserve(self, userPreferences.otherCurrency) filter:[Blocks filterNullsBlock]];
+}
+
+- (RACSignal*)inputBaseCurrencySignal
+{
+    return [[self.combinedInputSignal reduceEach:[Blocks reduceLeftBlock]] filter:[Blocks filterNullsBlock]];
+}
+
+- (RACSignal*)inputOtherCurrencySignal
+{
+    return [[self.combinedInputSignal reduceEach:[Blocks reduceRightBlock]] filter:[Blocks filterNullsBlock]];;
+}
+
+-(RACSignal*)combinedInputSignal
+{
+    if(!_combinedInputSignal)
+    {
+        _combinedInputSignal = [RACSignal combineLatest:@[self.inputLeftCurrencySignal, self.inputRightCurrencySignal, self.isArrowPointingLeftSignal]];
+    }
+    return _combinedInputSignal;
+}
+
+- (RACSignal*)setBaseCurrencySignal
+{
+    if(!_setBaseCurrencySignal)
+    {
+        _setBaseCurrencySignal = [RACSignal combineLatest:@[self.initialBaseCurrencySignal, self.inputBaseCurrencySignal] reduce:^id(Currency* initial, Currency* input) {
+            return input == nil ? initial : input;
+        }];
+    }
+    return _setBaseCurrencySignal;
+}
+
+- (RACSignal*)setOtherCurrencySignal
+{
+    if(!_setOtherCurrencySignal)
+    {
+        _setOtherCurrencySignal = [RACSignal combineLatest:@[self.initialOtherCurrencySignal, self.inputOtherCurrencySignal] reduce:^id(Currency* initial, Currency* input) {
+            return input == nil ? initial : input;
+        }];
+    }
+    return _setOtherCurrencySignal;
 }
 
 - (RACSignal*)initialBaseCurrencySignal
 {
-    RACSignal* currencySignal = RACObserve(self, baseCurrency);
-
-    return [[RACSignal combineLatest:@[ currencySignal, self.didTryToFetchSignal ] reduce:[self reduceBlock]] filter:[self filterNullsBlock]];
-}
-
-- (ReduceBlock)reduceBlock
-{
-    return ^(Currency* currency, NSNumber* didTryToFetchSignal) {
-        return currency;
-    };
-}
-
--(FilterBlock)filterNullsBlock
-{
-    return ^BOOL(id object) {
-        BOOL valid = (object != nil && ![object isEqual:[NSNull null]]);
-        return valid;
-    };
+    return [[self.baseCurrencyCodeSignal take:1] flattenMap:^RACStream*(NSString* currencyCode) {
+        return [self fetchCurrencyWithCode:currencyCode];
+    }];
 }
 
 - (RACSignal*)initialOtherCurrencySignal
 {
-    RACSignal* currencySignal = RACObserve(self, otherCurrency);
-    
-    return [[RACSignal combineLatest:@[ currencySignal, self.didTryToFetchSignal ] reduce:[self reduceBlock]] filter:[self filterNullsBlock]];
+    return [[self.otherCurrencyCodeSignal take:1] flattenMap:^RACStream*(NSString* currencyCode) {
+        return [self fetchCurrencyWithCode:currencyCode];
+    }];
 }
 
-- (Currency*)baseCurrency
+- (RACSignal*)fetchCurrencyWithCode:(NSString*)currencyCode
 {
-    if(!self.baseCurrencyCode)
-    {
-        return [Currency defaultBaseCurrency];
-    }
-    else
-    {
-        return _baseCurrency;
-    }
-}
-
-- (void)setBaseCurrency:(Currency*)baseCurrency
-{
-    _baseCurrency = baseCurrency;
-    self.baseCurrencyCode = baseCurrency.code;
-}
-
-- (Currency*)otherCurrency
-{
-    if(!self.otherCurrencyCode)
-    {
-        return [Currency defaultOtherCurrency];
-    }
-    else
-    {
-        return _otherCurrency;
-    }
-}
-
-- (void)setOtherCurrency:(Currency*)otherCurrency
-{
-    _otherCurrency = otherCurrency;
-    self.otherCurrencyCode = otherCurrency.code;
-}
-
-- (NSString*)baseCurrencyCode
-{
-    return [[NSUserDefaults standardUserDefaults] objectForKey:kBaseCurrencyCodeKey];
-}
-
-- (void)setBaseCurrencyCode:(NSString*)baseCurrencyCode
-{
-    [[NSUserDefaults standardUserDefaults] setObject:baseCurrencyCode forKey:kBaseCurrencyCodeKey];
-    [[NSUserDefaults standardUserDefaults] setObject:baseCurrencyCode forKey:kBaseCurrencyCodeKey];
-}
-
-- (NSString*)otherCurrencyCode
-{
-    return [[NSUserDefaults standardUserDefaults] objectForKey:kOtherCurrencyCodeKey];
-}
-
-- (void)setOtherCurrencyCode:(NSString*)otherCurrencyCode
-{
-    [[NSUserDefaults standardUserDefaults] setObject:otherCurrencyCode forKey:kOtherCurrencyCodeKey];
-}
-
-- (void)refreshData
-{
-    if (self.baseCurrencyCode) {
-        [Currency fetchCurrencyWithCodeInBackground:self.baseCurrencyCode block:^(Currency* _Nullable currency, NSError* _Nullable error) {
-            self.baseCurrency = currency;
-            
+    return [RACSignal createSignal:^RACDisposable*(id<RACSubscriber> subscriber) {
+        [Currency fetchCurrencyWithCodeInBackground:currencyCode block:^(Currency* _Nullable currency, NSError* _Nullable error) {
+            [subscriber sendNext:currency];
+            [subscriber sendCompleted];
         }];
-    }
-    if (self.otherCurrencyCode) {
-        [Currency fetchCurrencyWithCodeInBackground:self.otherCurrencyCode block:^(Currency* _Nullable currency, NSError* _Nullable error) {
-            self.otherCurrency = currency;
-            self.didTryToFetch = YES;
-        }];
-    }
-}
-
-- (NSString*)expression
-{
-    return [[NSUserDefaults standardUserDefaults] objectForKey:kExpressionKey];
-}
-
-- (void)setExpression:(NSString*)expression
-{
-    [[NSUserDefaults standardUserDefaults] setObject:expression forKey:kExpressionKey];
-}
-
-- (BOOL)isArrowPointingLeft
-{
-    BOOL isArrowPointingLeft = [[[NSUserDefaults standardUserDefaults] objectForKey:kIsArrowPointingLeftKey] boolValue];
-    return isArrowPointingLeft;
-}
-
-- (void)setIsArrowPointingLeft:(BOOL)isArrowPointingLeft
-{
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:isArrowPointingLeft] forKey:kIsArrowPointingLeftKey];
+        return nil;
+    }];
 }
 
 @end

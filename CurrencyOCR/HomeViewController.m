@@ -33,6 +33,9 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 @property PPCurrencyOverlayViewController* overlayViewController;
 @property HomeViewModel* viewModel;
 
+@property (readonly) RACSignal* expressionSignal;
+@property (readonly) RACSignal* toggleArrowSignal;
+
 @end
 
 @implementation HomeViewController
@@ -70,7 +73,7 @@ static NSString* const kShowScanViewSegue = @"showScanView";
 
 - (void)initializeViewModel
 {
-    self.viewModel = [[HomeViewModel alloc] initWithToggleArrowSignal:self.toggleArrowSignal];
+    self.viewModel = [[HomeViewModel alloc] initWithSignals_toggleArrow:self.toggleArrowSignal expression:self.expressionSignal];
     [self bindViewModel];
 }
 
@@ -79,13 +82,14 @@ static NSString* const kShowScanViewSegue = @"showScanView";
     RACSignal *pressSignal = [[self.toggleConversionButton rac_signalForControlEvents:UIControlEventTouchDown] map:^id(id value) {
         return @YES;
     }];
-    
     RACSignal* toggleArrowSignal = [RACSignal merge:@[self.toggleLeftSignal, self.toggleRightSignal, pressSignal]];
-    [toggleArrowSignal subscribeNext:^(id x) {
-        //
-    }];
     
     return toggleArrowSignal;
+}
+
+-(RACSignal*)expressionSignal
+{
+    return [self.baseTextSignal skip:3];
 }
 
 -(RACSignal*)toggleLeftSignal
@@ -118,10 +122,6 @@ static NSString* const kShowScanViewSegue = @"showScanView";
         if (!textField.isFirstResponder) {
             [textField becomeFirstResponder];
         }
-    }];
-
-    [[self.baseTextSignal skip:3] subscribeNext:^(NSString* text) {
-        [self.viewModel setExpression:text];
     }];
 }
 

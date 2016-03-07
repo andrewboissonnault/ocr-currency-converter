@@ -12,14 +12,12 @@
 
 @interface UserPreferencesService : NSObject
 
-+(instancetype)sharedInstance;
+-(instancetype)initWithSignals_toggle:(RACSignal*)toggleCurrenciesSignal expression:(RACSignal*)expressionSignal leftCurrency:(RACSignal*)leftCurrencySignal rightCurrency:(RACSignal*)rightCurrencySignal;
 
-@property RACSignal* baseCurrencySignal;
-@property RACSignal* otherCurrencySignal;
+@property (readonly) RACSignal* baseCurrencySignal;
+@property (readonly) RACSignal* otherCurrencySignal;
+@property (readonly) RACSignal* expressionSignal;
+@property (readonly) RACSignal* isArrowPointingLeftSignal;
 
-@property Currency* baseCurrency;
-@property Currency* otherCurrency;
-@property NSString* expression;
-@property BOOL isArrowPointingLeft;
 
 @end

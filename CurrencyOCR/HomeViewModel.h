@@ -25,8 +25,6 @@
 @property (readonly, nonatomic) CurrencySelectorViewModel* rightCurrencySelectorViewModel;
 @property (readonly) CurrencyOverviewViewModel* currencyOverviewViewModel;
 
--(void)setExpression:(NSString*)expression;
-
--(instancetype)initWithToggleArrowSignal:(RACSignal*)toggleArrowSignal;
+-(instancetype)initWithSignals_toggleArrow:(RACSignal*)toggleArrowSignal expression:(RACSignal*)expressionSignal;
 
 @end

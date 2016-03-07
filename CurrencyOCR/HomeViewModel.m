@@ -17,6 +17,9 @@
 @interface HomeViewModel ()
 
 @property RACSignal* toggleArrowSignal;
+@property RACSignal* inputExpressionSignal;
+
+@property (readonly) RACSignal* expressionSignal;
 
 @property (readonly) RACSignal* baseCurrencySignal;
 @property (readonly) RACSignal* otherCurrencySignal;
@@ -31,10 +34,11 @@
 @property (readonly) RACSignal* otherTextSignal;
 @property (readonly) RACSignal* combinedTextSignal;
 
-@property NSString* expression;
-
 @property (nonatomic) CurrencySelectorViewModel* leftCurrencySelectorViewModel;
 @property (nonatomic) CurrencySelectorViewModel* rightCurrencySelectorViewModel;
+
+@property (nonatomic) ScanningViewModel* scanningViewModel;
+@property (nonatomic) CurrencyOverviewViewModel* currencyOverviewViewModel;
 
 @property (readonly) NSNumberFormatter* currencyFormatter;
 @property (readonly) NSNumberFormatter* decimalFormatter;
@@ -68,16 +72,6 @@
     return _rightCurrencySelectorViewModel;
 }
 
-- (ScanningViewModel*)scanningViewModel
-{
-    return [[ScanningViewModel alloc] initWithBaseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency];
-}
-
-- (CurrencyOverviewViewModel*)currencyOverviewViewModel
-{
-    return [[CurrencyOverviewViewModel alloc] initWithBaseCurrency:self.userPreferencesService.baseCurrency otherCurrency:self.userPreferencesService.otherCurrency];
-}
-
 #pragma mark - Formatters
 
 - (NSNumberFormatter*)currencyFormatter
@@ -99,23 +93,16 @@
     return _decimalFormatter;
 }
 
-#pragma mark - Input Signals
-
--(RACSignal*)expressionSignal
-{
-    return RACObserve(self, expression);
-}
-
 #pragma mark - Service Signals
 
 -(RACSignal*)baseCurrencySignal
 {
-    return RACObserve(self.userPreferencesService, baseCurrency);
+    return self.userPreferencesService.baseCurrencySignal;
 }
 
 -(RACSignal*)otherCurrencySignal
 {
-    return RACObserve(self.userPreferencesService, otherCurrency);
+    return self.userPreferencesService.otherCurrencySignal;
 }
 
 -(RACSignal*)otherAmountSignal
@@ -123,11 +110,18 @@
     return RACObserve(self.conversionService, convertedAmount);
 }
 
+-(RACSignal*)setIsArrowPointingLeftSignal
+{
+    return [[self.isArrowPointingLeftSignal sample:self.toggleArrowSignal] map:^id(NSNumber* isArrowPointingLeft) {
+        return [NSNumber numberWithBool:![isArrowPointingLeft boolValue]];
+    }];
+}
+
 #pragma mark - Output Signals
 
 -(RACSignal*)isArrowPointingLeftSignal
 {
-    return RACObserve(self, userPreferencesService.isArrowPointingLeft);
+    return [self.userPreferencesService.isArrowPointingLeftSignal filter:[Blocks filterNullsBlock]];
 }
 
 -(RACSignal*)leftCurrencyTextSignal
@@ -156,9 +150,14 @@
 
 #pragma mark - Internal Signals
 
+-(RACSignal*)expressionSignal
+{
+    return self.userPreferencesService.expressionSignal;
+}
+
 -(RACSignal*)baseAmountSignal
 {
-    return [RACObserve(self, expression) map:^id(NSString* expression) {
+    return [self.expressionSignal map:^id(NSString* expression) {
         return [MathParserService resultWithExpression:expression];
     }];
 }
@@ -201,11 +200,12 @@
 
 #pragma mark - Initialization
 
--(instancetype)initWithToggleArrowSignal:(RACSignal *)toggleArrowSignal
+-(instancetype)initWithSignals_toggleArrow:(RACSignal *)toggleArrowSignal expression:(RACSignal *)expressionSignal
 {
     self = [super init];
     if(self) {
         self.toggleArrowSignal = toggleArrowSignal;
+        self.inputExpressionSignal = expressionSignal;
         [self initialize];
     }
     return self;
@@ -223,25 +223,34 @@
 - (void)initialize
 {
     [self initializeServices];
-    [self initializeWithUserPreferences];
-    [self initializeCurrencySelectors];
     [self refreshCurrencyService];
-    [self bindServices];
+    [self bindConversionService];
+    [self bindUserPreferencesService];
+}
+
+-(void)bindUserPreferencesService
+{
+    RACSignal* combinedSignal = [RACSignal combineLatest:@[self.baseCurrencySignal, self.otherCurrencySignal]];
+    
+    RAC(self, scanningViewModel) = [combinedSignal reduceEach:^id(Currency* baseCurrency, Currency* otherCurrency) {
+        return [[ScanningViewModel alloc] initWithBaseCurrency:baseCurrency otherCurrency:otherCurrency];
+    }];
+    
+    RAC(self, currencyOverviewViewModel) = [combinedSignal reduceEach:^id(Currency* baseCurrency, Currency* otherCurrency) {
+        return [[CurrencyOverviewViewModel alloc] initWithBaseCurrency:baseCurrency otherCurrency:otherCurrency];
+    }];
+
+    [self bindCurrencySelectors];
 }
 
 - (void)initializeServices
 {
-    self.userPreferencesService = [UserPreferencesService sharedInstance];
+    self.userPreferencesService = [[UserPreferencesService alloc] initWithSignals_toggle:self.toggleArrowSignal expression:self.inputExpressionSignal leftCurrency:self.selectedLeftSignal rightCurrency:self.selectedRightSignal];
     self.currencyService = [CurrencyService sharedInstance];
     self.conversionService = [[ConversionService alloc] init];
 }
 
--(void)initializeWithUserPreferences
-{
-    self.expression = self.userPreferencesService.expression;
-}
-
--(void)initializeCurrencySelectors
+-(void)bindCurrencySelectors
 {
     RACSignal* initializeLeftCurrencySignal = [self.leftCurrencySignal takeUntilBlock:^BOOL(id x) {
         return self.leftCurrencySelectorViewModel.selectedCurrency != nil;
@@ -255,6 +264,16 @@
     RAC(self.rightCurrencySelectorViewModel, selectedCurrency) = initializeRightCurrencySignal;
 }
 
+-(RACSignal*)selectedLeftSignal
+{
+    return RACObserve(self.leftCurrencySelectorViewModel, selectedCurrency);
+}
+
+-(RACSignal*)selectedRightSignal
+{
+    return RACObserve(self.rightCurrencySelectorViewModel, selectedCurrency);
+}
+
 - (void)refreshCurrencyService
 {
     [self.currencyService refreshCurrencyData];
@@ -265,8 +284,6 @@
 - (void)bindServices
 {
     [self bindConversionService];
-    [self bindUserPreferencesService];
-    [self bindInputSignals];
 }
 
 - (void)bindConversionService
@@ -274,43 +291,6 @@
     RAC(self.conversionService, baseCurrency) = self.baseCurrencySignal;
     RAC(self.conversionService, otherCurrency) = self.otherCurrencySignal;
     RAC(self.conversionService, amount) = self.baseAmountSignal;
-}
-
-- (void)bindUserPreferencesService
-{
-    RAC(self.userPreferencesService, expression) = self.expressionSignal;
-    
-    RACSignal* leftSignal = RACObserve(self.leftCurrencySelectorViewModel, selectedCurrency);
-    RACSignal* rightSignal = RACObserve(self.rightCurrencySelectorViewModel, selectedCurrency);
-    
-    RACSignal* combinedSignal = [RACSignal combineLatest:@[leftSignal, rightSignal, self.isArrowPointingLeftSignal]];
-    
-    RACSignal* reducedLeftSignal = [combinedSignal reduceEach:[Blocks reduceLeftBlock]];
-    RACSignal* reducedRightSignal = [combinedSignal reduceEach:[Blocks reduceRightBlock]];
-    
-    RAC(self.userPreferencesService, baseCurrency) = [reducedLeftSignal filter:[Blocks filterNullsBlock]];
-    RAC(self.userPreferencesService, otherCurrency) = [reducedRightSignal filter:[Blocks filterNullsBlock]];
-}
-
--(void)bindInputSignals
-{
-    [self.toggleArrowSignal subscribeNext:^(id x) {
-        [self toggleArrow];
-    }];
-}
-
-#pragma mark - Inputs
-
-- (void)toggleArrow
-{
-   // [self swapExpression];
-    self.userPreferencesService.isArrowPointingLeft = !self.userPreferencesService.isArrowPointingLeft;
-}
-
-- (void)swapExpression
-{
-    NSString* convertedExpression = [self.conversionService.convertedAmount stringValue];
-    self.expression = convertedExpression;
 }
 
 @end
