@@ -23,19 +23,20 @@ typedef BOOL (^FilterBlock)(id object);
 @property RACSignal* inputLeftCurrencySignal;
 @property RACSignal* inputRightCurrencySignal;
 
-@property (readonly) RACSignal* baseCurrencyCodeSignal;
-@property (readonly) RACSignal* otherCurrencyCodeSignal;
 @property (readonly) RACSignal* combinedInputSignal;
+@property (readonly) RACSignal* inputBaseCurrencySignal;
+@property (readonly) RACSignal* inputOtherCurrencySignal;
+@property (readonly) RACSignal* initialBaseCurrencySignal;
+@property (readonly) RACSignal* initialOtherCurrencySignal;
 @property (readonly) RACSignal* setBaseCurrencySignal;
 @property (readonly) RACSignal* setOtherCurrencySignal;
+
+@property (readonly) RACSignal* baseCurrencyCodeSignal;
+@property (readonly) RACSignal* otherCurrencyCodeSignal;
 
 @end
 
 @implementation UserPreferencesService
-
-@synthesize combinedInputSignal = _combinedInputSignal;
-@synthesize setBaseCurrencySignal = _setBaseCurrencySignal;
-@synthesize setOtherCurrencySignal = _setOtherCurrencySignal;
 
 - (instancetype)initWithSignals_toggle:(RACSignal*)toggleCurrenciesSignal expression:(RACSignal*)setExpressionSignal leftCurrency:(RACSignal*)leftCurrencySignal rightCurrency:(RACSignal*)rightCurrencySignal
 {
@@ -51,7 +52,7 @@ typedef BOOL (^FilterBlock)(id object);
     return self;
 }
 
--(UserPreferences*)buildUserPreferences
+- (UserPreferences*)buildUserPreferences
 {
     return [[UserPreferences alloc] init];
 }
@@ -68,14 +69,6 @@ typedef BOOL (^FilterBlock)(id object);
 - (void)initialize
 {
     [self bindModels];
-    
-    [self.inputLeftCurrencySignal subscribeNext:^(id x) {
-        //
-    }];
-    
-    [self.combinedInputSignal subscribeNext:^(id x) {
-        //
-    }];
 }
 
 - (void)bindModels
@@ -103,7 +96,6 @@ typedef BOOL (^FilterBlock)(id object);
 
 - (RACSignal*)baseCurrencyCodeSignal
 {
-    
     return [RACObserve(self, userPreferences.baseCurrencyCode) filter:[Blocks filterNullsBlock]];
 }
 
@@ -139,60 +131,61 @@ typedef BOOL (^FilterBlock)(id object);
 
 - (RACSignal*)inputOtherCurrencySignal
 {
-    return [[self.combinedInputSignal reduceEach:[Blocks reduceRightBlock]] filter:[Blocks filterNullsBlock]];;
+    return [[self.combinedInputSignal reduceEach:[Blocks reduceRightBlock]] filter:[Blocks filterNullsBlock]];
+    ;
 }
 
--(RACSignal*)combinedInputSignal
+- (RACSignal*)combinedInputSignal
 {
-    if(!_combinedInputSignal)
-    {
-        _combinedInputSignal = [RACSignal combineLatest:@[self.inputLeftCurrencySignal, self.inputRightCurrencySignal, self.isArrowPointingLeftSignal]];
-    }
-    return _combinedInputSignal;
+    return [RACSignal combineLatest:@[ self.inputLeftCurrencySignal, self.inputRightCurrencySignal, self.isArrowPointingLeftSignal ]];
 }
 
 - (RACSignal*)setBaseCurrencySignal
 {
-    if(!_setBaseCurrencySignal)
-    {
-        _setBaseCurrencySignal = [RACSignal combineLatest:@[self.initialBaseCurrencySignal, self.inputBaseCurrencySignal] reduce:^id(Currency* initial, Currency* input) {
-            return input == nil ? initial : input;
-        }];
-    }
-    return _setBaseCurrencySignal;
+    return [RACSignal combineLatest:@[ self.initialBaseCurrencySignal, self.inputBaseCurrencySignal ] reduce:^id(Currency* initial, Currency* input) {
+        Currency* output = (input == nil ? initial : input);
+        return output;
+    }];
 }
 
 - (RACSignal*)setOtherCurrencySignal
 {
-    if(!_setOtherCurrencySignal)
-    {
-        _setOtherCurrencySignal = [RACSignal combineLatest:@[self.initialOtherCurrencySignal, self.inputOtherCurrencySignal] reduce:^id(Currency* initial, Currency* input) {
-            return input == nil ? initial : input;
-        }];
-    }
-    return _setOtherCurrencySignal;
+    return [RACSignal combineLatest:@[ self.initialOtherCurrencySignal, self.inputOtherCurrencySignal ] reduce:^id(Currency* initial, Currency* input) {
+        Currency* output = (input == nil ? initial : input);
+        return output;
+    }];
 }
 
 - (RACSignal*)initialBaseCurrencySignal
 {
-    return [[self.baseCurrencyCodeSignal take:1] flattenMap:^RACStream*(NSString* currencyCode) {
+    RACSignal* initializeSignal = [self.baseCurrencyCodeSignal takeUntil:self.inputBaseCurrencySignal];
+    RACSignal* signal = [initializeSignal flattenMap:^RACStream*(NSString* currencyCode) {
         return [self fetchCurrencyWithCode:currencyCode];
     }];
+    return signal;
 }
 
 - (RACSignal*)initialOtherCurrencySignal
 {
-    return [[self.otherCurrencyCodeSignal take:1] flattenMap:^RACStream*(NSString* currencyCode) {
+    RACSignal* initializeSignal = [self.otherCurrencyCodeSignal takeUntil:self.inputOtherCurrencySignal];
+    RACSignal* signal = [initializeSignal flattenMap:^RACStream*(NSString* currencyCode) {
         return [self fetchCurrencyWithCode:currencyCode];
     }];
+    return signal;
 }
 
 - (RACSignal*)fetchCurrencyWithCode:(NSString*)currencyCode
 {
     return [RACSignal createSignal:^RACDisposable*(id<RACSubscriber> subscriber) {
         [Currency fetchCurrencyWithCodeInBackground:currencyCode block:^(Currency* _Nullable currency, NSError* _Nullable error) {
-            [subscriber sendNext:currency];
-            [subscriber sendCompleted];
+            if(currency && !error)
+            {
+                [subscriber sendNext:currency];
+                [subscriber sendCompleted];
+            }else
+            {
+                [subscriber sendError:error];
+            }
         }];
         return nil;
     }];

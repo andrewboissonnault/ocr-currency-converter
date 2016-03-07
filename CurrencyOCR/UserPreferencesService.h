@@ -19,5 +19,4 @@
 @property (readonly) RACSignal* expressionSignal;
 @property (readonly) RACSignal* isArrowPointingLeftSignal;
 
-
 @end
