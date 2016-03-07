@@ -54,10 +54,6 @@ static NSString* const kIsArrowPointingLeftKey = @"isArrowPointingLeft";
     {
         _baseCurrencyCode = [self.defaults objectForKey:kBaseCurrencyCodeKey];
     }
-    if(!_baseCurrencyCode)
-    {
-        _baseCurrencyCode = [Currency defaultBaseCurrency].code;
-    }
     return _baseCurrencyCode;
 }
 
@@ -72,10 +68,6 @@ static NSString* const kIsArrowPointingLeftKey = @"isArrowPointingLeft";
     if(!_otherCurrencyCode)
     {
         _otherCurrencyCode = [self.defaults objectForKey:kOtherCurrencyCodeKey];
-    }
-    if(!_otherCurrencyCode)
-    {
-        _otherCurrencyCode = [Currency defaultOtherCurrency].code;
     }
     return _otherCurrencyCode;
 }
@@ -127,6 +119,24 @@ static NSString* const kIsArrowPointingLeftKey = @"isArrowPointingLeft";
     _isArrowPointingLeft = isArrowPointingLeft;
     NSNumber* number = [NSNumber numberWithBool:isArrowPointingLeft];
     [self setIsArrowPointingLeftNumber:number];
+}
+
+-(Currency*)baseCurrency
+{
+    if(!_baseCurrency && !self.baseCurrencyCode)
+    {
+        _baseCurrency = [Currency defaultBaseCurrency];
+    }
+    return _baseCurrency;
+}
+
+-(Currency*)otherCurrency
+{
+    if(!_otherCurrency && !self.otherCurrencyCode)
+    {
+        _otherCurrency = [Currency defaultOtherCurrency];
+    }
+    return _otherCurrency;
 }
 
 -(void)setBaseCurrency:(Currency *)baseCurrency

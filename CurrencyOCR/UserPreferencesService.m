@@ -80,12 +80,12 @@ typedef BOOL (^FilterBlock)(id object);
 
 - (RACSignal*)baseCurrencyCodeSignal
 {
-    return [RACObserve(self, userPreferences.baseCurrencyCode) filter:[Blocks filterNullsBlock]];
+    return RACObserve(self, userPreferences.baseCurrencyCode);
 }
 
 - (RACSignal*)otherCurrencyCodeSignal
 {
-    return [RACObserve(self, userPreferences.otherCurrencyCode) filter:[Blocks filterNullsBlock]];
+    return RACObserve(self, userPreferences.otherCurrencyCode);
 }
 
 - (RACSignal*)expressionSignal
@@ -125,8 +125,12 @@ typedef BOOL (^FilterBlock)(id object);
 
 - (RACSignal*)setBaseCurrencySignal
 {
-    return [RACSignal combineLatest:@[ self.initialBaseCurrencySignal, self.inputBaseCurrencySignal ] reduce:^id(Currency* initial, Currency* input) {
+    return [RACSignal combineLatest:@[ self.initialBaseCurrencySignal, self.inputBaseCurrencySignal ] reduce:^id(id initial, Currency* input) {
         Currency* output = (input == nil ? initial : input);
+        if(!output)
+        {
+            return [Currency defaultBaseCurrency];
+        }
         return output;
     }];
 }
@@ -135,6 +139,10 @@ typedef BOOL (^FilterBlock)(id object);
 {
     return [RACSignal combineLatest:@[ self.initialOtherCurrencySignal, self.inputOtherCurrencySignal ] reduce:^id(Currency* initial, Currency* input) {
         Currency* output = (input == nil ? initial : input);
+        if(!output)
+        {
+            return [Currency defaultOtherCurrency];
+        }
         return output;
     }];
 }
@@ -156,28 +164,44 @@ typedef BOOL (^FilterBlock)(id object);
     RACSignal* signal = [initialSignal flattenMap:^RACStream*(NSString* currencyCode) {
         return [self fetchCurrencyWithCode:currencyCode];
     }];
-    
-    [signal subscribeError:^(NSError *error) {
-        //
-    }];
     return signal;
+}
+
+-(RACSignal*)fetchNilCurrency
+{
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [subscriber sendNext:nil];
+            [subscriber sendCompleted];
+        });
+        return nil;
+    }];
 }
 
 - (RACSignal*)fetchCurrencyWithCode:(NSString*)currencyCode
 {
-    return [RACSignal createSignal:^RACDisposable*(id<RACSubscriber> subscriber) {
-        [Currency fetchCurrencyWithCodeInBackground:currencyCode block:^(Currency* _Nullable currency, NSError* _Nullable error) {
-            if(currency && !error)
-            {
-                [subscriber sendNext:currency];
-                [subscriber sendCompleted];
-            }else
-            {
-                [subscriber sendError:error];
-            }
+    if(!currencyCode)
+    {
+        return [self fetchNilCurrency];
+    }
+    else
+    {
+        return [RACSignal createSignal:^RACDisposable*(id<RACSubscriber> subscriber) {
+            [Currency fetchCurrencyWithCodeInBackground:currencyCode block:^(Currency* _Nullable currency, NSError* _Nullable error) {
+                if(currency && !error)
+                {
+                    [subscriber sendNext:currency];
+                    [subscriber sendCompleted];
+                }else
+                {
+                    [subscriber sendNext:nil];
+                    [subscriber sendError:error];
+                }
+            }];
+            return nil;
         }];
-        return nil;
-    }];
+    }
 }
 
 @end

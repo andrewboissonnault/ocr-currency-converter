@@ -69,12 +69,13 @@ describe(@"UserPreferencesService", ^{
     __block RACSubject* expressionSignal;
     __block RACSubject* leftCurrencySignal;
     __block RACSubject* rightCurrencySignal;
+    __block NSUserDefaults* userDefaults;
     
     before(^{
     });
     
     beforeEach(^{
-        NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+        userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:default_expression forKey:kExpressionKey];
         [userDefaults setObject:[NSNumber numberWithBool:default_is_arrow_pointing_left] forKey:kIsArrowPointingLeftKey];
         [userDefaults removeObjectForKey:kBaseCurrencyCodeKey];
@@ -167,17 +168,13 @@ describe(@"UserPreferencesService", ^{
         expect(otherCurrency.code).to.equal(default_other_currency_code);
     });
     
-    it(@"testInitialization", ^{
-        Currency* rightCurrency = [[Currency alloc] init];
-        rightCurrency.name = @"RIGHT";
-        rightCurrency.code = @"RGT";
+    it(@"testNonExistentCurrencyCode", ^{
+        [userDefaults setObject:@"ZZZ" forKey:kBaseCurrencyCodeKey];
         [leftCurrencySignal sendNext:nil];
-        [rightCurrencySignal sendNext:rightCurrency];
+        [rightCurrencySignal sendNext:nil];
         
         Currency* baseCurrency = [service.baseCurrencySignal testValue];
-        Currency* otherCurrency = [service.otherCurrencySignal testValue];
-        expect(baseCurrency).to.equal(rightCurrency);
-        expect(otherCurrency.code).to.equal(default_other_currency_code);
+        expect(baseCurrency.code).to.equal(default_base_currency_code);
     });
     
 });
