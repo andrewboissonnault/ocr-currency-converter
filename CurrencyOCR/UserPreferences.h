@@ -11,8 +11,6 @@
 
 @interface UserPreferences : NSObject
 
--(instancetype)initWithDefaults:(NSUserDefaults*)defaults;
-
 @property NSString* baseCurrencyCode;
 @property NSString* otherCurrencyCode;
 @property NSString* expression;

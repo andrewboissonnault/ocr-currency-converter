@@ -57,15 +57,6 @@ typedef BOOL (^FilterBlock)(id object);
     return [[UserPreferences alloc] init];
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        [self initialize];
-    }
-    return self;
-}
-
 - (void)initialize
 {
     [self bindModels];
@@ -87,13 +78,6 @@ typedef BOOL (^FilterBlock)(id object);
     }];
 }
 
-- (CurrencyCodeBlock)mapCurrencyCode
-{
-    return ^id(Currency* currency) {
-        return currency.code;
-    };
-}
-
 - (RACSignal*)baseCurrencyCodeSignal
 {
     return [RACObserve(self, userPreferences.baseCurrencyCode) filter:[Blocks filterNullsBlock]];
@@ -111,7 +95,7 @@ typedef BOOL (^FilterBlock)(id object);
 
 - (RACSignal*)isArrowPointingLeftSignal
 {
-    return [RACObserve(self, userPreferences.isArrowPointingLeft) filter:[Blocks filterNullsBlock]];
+    return RACObserve(self, userPreferences.isArrowPointingLeft);
 }
 
 - (RACSignal*)baseCurrencySignal
@@ -126,13 +110,12 @@ typedef BOOL (^FilterBlock)(id object);
 
 - (RACSignal*)inputBaseCurrencySignal
 {
-    return [[self.combinedInputSignal reduceEach:[Blocks reduceLeftBlock]] filter:[Blocks filterNullsBlock]];
+    return [self.combinedInputSignal reduceEach:[Blocks reduceLeftBlock]];
 }
 
 - (RACSignal*)inputOtherCurrencySignal
 {
-    return [[self.combinedInputSignal reduceEach:[Blocks reduceRightBlock]] filter:[Blocks filterNullsBlock]];
-    ;
+    return [self.combinedInputSignal reduceEach:[Blocks reduceRightBlock]];
 }
 
 - (RACSignal*)combinedInputSignal
@@ -158,8 +141,9 @@ typedef BOOL (^FilterBlock)(id object);
 
 - (RACSignal*)initialBaseCurrencySignal
 {
-    RACSignal* initializeSignal = [self.baseCurrencyCodeSignal takeUntil:self.inputBaseCurrencySignal];
-    RACSignal* signal = [initializeSignal flattenMap:^RACStream*(NSString* currencyCode) {
+    RACSignal* filteredInput = [self.inputBaseCurrencySignal filter:[Blocks filterNullsBlock]];
+    RACSignal* initialSignal = [self.baseCurrencyCodeSignal takeUntil:filteredInput];
+    RACSignal* signal = [initialSignal flattenMap:^RACStream*(NSString* currencyCode) {
         return [self fetchCurrencyWithCode:currencyCode];
     }];
     return signal;
@@ -167,9 +151,14 @@ typedef BOOL (^FilterBlock)(id object);
 
 - (RACSignal*)initialOtherCurrencySignal
 {
-    RACSignal* initializeSignal = [self.otherCurrencyCodeSignal takeUntil:self.inputOtherCurrencySignal];
-    RACSignal* signal = [initializeSignal flattenMap:^RACStream*(NSString* currencyCode) {
+    RACSignal* filteredInput = [self.inputBaseCurrencySignal filter:[Blocks filterNullsBlock]];
+    RACSignal* initialSignal = [self.otherCurrencyCodeSignal takeUntil:filteredInput];
+    RACSignal* signal = [initialSignal flattenMap:^RACStream*(NSString* currencyCode) {
         return [self fetchCurrencyWithCode:currencyCode];
+    }];
+    
+    [signal subscribeError:^(NSError *error) {
+        //
     }];
     return signal;
 }

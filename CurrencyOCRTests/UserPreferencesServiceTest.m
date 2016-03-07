@@ -64,31 +64,21 @@ describe(@"UserPreferencesService", ^{
     __block UserPreferencesService *service;
     __block BOOL success;
     __block NSError *error;
-    __block UserPreferences* userPreferences;
     
     __block RACSubject* toggleSignal;
     __block RACSubject* expressionSignal;
     __block RACSubject* leftCurrencySignal;
     __block RACSubject* rightCurrencySignal;
     
-    __block Currency* baseCurrency;
-    __block Currency* otherCurrency;
-    __block NSString* expression;
-    __block NSNumber* isArrowPointingLeft;
-    
-    __block id testObject;
-    
     before(^{
     });
     
     beforeEach(^{
-        NSUserDefaults* mockDefaults = mock([NSUserDefaults class]);
-        [given([mockDefaults objectForKey:kExpressionKey]) willReturn:default_expression];
-        [given([mockDefaults objectForKey:kIsArrowPointingLeftKey]) willReturn:[NSNumber numberWithBool:default_is_arrow_pointing_left]];
-        [given([mockDefaults objectForKey:kBaseCurrencyCodeKey]) willReturn:nil];
-        [given([mockDefaults objectForKey:kOtherCurrencyCodeKey]) willReturn:nil];
-        
-        userPreferences = [[UserPreferences alloc] initWithDefaults:mockDefaults];
+        NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:default_expression forKey:kExpressionKey];
+        [userDefaults setObject:[NSNumber numberWithBool:default_is_arrow_pointing_left] forKey:kIsArrowPointingLeftKey];
+        [userDefaults removeObjectForKey:kBaseCurrencyCodeKey];
+        [userDefaults removeObjectForKey:kOtherCurrencyCodeKey];
         
         toggleSignal = [RACSubject subject];
         expressionSignal = [RACSubject subject];
@@ -101,21 +91,6 @@ describe(@"UserPreferencesService", ^{
         [rightCurrencySignal sendNext:nil];
         
         service = [[UserPreferencesService alloc] initWithSignals_toggle:toggleSignal expression:expressionSignal leftCurrency:leftCurrencySignal rightCurrency:rightCurrencySignal];
-        
-        [service.baseCurrencySignal subscribeNext:^(id x) {
-            baseCurrency = x;
-        }];
-        [service.otherCurrencySignal subscribeNext:^(id x) {
-            otherCurrency = x;
-        }];
-        [service.expressionSignal subscribeNext:^(id x) {
-            expression = x;
-        }];
-        [service.isArrowPointingLeftSignal subscribeNext:^(id x) {
-            isArrowPointingLeft = x;
-        }];
-        
-        [service setUserPreferences:userPreferences];
 
         success = NO;
         error = nil;
@@ -132,11 +107,17 @@ describe(@"UserPreferencesService", ^{
     });
     
     it(@"testBaseCurrencyDefault", ^{
+        [leftCurrencySignal sendNext:nil];
+        [rightCurrencySignal sendNext:nil];
+        
         Currency* baseCurrency = [service.baseCurrencySignal testValue];
         expect(baseCurrency.code).to.equal(default_base_currency_code);
     });
     
     it(@"testOtherCurrencyDefault", ^{
+        [leftCurrencySignal sendNext:nil];
+        [rightCurrencySignal sendNext:nil];
+  
         Currency* otherCurrency = [service.otherCurrencySignal testValue];
         expect(otherCurrency.code).to.equal(default_other_currency_code);
     });
@@ -145,18 +126,11 @@ describe(@"UserPreferencesService", ^{
         [toggleSignal sendNext:@YES];
         
         NSNumber* isArrowPointingLeft = [service.isArrowPointingLeftSignal testValue];
-        Currency* baseCurrency = [service.baseCurrencySignal testValue];
-        Currency* otherCurrency = [service.otherCurrencySignal testValue];
         expect(isArrowPointingLeft).to.equal(!default_is_arrow_pointing_left);
-        expect(baseCurrency.code).to.equal(default_base_currency_code);
-        expect(otherCurrency.code).to.equal(default_other_currency_code);
-        
         [toggleSignal sendNext:@YES];
         
         isArrowPointingLeft = [service.isArrowPointingLeftSignal testValue];
         expect(isArrowPointingLeft).to.equal(!!default_is_arrow_pointing_left);
-        expect(baseCurrency.code).to.equal(default_base_currency_code);
-        expect(otherCurrency.code).to.equal(default_other_currency_code);
     });
     
     it(@"testInputExpressionSignal", ^{
@@ -168,11 +142,6 @@ describe(@"UserPreferencesService", ^{
     });
     
     it(@"testInputLeftCurrencySignal", ^{
-//        Currency* initialBase = [service.initialBaseCurrencySignal testValue];
-//        Currency* initialOther = [service.initialOtherCurrencySignal testValue];
-//        expect(initialBase);
-//        expect(initialOther);
-        
         Currency* leftCurrency = [[Currency alloc] init];
         leftCurrency.name = @"LEFT";
         leftCurrency.code = @"LFT";
@@ -186,11 +155,19 @@ describe(@"UserPreferencesService", ^{
     });
     
     it(@"testInputRightCurrencySignal", ^{
-//        Currency* initialBase = [service.initialBaseCurrencySignal testValue];
-//        Currency* initialOther = [service.initialOtherCurrencySignal testValue];
-//        expect(initialBase);
-//        expect(initialOther);
-//        
+        Currency* rightCurrency = [[Currency alloc] init];
+        rightCurrency.name = @"RIGHT";
+        rightCurrency.code = @"RGT";
+        [leftCurrencySignal sendNext:nil];
+        [rightCurrencySignal sendNext:rightCurrency];
+        
+        Currency* baseCurrency = [service.baseCurrencySignal testValue];
+        Currency* otherCurrency = [service.otherCurrencySignal testValue];
+        expect(baseCurrency).to.equal(rightCurrency);
+        expect(otherCurrency.code).to.equal(default_other_currency_code);
+    });
+    
+    it(@"testInitialization", ^{
         Currency* rightCurrency = [[Currency alloc] init];
         rightCurrency.name = @"RIGHT";
         rightCurrency.code = @"RGT";
